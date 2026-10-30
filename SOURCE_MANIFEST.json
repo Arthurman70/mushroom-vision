@@ -1,7 +1,7 @@
 {
   "schema": "mushroom-vision.source-release.v1",
   "files": 412,
-  "bytes": 6587820,
+  "bytes": 6587867,
   "findings": [],
   "sourceSelectionVerified": true,
   "photosIncluded": false,
@@ -335,8 +335,8 @@
     },
     {
       "path": "public/video-distance-lab.js",
-      "bytes": 15536,
-      "sha256": "b3108cd519608eb1111c1bbbfda639882ac99e4718937079181b148d474c15eb"
+      "bytes": 15583,
+      "sha256": "2965cd5293103bf484c5f73169d21abdcecf5fe55f8a374dfeed422056d8b31d"
     },
     {
       "path": "public/video-grader-logic.mjs",
