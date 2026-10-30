@@ -130,3 +130,20 @@ test('AI candidate results retain separate detector authority and reject activat
     const invalid=structuredClone(data);change(invalid);await writeFile(file,JSON.stringify(invalid));assert.equal((await readVideoDistanceReport(root)).aiCandidateDistance,null);
   }
 }));
+
+test('corpus candidate remains separate and exposes only bounded aggregate training evidence',()=>fixture(async(root,save)=>{
+  await save(sample());const file=join(root,'experiments/results/ai-corpus-distance-v1/report.json');
+  await mkdir(dirname(file),{recursive:true});
+  const data={schema:'mushroom-vision.ai-corpus-distance-report.v1',status:'completed',modelActivation:false,productionModelChanged:false,
+    protocol:{trainingLabelAuthority:'ai-visual-review',evaluationBoxAuthority:'human',activationEligible:false,thresholdSelectionOnTest:false,additionalTraining:false,
+      scoreThreshold:.3,iouThreshold:.5,epochs:8,selectedEpoch:3,optimizerSteps:816,model:'fasterrcnn_mobilenet_v3_large_320_fpn',
+      trainingFrames:82,trainingSourceGroups:3,trainingBoxes:32,hardNegativeCrops:{hat:16,wood:1,PRIVATE:9}},
+    rows:[{condition:'0p69px',frames:1,targets:1,matched:0,unmatchedDetections:2,negativeFrames:0,negativeFalsePositives:0}],records:[{path:'PRIVATE'}]};
+  await writeFile(file,JSON.stringify(data));let result=await readVideoDistanceReport(root);
+  assert.equal(result.aiCandidateDistance,null);assert.equal(result.corpusCandidateDistance.epochs,8);
+  assert.deepEqual(result.corpusCandidateDistance.hardNegativeCrops,{hat:16,wood:1});assert.equal(JSON.stringify(result).includes('PRIVATE'),false);
+  for(const change of [d=>d.protocol.selectedEpoch=9,d=>d.protocol.epochs=13,d=>d.protocol.optimizerSteps=0,d=>d.protocol.activationEligible=true]){
+    const invalid=structuredClone(data);change(invalid);await writeFile(file,JSON.stringify(invalid));
+    assert.equal((await readVideoDistanceReport(root)).corpusCandidateDistance,null);
+  }
+}));

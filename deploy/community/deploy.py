@@ -54,7 +54,7 @@ with tarfile.open(fileobj=sys.stdin.buffer,mode='r|gz') as archive:
  for member in archive:
   count+=1;total+=member.size
   path=pathlib.PurePosixPath(member.name)
-  if not member.isfile() or path.is_absolute() or '..' in path.parts or count>5000 or total>512*1024*1024:
+  if not member.isfile() or path.is_absolute() or '..' in path.parts or count>11000 or total>4*1024*1024*1024:
    raise ValueError('Unsafe or oversized release archive')
   target=release.joinpath(*path.parts)
   target.parent.mkdir(parents=True,exist_ok=True)
@@ -84,6 +84,7 @@ state=json.loads((base/'current.json').read_text())
 release=(base/'releases'/sys.argv[1]).resolve(strict=True) if len(sys.argv)>1 else pathlib.Path(state['release']).resolve(strict=True)
 if release.parent!=base/'releases':raise ValueError('Unmanaged release')
 if len(sys.argv)>1 and str(release)==state['release']:raise ValueError('Use the ordinary update-ai command for the current release')
+if (release/'UPLOAD-INCOMPLETE').exists():raise ValueError('Upload is incomplete')
 raw=sys.stdin.buffer.read(20*1024*1024+1)
 if len(raw)>20*1024*1024:raise ValueError('Oversized AI file')
 ai=json.loads(raw)
@@ -113,6 +114,21 @@ integrity=json.loads(integrity_path.read_text())
 integrity['files']['collection/ai-suggestions.json']={'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
 integrity_path.write_text(json.dumps(integrity,indent=2))
 print(json.dumps({'updated':True,'frames':len(ids),'run':ai.get('run'),'imagesCopied':0,'serviceRestarted':False}))
+'''
+
+INVENTORY = r'''
+import pathlib,json,sqlite3,collections
+base=pathlib.Path('/root/gleaner-mushroom-lab')
+state=json.loads((base/'current.json').read_text())
+release=pathlib.Path(state['release']).resolve(strict=True)
+if release.parent!=base/'releases':raise ValueError('Unmanaged release')
+collection=json.loads((release/'collection/manifest.json').read_text())
+data=base/'data'
+extensions=collections.Counter(p.suffix.lower() for p in data.rglob('*') if p.is_file() and not p.is_symlink())
+connection=sqlite3.connect('file:'+str(data/'community.sqlite')+'?mode=ro',uri=True)
+reviews=connection.execute('SELECT COUNT(*),COUNT(DISTINCT frame),MAX(created_at) FROM reviews').fetchone()
+connection.close()
+print(json.dumps({'publicImages':len(collection['frames']),'publicSources':len(collection['sources']),'storedReviewRevisions':reviews[0],'reviewedImages':reviews[1],'latestReviewAt':reviews[2],'uploadedImageFiles':sum(extensions[e] for e in ['.jpg','.jpeg','.png','.webp','.gif']), 'uploadedVideoFiles':sum(extensions[e] for e in ['.mp4','.mov','.webm','.avi']), 'uploadEndpointAvailable':False}))
 '''
 
 CLONE_CURRENT = r'''
@@ -167,6 +183,44 @@ integrity_path.write_text(json.dumps(integrity,indent=2))
 print(json.dumps({'refreshedStagedFiles':len(payload),'imagesCopied':0,'published':False}))
 '''
 
+
+COLLECTION_REFRESH_VALIDATOR = r'''
+def validate_collection_refresh(current, candidate):
+ if not isinstance(current,dict) or not isinstance(candidate,dict) or candidate.get('schema')!='mycoscout.community-collection.v1':raise ValueError('Invalid collection schema')
+ for key in set(current)|set(candidate):
+  if key!='restrictedRecords' and current.get(key)!=candidate.get(key):raise ValueError('Collection identity or original image metadata changed')
+ old=current.get('restrictedRecords',[]);new=candidate.get('restrictedRecords',[])
+ if not isinstance(old,list) or not isinstance(new,list) or len(old)!=len(new) or len(new)>10000:raise ValueError('Restricted image identities changed')
+ for before,after in zip(old,new):
+  if not isinstance(after,dict) or set(after)!={'id','aiReviewed','reason'} or type(after['aiReviewed']) is not bool:raise ValueError('Invalid restricted image status')
+  if before.get('id')!=after['id'] or before.get('reason')!=after['reason']:raise ValueError('Restricted image identity changed')
+ return candidate
+'''
+
+REFRESH_STAGED_COLLECTION = COLLECTION_REFRESH_VALIDATOR + r'''
+import pathlib,json,sys,hashlib,re,os
+base=pathlib.Path('/root/gleaner-mushroom-lab')
+name=sys.argv[1]
+if not re.fullmatch(r'[a-z0-9-]{6,80}',name):raise ValueError('Invalid release ID')
+release=(base/'releases'/name).resolve(strict=True)
+if release.parent!=base/'releases':raise ValueError('Unmanaged release')
+state=json.loads((base/'current.json').read_text()) if (base/'current.json').exists() else {}
+if state.get('release')==str(release):raise ValueError('Cannot refresh the published release')
+if (release/'UPLOAD-INCOMPLETE').exists():raise ValueError('Upload is incomplete')
+raw=sys.stdin.buffer.read(12*1024*1024+1)
+if len(raw)>12*1024*1024:raise ValueError('Collection metadata exceeds 12 MiB')
+target=release/'collection/manifest.json'
+if target.is_symlink():raise ValueError('Unexpected collection symlink')
+candidate=validate_collection_refresh(json.loads(target.read_text()),json.loads(raw))
+temporary=target.with_suffix('.json.new')
+with temporary.open('xb') as output:output.write(raw);output.flush();os.fsync(output.fileno())
+temporary.replace(target)
+integrity_path=release/'release-manifest.json'
+integrity=json.loads(integrity_path.read_text())
+integrity['files']['collection/manifest.json']={'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+integrity_path.write_text(json.dumps(integrity,indent=2))
+print(json.dumps({'refreshedRestrictedReviewStatus':len(candidate.get('restrictedRecords',[])),'imagesCopied':0,'published':False}))
+'''
 
 def refresh_staged_app(release):
     here = Path(__file__).resolve().parent
@@ -274,6 +328,9 @@ if __name__ == "__main__":
     publish.add_argument("--release", required=True)
     refresh = sub.add_parser("refresh-staged-app")
     refresh.add_argument("--release", required=True)
+    refresh_collection = sub.add_parser("refresh-staged-collection")
+    refresh_collection.add_argument("--release", required=True)
+    refresh_collection.add_argument("--file", required=True, type=Path)
     clone = sub.add_parser("clone-current")
     clone.add_argument("--release", required=True)
     ai = sub.add_parser("update-ai")
@@ -287,6 +344,7 @@ if __name__ == "__main__":
     rollback.add_argument("--release", required=True)
     rollback.add_argument("--backup", required=True)
     sub.add_parser("status")
+    sub.add_parser("inventory")
     args = parser.parse_args()
     if args.action == "upload":
         with args.bundle.open("rb") as stream:
@@ -295,6 +353,8 @@ if __name__ == "__main__":
         ssh_command(["python3", BASE + "/releases/" + release_name(args.release) + "/deploy-server.py", "publish"])
     elif args.action == "refresh-staged-app":
         refresh_staged_app(args.release)
+    elif args.action == "refresh-staged-collection":
+        ssh_command(["python3", "-c", REFRESH_STAGED_COLLECTION, release_name(args.release)], input=args.file.read_bytes())
     elif args.action == "clone-current":
         ssh_command(["python3", "-c", CLONE_CURRENT, release_name(args.release)])
     elif args.action == "update-ai":
@@ -306,6 +366,8 @@ if __name__ == "__main__":
         export_reviews(args.output)
     elif args.action == "update-training-status":
         update_training_status(args.file)
+    elif args.action == "inventory":
+        print(ssh_command(['python3','-c',INVENTORY],capture=True).decode())
     elif args.action == "rollback":
         if not re.fullmatch(re.escape(BASE) + r"/backups/[A-Za-z0-9-]+", args.backup):
             raise ValueError("Invalid managed backup path")

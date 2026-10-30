@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { CommunityStore, ReviewError, PARTICIPATION_TERMS } from './store.mjs';
 import { RESEARCH_CATALOG } from './public/research-taxonomy.js';
+import { publicAudit } from './public/ai-review-data.js';
 
 const ROOT=dirname(fileURLToPath(import.meta.url));
 const MIME={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml'};
@@ -53,7 +54,7 @@ export async function createCommunityServer(options={}) {
   if(!/^\/[a-z0-9-]+\/$/.test(base)) throw new Error('BASE_PATH must be one absolute directory.');
   const origin=new URL(options.origin??process.env.PUBLIC_ORIGIN??'http://127.0.0.1:8791').origin;
   const collection=JSON.parse(await readFile(resolve(directory,'manifest.json'),'utf8'));
-  if(collection.schema!=='mycoscout.community-collection.v1'||!Array.isArray(collection.frames)||collection.frames.length>2000||!Array.isArray(collection.sources)||collection.sources.length>200) throw new Error('Invalid public collection');
+  if(collection.schema!=='mycoscout.community-collection.v1'||!Array.isArray(collection.frames)||collection.frames.length>10000||!Array.isArray(collection.sources)||collection.sources.length>10000) throw new Error('Invalid public collection');
   const sourceIds=new Set();
   for(const source of collection.sources){if(!source||typeof source.id!=='string'||!ID.test(source.id)||sourceIds.has(source.id))throw new Error('Invalid public source');sourceIds.add(source.id);}
   const frameMap=new Map();
@@ -120,12 +121,18 @@ export async function createCommunityServer(options={}) {
         try{ai=JSON.parse(await readFile(resolve(directory,'ai-suggestions.json'),'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}
         const suggestions=new Map((ai.frames??[]).filter(row=>row&&typeof row.frameId==='string').map(row=>[row.frameId,row]));
         const priorities=store.priorityFrames();
-        return json(response,200,{sources:collection.sources.map(({id,title,attribution,license,licenseUrl,sourceUrl,changes})=>({id,title,attribution,license,licenseUrl,sourceUrl,changes})),frames:collection.frames.map(frame=>{
+        const frames=collection.frames.map(frame=>{
           const row=suggestions.get(frame.id),matched=row?.imageSha256===frame.sha256&&row?.sourceId===frame.sourceId;
+          const audit=matched?publicAudit(row.audit,frame):null;
           const boxes=matched&&Array.isArray(row.boxes)?row.boxes.slice(0,64).filter(box=>Array.isArray(box?.bbox)&&box.bbox.length===4&&box.bbox.every(Number.isFinite)&&box.bbox[0]>=0&&box.bbox[1]>=0&&box.bbox[2]>box.bbox[0]&&box.bbox[3]>box.bbox[1]&&box.bbox[2]<=frame.width&&box.bbox[3]<=frame.height&&Number.isFinite(box.score)&&box.score>=0&&box.score<=1).map(box=>({bbox:box.bbox,score:box.score,label:String(box.label??'Possible mushroom').slice(0,120)})):[];
-          return {id:frame.id,sourceId:frame.sourceId,timestampSeconds:frame.timestampSeconds,width:frame.width,height:frame.height,reviewPriority:Math.max(priorities.get(frame.id)??0,boxes.some(box=>box.bbox[2]-box.bbox[0]<64)?2:0),
-            imageUrl:base+'images/'+frame.id+'?v='+frame.sha256,ai:matched?{status:row.status,model:typeof row.model==='string'?row.model.slice(0,160):row.model?.name,boxes}:{status:'pending',boxes:[]}};
-        }),summary:summary(),
+          const visualBoxes=audit?.boxes.map(box=>({bbox:box.bbox,score:box.confidence??0,label:box.groupId,origin:'visual-ai-review'}))??[];
+          return {id:frame.id,sourceId:frame.sourceId,kind:frame.kind==='photo'?'photo':'video-frame',timestampSeconds:frame.timestampSeconds,width:frame.width,height:frame.height,reviewPriority:Math.max(priorities.get(frame.id)??0,boxes.some(box=>box.bbox[2]-box.bbox[0]<64)?2:0,audit?.status==='uncertain'?3:0),
+            imageUrl:base+'images/'+frame.id+'?v='+frame.sha256,ai:matched?{status:row.status,model:typeof row.model==='string'?row.model.slice(0,160):row.model?.name,boxes:[...visualBoxes,...boxes].slice(0,64),audit}:{status:'pending',boxes:[],audit:null}};
+        });
+        const restrictedRecords=(collection.restrictedRecords??[]).filter(row=>/^image-[a-f0-9]{64}$/.test(row?.id)).slice(0,10000).map(row=>({id:row.id,aiReviewed:row.aiReviewed===true,reason:'publication-rights-unresolved'}));
+        const reviewed=frames.filter(frame=>frame.ai.audit),original=reviewed.filter(frame=>frame.ai.audit.observation.mode==='original-image');
+        return json(response,200,{sources:collection.sources.map(({id,title,attribution,license,licenseUrl,sourceUrl,changes})=>({id,title,attribution,license,licenseUrl,sourceUrl,changes})),frames,summary:summary(),restrictedRecords,
+          coverage:{totalRecords:frames.length+restrictedRecords.length,publicImages:frames.length,rightsLimited:restrictedRecords.length,visualAiReviewed:reviewed.length,originalAiReviewed:original.length,previewAiReviewed:reviewed.length-original.length},
           participationTerms:PARTICIPATION_TERMS,aiRun:ai.run??{status:ai.status??'pending'},notice:'Community labels await curator approval before training. Candidate results are evaluated separately; species and edibility are not verified here.'});
       }
       const reviewRoute=/^api\/reviews\/([A-Za-z0-9_-]{1,160})$/.exec(path);
@@ -139,7 +146,7 @@ export async function createCommunityServer(options={}) {
         expectedHash=frame.sha256;mime=MIME[extname(file)];response.setHeader('Cache-Control','public, max-age=3600');
       } else {
         const name=path===''?'index.html':path;
-        if(!['index.html','styles.css','app.js','research-taxonomy.js','research-taxon-editor.js'].includes(name))throw new ReviewError('Page not found.',404);
+        if(!['index.html','styles.css','app.js','research-taxonomy.js','research-taxon-editor.js','review-evidence.js'].includes(name))throw new ReviewError('Page not found.',404);
         file=resolve(ROOT,'public',name);mime=MIME[extname(file)];response.setHeader('Cache-Control','no-cache');
       }
       const size=(await stat(file)).size;if(size>8*1024*1024)throw new ReviewError('File is too large.',413);

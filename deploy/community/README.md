@@ -19,6 +19,23 @@ For app-only updates with the same images, `deploy.py clone-current --release NE
 
 The Docker service has a read-only filesystem and collection, a persistent `/data` database, no host port, dropped capabilities, and bounded resources. Only the existing Caddy container reaches it on the shared proxy network. The proxy overwrites the client address header used by the app's rate limits. Requests to the www contributor URL redirect to the canonical origin.
 
+## Publish the full visual-review collection
+
+`community/package-bulk.py` reads the private bulk inventory and immutable AI ledger, copies only explicitly licensed public originals, removes JPEG metadata without changing image pixels, and produces `data/community-publish-all-v1`. It preserves the previously published video frame IDs and image hashes so existing human reviews remain attached to their original evidence. The private inventory, uploader records, private source aliases, and precise coordinates never enter the publication package. Rights-limited records expose only an opaque image ID and whether a local AI review exists; their originals are explicitly unavailable for public review.
+
+The community page separates original-image AI inspection from reduced contact-sheet previews, offers photo/video, observation, source and confusing-object filters, and lets contributors correct mushroom and non-mushroom regions. The AI review ID and revision are retained with each submitted comparison. AI observations and community contributions remain separate, unverified evidence; neither is automatically promoted into fitting labels.
+
+```powershell
+.\runtime-vision\Scripts\python.exe community/package-bulk.py
+.\runtime-vision\Scripts\python.exe deploy/community/package.py --collection data/community-publish-all-v1 --output dist/community-full.tar.gz
+# Upload to a new release, verify all bytes, then refresh any final staged metadata:
+.\runtime-vision\Scripts\python.exe deploy/community/deploy.py refresh-staged-app --release NEW-RELEASE-ID
+.\runtime-vision\Scripts\python.exe deploy/community/deploy.py refresh-staged-collection --release NEW-RELEASE-ID --file data/community-publish-all-v1/manifest.json
+.\runtime-vision\Scripts\python.exe deploy/community/deploy.py update-ai --release NEW-RELEASE-ID --file data/community-publish-all-v1/ai-suggestions.json
+```
+
+The staged collection refresh permits only rights-limited AI coverage booleans to change. It rejects changed source records, frame identities, original hashes, image paths, or dimensions, and refuses active or incomplete releases. Run `publish` separately after verification. The archive allowance is 4 GiB; each public image remains limited to 8 MiB and 20 million pixels. `inventory` reports aggregate review/image counts without exporting reviewer identities. New public photo reviews can be imported only against the hash-verified local public package; that import still grants no training approval.
+
 ## Refresh progressive AI suggestions
 
 ```powershell

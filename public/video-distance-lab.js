@@ -88,13 +88,15 @@ function renderCropContext(value){
   section.append(element('p','This is an exploratory crop diagnostic on three correlated source views. It does not improve the detector, establish species accuracy or change the live crop policy. Tiny views can produce confident wrong guesses; no pixels are recovered by padding.', 'fine'));
 }
 
-function renderAiCandidate(value){
-  let section=byId('video-distance-ai-candidate');
-  if(!section){section=element('details');section.id='video-distance-ai-candidate';byId('video-distance-results').append(section);}
-  section.replaceChildren();const candidate=value.aiCandidateDistance;section.hidden=!candidate;
+function renderAiCandidate(value,corpus=false){
+  const id=corpus?'video-distance-corpus-candidate':'video-distance-ai-candidate';
+  let section=byId(id);
+  if(!section){section=element('details');section.id=id;byId('video-distance-results').append(section);}
+  section.replaceChildren();const candidate=corpus?value.corpusCandidateDistance:value.aiCandidateDistance;section.hidden=!candidate;
   if(!candidate)return;
-  section.append(element('summary','Separate experiment: one pass of AI-reviewed training'));
+  section.append(element('summary',corpus?'New experiment: training after the corpus review':'Separate experiment: one pass of AI-reviewed training'));
   section.append(element('p',`This inactive Faster R-CNN candidate learned from ${candidate.trainingFrames} AI-reviewed frames, ${candidate.trainingBoxes} boxes and ${candidate.trainingSourceGroups} source groups. Its training labels are provisional AI opinions. Evaluation uses the frozen human presence boxes below, at score ${candidate.scoreThreshold} and overlap ${candidate.iouThreshold}.`, 'fine'));
+  if(corpus)section.append(element('p',`${candidate.epochs} training passes; ${candidate.optimizerSteps} updates. Selected pass ${candidate.selectedEpoch} using AI validation only. Explicit nonfungal crops: ${Object.entries(candidate.hardNegativeCrops).map(([kind,count])=>`${count} ${kind}`).join(', ')||'none'}. Thumbnail screening and uncertain originals are excluded from fitting.`, 'fine'));
   const wrap=element('div',undefined,'table-scroll'),table=element('table',undefined,'comparison-table'),head=element('thead'),heading=element('tr'),body=element('tbody');
   for(const label of ['Condition','Human regions matched','Unmatched detections','Negative control'])heading.append(element('th',label));
   head.append(heading);table.append(head,body);wrap.append(table);section.append(wrap);
@@ -102,7 +104,7 @@ function renderAiCandidate(value){
     tr.append(element('td',row.label),element('td',`${row.matched} / ${row.targets}`),element('td',row.unmatchedDetections),
       element('td',row.negativeFrames?`${row.negativeFalsePositives} false detections / ${row.negativeFrames} frames`:'Not measured'));body.append(tr);
   }
-  section.append(element('p','This is a separate detector and threshold from the GroundingDINO table. One pass on a tiny AI-labeled sample does not establish improvement. No fitting, threshold choice or activation follows from these test results.', 'fine'));
+  section.append(element('p',corpus?'These are the same previously inspected regression frames, not new independent validation. Each row contains three correlated targets; resized pixels are not measured meters. Compare missed targets and false alerts together. Training opinions still need human review, and this candidate remains inactive.':'This is a separate detector and threshold from the GroundingDINO table. One pass on a tiny AI-labeled sample does not establish improvement. No fitting, threshold choice or activation follows from these test results.', 'fine'));
 }
 
 function render(value){
@@ -113,7 +115,7 @@ function render(value){
   const progressText=Number.isFinite(progress.completed)&&Number.isFinite(progress.total)?` ${number(progress.completed)} / ${number(progress.total)} ${unit} completed.`:'';
   const authority=sample.labelAuthority==='human'?'human-reviewed labels':sample.labelAuthority==='assistant'?'assistant visual labels, awaiting human confirmation':'the label authority stated in the experiment';
   byId('video-distance-summary').textContent=available?
-    `${value.runVersion==='video-distance-v2'?'Fresh retest · ':''}${number(sample.positiveFrames)} positive and ${number(sample.negativeFrames)} explicitly negative video frames from ${number(sample.sourceVideos)} ${sample.sourceVideos===1?'video':'videos'}. These results use ${authority}.${progressText}`:
+    `${value.runVersion==='video-distance-v3'?'Fresh active-detector check · ':value.runVersion==='video-distance-v2'?'Fresh retest · ':''}${number(sample.positiveFrames)} positive and ${number(sample.negativeFrames)} explicitly negative video frames from ${number(sample.sourceVideos)} ${sample.sourceVideos===1?'video':'videos'}. These results use ${authority}.${progressText}`:
     value.availability==='missing'?'The new video pixel experiment has not saved a report yet. Refresh reports to check its progress.':'The saved video test is missing required evidence or is unreadable. Other research reports remain available.';
   const metrics=byId('video-distance-metrics');metrics.replaceChildren();
   if(available)for(const [count,label] of [[sample.targets,'marked targets across source frames'],[sample.sourceGroups,'source groups · frames remain correlated'],[progress.completed,`completed ${unit}`]]){
@@ -134,6 +136,7 @@ function render(value){
   renderClassification(value);
   renderCropContext(value);
   renderAiCandidate(value);
+  renderAiCandidate(value,true);
   byId('video-distance-method').textContent=available?value.methodNote:'No comparable measurements are displayed.';
   byId('video-distance-negatives-note').textContent=value.negativeNote||'False detections are counted on explicit negative controls, separately from unmatched boxes in positive frames. Missing results are never shown as zero.';
   byId('video-distance-limitations').replaceChildren(...(value.limitations??[]).map(text=>element('li',text)));

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
+import { createHash } from 'node:crypto';
 import { createApp } from '../server.mjs';
 import { StateStore } from '../core/state.mjs';
 
@@ -33,6 +34,20 @@ const surveyMap=(verified=false)=>({frame:{id:'map',unit:'m'},groundTraversabili
   grid:{width:8,height:8,resolution:1,origin:{x:0,y:0},cells:Array(64).fill(0)}});
 const point={x:5.5,y:5.5,z:0,label:'Unknown fungus',poseKnown:true,depthKnown:true,frameId:'map',confidence:0};
 
+test('bulk review lazily opens a pinned owner-local inventory and rejects LAN access',async t=>{
+  const token='bulk-review-owner-token-at-least-24-chars',headers={Authorization:'Bearer '+token};
+  const dir=await mkdtemp(join(tmpdir(),'bulk-server-fixture-'));
+  const bytes=JSON.stringify({schema:'mycoscout.bulk-ai-inventory.v1',records:[]});await writeFile(join(dir,'manifest.json'),bytes);await writeFile(join(dir,'manifest-sha256.json'),JSON.stringify({sha256:createHash('sha256').update(bytes).digest('hex')}));
+  const local=await fixture(t,{token,bulkAiReviewDir:dir});
+  t.after(async()=>{assert.ok(resolve(dir).startsWith(resolve(tmpdir())+sep));await rm(dir,{recursive:true,force:true});});
+  assert.equal((await local.request('/api/bulk-ai-review/status')).status,401);
+  const status=await local.request('/api/bulk-ai-review/status',undefined,headers);assert.equal(status.status,200);assert.equal(status.data.totalImages,0);
+  assert.equal((await local.request('/api/bulk-ai-review/images?limit=999',undefined,headers)).status,400);
+  const gallery=await local.request('/api/bulk-ai-review/images',undefined,headers);assert.equal(gallery.status,200);assert.deepEqual(gallery.data.records,[]);
+  const run=await local.request('/api/bulk-ai-review/runs',{title:'Test',reviewer:{model:'test-model'}},headers);assert.equal(run.status,201);assert.equal(run.data.humanVerified,false);
+  const lan=await fixture(t,{host:'0.0.0.0',token,bulkAiReviewDir:dir});const denied=await lan.request('/api/bulk-ai-review/status',undefined,headers);assert.equal(denied.status,403);assert.equal(denied.data.code,'LOCAL_REVIEW_ONLY');
+});
+
 test('paired compute helpers cannot acquire station-owner permissions',async t=>{
   const owner='station-owner-test-token-at-least-24-chars';
   const {request}=await fixture(t,{token:owner});
@@ -47,6 +62,8 @@ test('paired compute helpers cannot acquire station-owner permissions',async t=>
   assert.equal((await request('/api/learning/status',undefined,workerHeaders)).status,401);
   assert.equal((await request('/api/ai-review/status',undefined,workerHeaders)).status,401);
   assert.equal((await request('/api/ai-review/runs',{title:'Unauthorized'},workerHeaders)).status,401);
+  assert.equal((await request('/api/bulk-ai-review/status',undefined,workerHeaders)).status,401);
+  assert.equal((await request('/api/bulk-ai-review/runs',{title:'Unauthorized'},workerHeaders)).status,401);
   assert.equal((await request('/api/tracking-demo',undefined,workerHeaders)).status,401);
   assert.equal((await request('/api/tracking-demo/video',undefined,workerHeaders)).status,401);
   assert.equal((await request('/api/tracking-demo/detect',{},workerHeaders)).status,401);

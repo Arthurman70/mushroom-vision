@@ -32,6 +32,22 @@ An actual 21-frame visual pass and a six-frame, one-epoch inactive experiment
 are described in [AI review run](docs/AI_REVIEW_RUN_V1.md). No validation accuracy
 is claimed for that small experiment.
 
+The all-source AI pass now covers **4,545 unique images**: 240 original-image
+inspections and 4,305 contact-sheet previews. Open `/bulk-ai-review.html` to
+inspect the local archive, evidence, original pixels, explicit nonfungal regions,
+and immutable revisions. Preview judgments remain incomplete and are excluded
+from fitting; AI observations never become human confirmations automatically.
+The original images, review ledger, training exports and candidate weights stay
+outside this public source release. See [bulk review protocol](docs/BULK_AI_REVIEW.md)
+for source splits, rights, the assistant interface and reproduction requirements.
+
+The new detector experiment used 82 complete training frames, 32 mushroom boxes
+and 20 explicit nonfungal crops. It missed all three human-marked targets in the
+fixed distance regression and remains inactive. A fresh check of the unchanged
+active detector matched 3/3 targets at 64 pixels, 1/3 at 32 pixels, and 0/3 at
+16 pixels and below. This small, correlated resizing test is not a detection
+rate at measured flight distances. See the [complete training and retest report](docs/AI_CORPUS_TRAINING_RUN.md).
+
 The tracking page supports a licensed recording with precomputed detections,
 local videos with new sampled inference, and an explicitly requested live camera.
 Tracks show observation age, prediction and loss; closer-photo proposals have no
@@ -73,7 +89,7 @@ of a newer candidate model or detection range in flight.
 
 Open [Mission control](http://127.0.0.1:8787/live.html) for recorded tracking, measured 3D landmarks, the shared task queue and reviewed-data training. Read [the connected workflow guide](docs/CONNECTED_WORKFLOW.md) for what works and the remaining hardware integration. Physical flight remains disabled.
 
-The [Great Lakes Gleaner Mushroom Field Lab](https://thegreatlakesgleaner.press/mushroom-lab/) hosts 372 reusable video frames for volunteer annotation. The [local human grader](http://127.0.0.1:8787/video-grader.html) can show separate AI proposals, assistant visual corrections, and imported community reviews. Every copied box stays an editable draft until the curator explicitly saves a review. See [community deployment and the feedback workflow](deploy/community/README.md) for private export/import, contributor consent, frozen datasets, training, and activation.
+The [Great Lakes Gleaner Mushroom Field Lab](https://thegreatlakesgleaner.press/mushroom-lab/) initially hosted 372 reusable video frames for volunteer annotation. The [local human grader](http://127.0.0.1:8787/video-grader.html) can show separate AI proposals, assistant visual corrections, and imported community reviews. Every copied box stays an editable draft until the curator explicitly saves a review. See [community deployment and the feedback workflow](deploy/community/README.md) for private export/import, contributor consent, frozen datasets, training, and activation.
 
 The [research fieldbook](http://127.0.0.1:8787/lab.html) shows the 432-frame / 9-video AI pass and the saved training comparisons. The detector and crop-filter pilots use assistant-reviewed examples from the four training-eligible video groups; their measured recall was worse on the 19 complete human-reviewed comparison frames, so both remain inactive. Research-only footage and frozen evaluation sources are excluded from those training runs. AI review is not human confirmation, and this comparison provides no evidence below 64 target pixels or at measured flight distances.
 

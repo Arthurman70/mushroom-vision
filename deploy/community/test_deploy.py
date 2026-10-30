@@ -45,6 +45,17 @@ class ProxyPatchTests(unittest.TestCase):
         current.open.assert_not_called()
 
 
+class CollectionRefreshTests(unittest.TestCase):
+    def test_refresh_only_changes_rights_limited_ai_coverage(self):
+        namespace={};exec(transport.COLLECTION_REFRESH_VALIDATOR,namespace);validate=namespace['validate_collection_refresh']
+        original={'schema':'mycoscout.community-collection.v1','frames':[{'id':'original','sha256':'same'}],'sources':[{'id':'source'}],'restrictedRecords':[{'id':'image-private','reason':'publication-rights-unresolved','aiReviewed':False}]}
+        updated=deepcopy(original);updated['restrictedRecords'][0]['aiReviewed']=True
+        self.assertEqual(validate(original,updated),updated)
+        for mutate in [lambda v:v['frames'][0].update(sha256='replacement'),lambda v:v['sources'].clear(),lambda v:v['restrictedRecords'][0].update(id='different'),lambda v:v['restrictedRecords'][0].update(path='private-file'),lambda v:v['restrictedRecords'][0].update(aiReviewed='yes')]:
+            bad=deepcopy(updated);mutate(bad)
+            with self.assertRaises(ValueError):validate(original,bad)
+
+
 class TrainingStatusTests(unittest.TestCase):
     def setUp(self):
         namespace = {}

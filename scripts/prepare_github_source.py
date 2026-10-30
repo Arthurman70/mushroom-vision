@@ -29,6 +29,10 @@ PRIVATE_SCHEMAS = {'mycoscout.community-reviews.v1', 'mycoscout.community-inbox.
                    'mycoscout.community-deployment-result.v1', 'mycoscout.review-export.v1',
                    'mycoscout.ai-visual-review.v1', 'mycoscout.ai-visual-review-run.v1',
                    'mycoscout.ai-visual-review-export.v1'}
+PRIVATE_SCHEMA_PREFIXES = ('mycoscout.bulk-ai-', 'mushroom-vision.observed-review-notes.',
+                           'mushroom-vision.ai-corpus-training.', 'mushroom-vision.ai-corpus-fit-',
+                           'mushroom-vision.ai-corpus-checkpoint.', 'mushroom-vision.ai-candidate-checkpoint.',
+                           'mycoscout.community-collection.', 'mycoscout.public-ai-suggestions.')
 SECRET_PATTERNS = {
     'private-key': re.compile(r'-----BEGIN (?:RSA |OPENSSH |EC |DSA )?PRIVATE KEY-----'),
     'github-token': re.compile(r'\bgh[pousr]_[A-Za-z0-9]{30,}\b'),
@@ -51,6 +55,7 @@ def selected(root=ROOT):
         if (root / folder).is_symlink(): raise ValueError('Linked source folder: '+folder)
         for base, directories, files in os.walk(root / folder, followlinks=False):
             directories[:] = sorted(d for d in directories if d not in SKIP_DIRS
+                                    and not d.startswith('ai-corpus-test-')
                                     and not d.startswith('tmp') and not (Path(base)/d).is_symlink())
             for name in sorted(files):
                 path = Path(base)/name
@@ -66,7 +71,8 @@ def selected(root=ROOT):
 
 def private_json(value):
     if isinstance(value, dict):
-        if value.get('schema') in PRIVATE_SCHEMAS or any(key in value for key in ('reviewerId', 'csrfToken', 'imageBase64', 'sshTarget')):
+        schema = value.get('schema')
+        if (isinstance(schema, str) and (schema in PRIVATE_SCHEMAS or schema.startswith(PRIVATE_SCHEMA_PREFIXES))) or any(key in value for key in ('reviewerId', 'csrfToken', 'imageBase64', 'sshTarget')):
             return True
         return any(private_json(child) for child in value.values())
     if isinstance(value, list): return any(private_json(child) for child in value)

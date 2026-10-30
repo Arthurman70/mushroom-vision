@@ -28,6 +28,7 @@ import { validateCaptureAck } from './flight/live-executor.mjs';
 import { DeviceComputeHub, handleDeviceCompute } from './core/device-compute.mjs';
 import { RESEARCH_CATALOG } from './community/public/research-taxonomy.js';
 import { AiReviewStore, readAiCandidateSummary } from './core/ai-review.mjs';
+import { BulkAiReviewStore } from './core/bulk-ai-review.mjs';
 import { readTrackingDemo, readTrackingDemoVideo, detectTrackingFrame } from './core/tracking-demo.mjs';
 
 const ROOT=dirname(fileURLToPath(import.meta.url));
@@ -102,6 +103,8 @@ export async function createApp(options={}) {
   const learning=await new TrainingPipeline(ROOT,learningDir,{testbench,videos,videoGrades,collectionId:videoCollectionId,communityInboxFile:resolve(communityInboxDir,'reviews.json')}).initialize();
   const aiReview=await new AiReviewStore(options.aiReviewDir??resolve(dirname(stateFile),'ai-visual-review'),{videos,collectionId:videoCollectionId,
     partitionsFile:resolve(ROOT,'config/ai-review-partitions-v1.json'),holdoutSnapshot:()=>learning.sourceSnapshot()}).initialize();
+  let bulkAiReviewPromise=null;
+  const bulkAiReview=()=>bulkAiReviewPromise??=(async()=>{try{return await new BulkAiReviewStore(ROOT,options.bulkAiReviewDir??resolve(ROOT,'data/bulk-ai-review-v1')).initialize();}catch(error){bulkAiReviewPromise=null;if(error.code==='ENOENT')throw new ApiError('Prepare the frozen image inventory before opening bulk review.',404,'BULK_AI_NOT_PREPARED');throw error;}})();
   const communityBridge=await new CommunityLearningBridge(ROOT,resolve(learningDir,'community-sync'),{...options.communityBridgeOptions,inboxDir:communityInboxDir}).initialize();
   const comparisons=await new CandidateComparisons(resolve(learningDir,'comparisons'),{learning,beforeWork:()=>communityBridge.beforeWork()}).initialize();
   learning.releaseCheck=job=>comparisons.releaseCheck(job);
@@ -157,6 +160,13 @@ export async function createApp(options={}) {
         }
         if(token && !tokenMatches(request.headers.authorization,'Bearer '+token)) throw new ApiError('A valid Bearer token is required.',401,'UNAUTHORIZED');
         if(await handleDeviceCompute({hub:deviceCompute,request,response,url,readBody:body,sendJson:json}))return;
+        if(url.pathname.startsWith('/api/bulk-ai-review/')) {
+          if(!LOOPBACK.has(host))throw new ApiError('The complete private inventory is available on the local computer only. Use the Gleaner lab for the public collection.',403,'LOCAL_REVIEW_ONLY');
+          const bulk=await bulkAiReview();
+          const original=/^\/api\/bulk-ai-review\/images\/(image-[a-f0-9]{64})\/original$/.exec(url.pathname);
+          if(request.method==='GET'&&original){const image=await bulk.imageBytes(original[1]);response.writeHead(200,{'Content-Type':image.mimeType,'Cache-Control':'no-store','Content-Length':image.bytes.length,'Content-Security-Policy':"default-src 'none'; sandbox"});return response.end(image.bytes);}
+          if(request.method==='GET'){const result=await bulk.dispatch(request.method,url.pathname,Object.fromEntries(url.searchParams));if(result)return json(response,result.status,result.data);}
+        }
         if(request.method==='GET'&&url.pathname==='/api/ai-review/experiment')return json(response,200,await readAiCandidateSummary(ROOT));
         if(request.method==='GET'&&url.pathname.startsWith('/api/ai-review/')) {
           const result=await aiReview.dispatch(request.method,url.pathname);if(result)return json(response,result.status,result.data);
@@ -185,7 +195,7 @@ export async function createApp(options={}) {
           if(activeImageRequests>=2) throw new ApiError('Image processing is busy. Retry shortly.',429,'IMAGE_REQUEST_BUSY');
           activeImageRequests++; imageRequest=true;
         }
-        if(request.method==='GET' && url.pathname==='/api/health') return json(response,200,{ok:true,application:'MycoScout',version:'0.9.0-alpha.2',actuation:false});
+        if(request.method==='GET' && url.pathname==='/api/health') return json(response,200,{ok:true,application:'MycoScout',version:'0.9.0-alpha.3',actuation:false});
         if(request.method==='GET'&&url.pathname==='/api/tracking-demo')return json(response,200,await readTrackingDemo(ROOT));
         if(request.method==='GET'&&url.pathname==='/api/tracking-demo/video') {
           const video=await readTrackingDemoVideo(ROOT);response.writeHead(200,{'Content-Type':video.mimeType,'Cache-Control':'no-store','Content-Length':video.bytes.length});return response.end(video.bytes);
@@ -278,6 +288,9 @@ export async function createApp(options={}) {
         if(url.pathname==='/api/tracking-demo/detect')return json(response,200,await detectTrackingFrame(input,testbenchWorker));
         if(url.pathname.startsWith('/api/ai-review/')) {
           const result=await aiReview.dispatch(request.method,url.pathname,input);if(result)return json(response,result.status,result.data);
+        }
+        if(url.pathname.startsWith('/api/bulk-ai-review/')) {
+          const result=await (await bulkAiReview()).dispatch(request.method,url.pathname,input);if(result)return json(response,result.status,result.data);
         }
         if(url.pathname==='/api/live/session'){
           if(live.child)throw new ApiError('Stop the replay before changing sessions.',409,'REPLAY_ACTIVE');
@@ -445,6 +458,7 @@ export async function createApp(options={}) {
     for(const timer of backgroundTimers)clearInterval(timer);
     aiReview.close();classifier.stop?.();researchClassifier.stop?.();
     Promise.allSettled([
+      bulkAiReviewPromise?.then(bulk=>bulk.close()),
       finds.pending.finally(()=>finds.close()),testbench.stop(),communityBridge.close(),suggestionRefresh.close(),
       learning.stop().then(()=>learningLoop.close()).finally(()=>videoGrades.close()),live.close().finally(()=>mission.close())
     ]).then(results=>{for(const result of results)if(result.status==='rejected')backgroundError(result.reason);resolveClosed();});

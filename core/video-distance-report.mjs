@@ -1,7 +1,7 @@
 import { open } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-const FILES=['experiments/results/video-distance-v2/report.json','experiments/results/video-distance-v1/report.json'];
+const FILES=['experiments/results/video-distance-v3/report.json','experiments/results/video-distance-v2/report.json','experiments/results/video-distance-v1/report.json'];
 const MAX_BYTES=4*1024*1024;
 const count=value=>Number.isSafeInteger(value)&&value>=0;
 const fraction=value=>Number.isFinite(value)&&value>=0&&value<=1;
@@ -18,7 +18,7 @@ function realizedWidths(row){
 }
 const empty=availability=>({schema:'mycoscout.video-distance-summary.v1',availability,status:'unavailable',generatedAt:null,
   readOnly:true,actualDistanceMeasured:false,automaticTraining:false,automaticActivation:false,sample:null,progress:null,rows:[],
-  nativeBaseline:null,nativeSmallPositiveOnly:null,classificationRows:[],cropContextRows:[],aiCandidateDistance:null,runVersion:null,methodNote:'No comparable measurements are available.',limitations:[]});
+  nativeBaseline:null,nativeSmallPositiveOnly:null,classificationRows:[],cropContextRows:[],aiCandidateDistance:null,corpusCandidateDistance:null,runVersion:null,methodNote:'No comparable measurements are available.',limitations:[]});
 
 async function saved(root,file){
   let handle;
@@ -78,15 +78,21 @@ function cropContextRows(data,detectorRows,sample){
   return result;
 }
 
-function candidateDistance(data,detectorRows,sample){
+function candidateDistance(data,detectorRows,sample,corpus=false){
   const protocol=data?.protocol;
-  if(data?.schema!=='mushroom-vision.ai-candidate-distance-report.v1'||data.status!=='completed'||data.modelActivation!==false||data.productionModelChanged!==false||
+  const schema=corpus?'mushroom-vision.ai-corpus-distance-report.v1':'mushroom-vision.ai-candidate-distance-report.v1';
+  if(data?.schema!==schema||data.status!=='completed'||data.modelActivation!==false||data.productionModelChanged!==false||
     protocol?.trainingLabelAuthority!=='ai-visual-review'||protocol.evaluationBoxAuthority!=='human'||protocol.activationEligible!==false||
-    protocol.thresholdSelectionOnTest!==false||protocol.additionalTraining!==false||protocol.epochs!==1||protocol.scoreThreshold!==.3||protocol.iouThreshold!==.5||
+    protocol.thresholdSelectionOnTest!==false||protocol.additionalTraining!==false||(!corpus&&protocol.epochs!==1)||protocol.scoreThreshold!==.3||protocol.iouThreshold!==.5||
     protocol.model!=='fasterrcnn_mobilenet_v3_large_320_fpn'||['trainingFrames','trainingSourceGroups','trainingBoxes'].some(key=>!count(protocol[key])||protocol[key]>10000)||
     protocol.trainingSourceGroups>protocol.trainingFrames||!Array.isArray(data.rows)||data.rows.length>32)return null;
+  if(corpus&&(!count(protocol.epochs)||protocol.epochs<1||protocol.epochs>12||!count(protocol.selectedEpoch)||protocol.selectedEpoch<1||protocol.selectedEpoch>protocol.epochs||
+    !count(protocol.optimizerSteps)||protocol.optimizerSteps<1||protocol.optimizerSteps>10000))return null;
   const result={trainingFrames:protocol.trainingFrames,trainingSourceGroups:protocol.trainingSourceGroups,trainingBoxes:protocol.trainingBoxes,
     scoreThreshold:.3,iouThreshold:.5,activationEligible:false,trainingLabelAuthority:'ai-visual-review',evaluationBoxAuthority:'human',rows:[]};
+  if(corpus)Object.assign(result,{epochs:protocol.epochs,selectedEpoch:protocol.selectedEpoch,optimizerSteps:protocol.optimizerSteps,
+    evaluationPurpose:'Previously inspected regression benchmark; not independent field validation',hardNegativeCrops:Object.fromEntries(
+      Object.entries(protocol.hardNegativeCrops??{}).filter(([key,value])=>['hat','stump','tree','leaf','rock','wood','person','animal','other'].includes(key)&&count(value)&&value<=10000))});
   const seen=new Set();
   for(const row of data.rows){
     const condition=detectorRows.find(value=>(value.native?'native':`${value.targetPixels}`)===String(row?.condition).replace(/px$/,'').replace('p','.'));
@@ -164,9 +170,10 @@ export async function readVideoDistanceReport(root){
   if(invalidConditions)limitations.push(`${invalidConditions} condition(s) were omitted because their metrics or comparison denominators were invalid.`);
   const cropContext=await saved(root,'experiments/results/video-distance-context-v1/report.json');
   const candidate=await saved(root,'experiments/results/ai-candidate-distance-v1/report.json');
+  const corpusCandidate=await saved(root,'experiments/results/ai-corpus-distance-v1/report.json');
   return {schema:'mycoscout.video-distance-summary.v1',availability:'available',status:data.status,
     generatedAt:typeof data.generatedAt==='string'&&Number.isFinite(Date.parse(data.generatedAt))?data.generatedAt:null,
-    runVersion:data.runVersion==='video-distance-v2'?'video-distance-v2':'video-distance-v1',
+    runVersion:['video-distance-v2','video-distance-v3'].includes(data.runVersion)?data.runVersion:'video-distance-v1',
     readOnly:true,actualDistanceMeasured:false,automaticTraining:false,automaticActivation:false,
     sample:Object.fromEntries(['positiveFrames','negativeFrames','targets','sourceVideos','sourceGroups','labelAuthority'].map(key=>[key,sample[key]])),
     progress:{completed:progress.completed,total:progress.total,unit:['method-results','model-forwards'].includes(progress.unit)?progress.unit:'steps'},rows,limitations,
@@ -174,6 +181,7 @@ export async function readVideoDistanceReport(root){
     classificationRows:classificationRows(data.classificationRows,rows,sample),
     cropContextRows:cropContext.availability==='available'?cropContextRows(cropContext.data,rows,sample):[],
     aiCandidateDistance:candidate.availability==='available'?candidateDistance(candidate.data,rows,sample):null,
+    corpusCandidateDistance:corpusCandidate.availability==='available'?candidateDistance(corpusCandidate.data,rows,sample,true):null,
     methodNote:`Fixed detector score threshold ${protocol.scoreThreshold}; box-overlap threshold ${protocol.iouThreshold}; tiled view ${protocol.tileGrid} × ${protocol.tileGrid}. Missing method results remain unavailable.`,
     negativeNote:'Negative controls are labeled video frames with no visible mushrooms. False detections are separate from unmatched boxes on positive frames; zero is shown only for a completed measured result.',
   };

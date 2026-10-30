@@ -1,5 +1,6 @@
 import { COMMUNITY_GROUPS as GROUPS } from './research-taxonomy.js';
 import { createTaxonEditor } from './research-taxon-editor.js';
+import { CONFOUNDERS, validConfounder, confounderLabel, matchesReviewFilter, auditScope } from './review-evidence.js';
 const SVG = 'http://www.w3.org/2000/svg';
 const clamp = (value, low, high) => Math.min(high, Math.max(low, value));
 const groupName = value => GROUPS.find(group => group[0] === value)?.[1] ?? 'Unknown / just a mushroom';
@@ -41,11 +42,13 @@ if (typeof document !== 'undefined') {
   const $ = id => document.getElementById(id);
   const state = { collection: null, frames: [], index: -1, source: '', csrf: null, drafts: new Map(), selectedBox: null,
     imageReady: false, reviewReady: false, loading: false, saving: false, sequence: 0, abort: null, retry: null,
-    zoom: 1, zoomMode: 'fit', tool: 'draw', gesture: null, aiRefresh: false, terms:null };
+    zoom: 1, zoomMode: 'fit', tool: 'draw', gesture: null, aiRefresh: false, terms:null, boxType:'mushroom', catalogPage:0 };
   const frame = () => state.frames[state.index] ?? null;
   const draft = () => frame() ? state.drafts.get(frame().id) : null;
   const editable = () => !state.loading && !state.saving && state.imageReady && state.reviewReady && Boolean(draft());
-  const canDraw = () => editable() && draft().status === 'visible';
+  const mushroomBoxes = value => (value?.boxes??[]).filter(box=>!validConfounder(box.kind));
+  const canDraw = () => editable() && Boolean(draft().status) && (draft().status === 'visible'||validConfounder(state.boxType));
+  const newBox = bbox => ({bbox,group:'unknown',...(validConfounder(state.boxType)?{kind:state.boxType}:{})});
   const sourceFor = item => state.collection?.sources.find(source => source.id === item?.sourceId);
   const create = (tag, className, text) => { const element = document.createElement(tag); if (className) element.className = className; if (text != null) element.textContent = text; return element; };
   const svg = (tag, attributes) => { const element = document.createElementNS(SVG, tag); for (const [name, value] of Object.entries(attributes)) element.setAttribute(name, String(value)); return element; };
@@ -85,6 +88,28 @@ if (typeof document !== 'undefined') {
     const total = Number.isFinite(run?.totalFrames) ? run.totalFrames : summary.frames;
     $('ai-run-status').textContent = `AI suggestions prepared for ${prepared.toLocaleString()} of ${Number.isFinite(total) ? total.toLocaleString() : '—'} frames${run?.status ? ` · ${String(run.status).replaceAll('-', ' ')}` : ''}. Processing progress, not confirmed mushroom labels.`;
     $('ai-run-status').title = run?.updatedAt ? `Last updated: ${run.updatedAt}` : '';
+    const coverage=state.collection?.coverage;
+    $('coverage-detail').textContent=coverage?`${coverage.totalRecords.toLocaleString()} unique images cataloged · ${coverage.publicImages.toLocaleString()} public originals · ${coverage.visualAiReviewed.toLocaleString()} visually reviewed by AI (${coverage.originalAiReviewed.toLocaleString()} original-image views; ${coverage.previewAiReviewed.toLocaleString()} reduced preview views). Preview observations cannot become training labels automatically.`:'Visual AI reviews are separate from detector suggestions and human labels.';
+    const restricted=state.collection?.restrictedRecords??[];
+    $('restricted-summary').textContent=`${restricted.length.toLocaleString()} rights-limited originals · unavailable for public review`;
+    $('restricted-records').replaceChildren(...restricted.map(item=>create('p','',`${item.id} · ${item.aiReviewed?'AI reviewed locally':'AI review pending'} · original withheld`)));
+  }
+
+  function renderCatalog(){
+    const pageSize=24,total=state.frames.length,pages=Math.max(1,Math.ceil(total/pageSize));state.catalogPage=clamp(state.catalogPage,0,pages-1);
+    $('catalog-results').replaceChildren();
+    for(const item of state.frames.slice(state.catalogPage*pageSize,(state.catalogPage+1)*pageSize)){
+      const button=create('button','catalog-image');button.type='button';const img=create('img');img.src=item.imageUrl;img.loading='lazy';img.alt='';
+      const label=create('span','',`${item.kind==='photo'?'Photo':timeLabel(item.timestampSeconds)} · ${item.ai?.audit?.status??'AI review pending'}`);
+      button.append(img,label);button.addEventListener('click',()=>{openById(item.id);$('review-workspace').scrollIntoView({behavior:'smooth',block:'start'});});$('catalog-results').append(button);
+    }
+    if(!total)$('catalog-results').append(create('p','','No images match these filters.'));
+    $('catalog-page').textContent=`${total.toLocaleString()} images · page ${state.catalogPage+1} of ${pages}`;
+    $('catalog-previous').disabled=state.catalogPage===0;$('catalog-next').disabled=state.catalogPage>=pages-1;
+  }
+  function applyFilters(){
+    state.frames=state.collection.frames.filter(item=>matchesReviewFilter(item,{source:state.source,kind:$('kind-filter').value,status:$('audit-filter').value,confounder:$('confounder-filter').value}));state.catalogPage=0;renderCatalog();
+    if(state.frames.length)openFrame(0);else{state.abort?.abort();state.sequence++;state.index=-1;state.imageReady=false;state.reviewReady=false;state.loading=false;$('image-stage').hidden=true;$('image-message').hidden=false;$('image-message-text').textContent='No images match these filters.';$('image-message').querySelector('.loading-ring').hidden=true;updateControls();}
   }
 
   function setTerms(terms) {
@@ -112,6 +137,7 @@ if (typeof document !== 'undefined') {
     $('review-workspace').setAttribute('aria-busy', String(state.loading || state.saving));
     $('visibility-fieldset').disabled = !usable; $('submission-options').disabled = !usable;
     $('draw-tool').disabled = !drawAllowed; $('pan-tool').disabled = !state.imageReady || state.saving;
+    $('box-type').disabled=!usable;
     for (const id of ['fit-image', 'original-image', 'zoom-in', 'zoom-out']) $(id).disabled = !state.imageReady || state.saving;
     $('add-box').disabled = !drawAllowed || (currentDraft?.boxes.length ?? 0) >= 64;
     $('show-ai').disabled = !usable || !currentDraft?.status;
@@ -124,24 +150,26 @@ if (typeof document !== 'undefined') {
     $('next-priority').disabled=state.saving||!state.collection||priorityFrameIndex(state.frames,current?.id)<0;
     $('withdraw-permission').hidden=!currentDraft?.revision||currentDraft.trainingConsent!==true;
     $('withdraw-permission').disabled=!usable||!currentDraft?.revision||currentDraft.trainingConsent!==true;
-    $('frame-progress').textContent = current ? `Frame ${state.index + 1} of ${state.frames.length}` : 'No frames in this collection';
+    $('frame-progress').textContent = current ? `Image ${state.index + 1} of ${state.frames.length}` : 'No images in this view';
     $('draw-tool').classList.toggle('active', state.tool === 'draw'); $('draw-tool').setAttribute('aria-pressed', String(state.tool === 'draw'));
     $('pan-tool').classList.toggle('active', state.tool === 'pan'); $('pan-tool').setAttribute('aria-pressed', String(state.tool === 'pan'));
     $('image-stage').classList.toggle('panning', state.tool === 'pan' || !drawAllowed);
     $('image-viewport').classList.toggle('pan-mode', state.tool === 'pan');
-    $('box-help').textContent = currentDraft?.status === 'absent' ? 'No boxes needed. If you spot one, change your observation to “Yes”.' : currentDraft?.status === 'uncertain' ? 'An uncertain review has no confirmed boxes. Choose “Yes” to mark a mushroom you can see, even if its group is unknown.' : 'Choose “Yes” to draw around each mushroom. Unknown is a useful group; you can refine it later.';
+    $('box-help').textContent = currentDraft?.status === 'absent' ? 'You can mark misleading objects by choosing their type above. If you spot a mushroom, change your observation to “Yes”.' : currentDraft?.status === 'uncertain' ? 'You can mark non-mushroom objects while unsure. Choose “Yes” to mark a mushroom you can see, even if its group is unknown.' : 'Choose “Yes” to draw around each mushroom. Choose another object type to mark misleading objects. Unknown is a useful mushroom group.';
     $('review-complete').disabled = !usable || currentDraft?.status === 'uncertain';
     for (const element of $('box-list').querySelectorAll('button,select,input,textarea')) element.disabled = !usable || element.dataset.emptyTaxon === 'true';
     for (const button of $('source-timeline').querySelectorAll('button')) button.disabled = state.saving;
-    for (const button of $('ai-list').querySelectorAll('button')) button.disabled = !drawAllowed || button.dataset.accepted === 'true';
+    $('ai-comparison').disabled=!usable||!current?.ai?.audit;
+    for (const button of $('ai-list').querySelectorAll('button')) button.disabled = !usable || button.dataset.accepted === 'true';
   }
 
   function renderSource() {
     const current = frame(), source = sourceFor(current);
     $('source-title').textContent = source?.title ?? 'Video source'; $('frame-time').textContent = timeLabel(current?.timestampSeconds);
+    $('source-kind').textContent=current?.kind==='photo'?'PHOTO':'VIDEO FRAME';if(current?.kind==='photo')$('frame-time').textContent='Original photo';
     $('native-size').textContent = current ? `${current.width} × ${current.height} px` : 'Original pixels';
     $('frame-image').alt = `${source?.title ?? 'Mushroom video'} at ${timeLabel(current?.timestampSeconds)}. Review this image for visible mushrooms.`;
-    $('source-attribution').textContent = [source?.attribution, source?.license ? `License: ${source.license}.` : '', source?.changes, 'Frame extracted from video and displayed as a JPEG. Review labels are separate from the source image license.'].filter(Boolean).join(' ');
+    $('source-attribution').textContent = [source?.attribution, source?.license ? `License: ${source.license}.` : '', source?.changes, 'Review labels are separate from the source image license.'].filter(Boolean).join(' ');
     $('source-links').replaceChildren();
     for (const [label, url] of [['View original source ↗', source?.sourceUrl], ['Read license ↗', source?.licenseUrl]]) {
       const href = url && safeUrl(url); if (!href) continue;
@@ -180,15 +208,21 @@ if (typeof document !== 'undefined') {
     if (!value) return;
     value.boxes.forEach((box, index) => {
       const card = create('div', `box-editor${state.selectedBox === index ? ' selected' : ''}`), heading = create('div', 'box-editor-heading');
-      const choose = create('button', 'select-box'); choose.type = 'button'; choose.append(create('span', 'box-number', index + 1), document.createTextNode(`Mushroom ${index + 1}`));
+      const negative=validConfounder(box.kind);
+      const choose = create('button', 'select-box'); choose.type = 'button'; choose.append(create('span', 'box-number', index + 1), document.createTextNode(negative?confounderLabel(box.kind):`Mushroom ${index + 1}`));
       choose.setAttribute('aria-pressed', String(state.selectedBox === index)); choose.addEventListener('click', () => { state.selectedBox = index; renderBoxes(); renderOverlay(); $('image-viewport').focus({ preventScroll: true }); });
       const remove = create('button', 'delete-box', 'Remove'); remove.type = 'button'; remove.setAttribute('aria-label', `Remove mushroom box ${index + 1}`); remove.addEventListener('click', () => removeBox(index));
       heading.append(choose, remove); card.append(heading);
+      const objectLabel=create('label','group-label','Object type'),objectType=create('select');
+      for(const [id,name] of [['mushroom','Mushroom'],...CONFOUNDERS]){const option=create('option','',name);option.value=id;objectType.append(option);}objectType.value=negative?box.kind:'mushroom';objectLabel.append(objectType);card.append(objectLabel);
+      objectType.addEventListener('change',()=>{if(objectType.value==='mushroom'){if(value.status!=='visible'){reviewError('Choose Yes before changing this object into a mushroom.');objectType.value=box.kind;return;}delete box.kind;}else{box.kind=objectType.value;delete box.taxonCandidate;}markDirty();renderBoxes();renderOverlay();});
+      if(!negative){
       const label = create('label', 'group-label', 'Broad group, if you have a guess'); label.htmlFor = `box-group-${index}`;
       const select = create('select'); select.id = label.htmlFor; select.setAttribute('aria-label', `Broad mushroom group for box ${index + 1}`);
       for (const [id, name] of GROUPS) { const option = create('option', '', name); option.value = id; select.append(option); } select.value = box.group;
       select.addEventListener('change', () => { box.group = select.value; delete box.taxonCandidate; markDirty(); renderBoxes(); }); card.append(label, select);
       card.append(createTaxonEditor({candidate:box.taxonCandidate,groupId:box.group,label:`Identification for mushroom ${index+1}`,onChange:candidate=>{if(candidate)box.taxonCandidate=candidate;else delete box.taxonCandidate;markDirty();}}));
+      }else card.append(create('p','field-help','You marked this region as non-mushroom evidence. It still awaits curator approval.'));
       const details = create('details', 'coordinate-editor'), summary = create('summary', '', 'Adjust original pixel coordinates'), fields = create('div', 'coordinate-fields');
       for (const [key, title, initial] of [['x', 'Left (x)', box.bbox[0]], ['y', 'Top (y)', box.bbox[1]], ['width', 'Width', box.bbox[2] - box.bbox[0]], ['height', 'Height', box.bbox[3] - box.bbox[1]]]) {
         const fieldLabel = create('label', '', title), input = create('input'); input.type = 'number'; input.step = '1'; input.min = key === 'width' || key === 'height' ? '2' : '0'; input.max = String(key === 'x' || key === 'width' ? frame().width : frame().height); input.value = initial; input.dataset.coordinate = key; input.setAttribute('aria-label', `${title} for box ${index + 1}`);
@@ -210,32 +244,52 @@ if (typeof document !== 'undefined') {
     return current.ai.boxes.slice(0, 100).map((proposal, index) => ({ ...proposal, key: `${current.id}:${index}:${proposal.bbox?.join(',')}`, bbox: normalizeBox(proposal.bbox, current.width, current.height) })).filter(proposal => proposal.bbox);
   }
 
+  function negativeProposals() {
+    const current=frame();if(!current||!Array.isArray(current.ai?.audit?.confounders))return [];
+    return current.ai.audit.confounders.filter(proposal=>validConfounder(proposal.kind)).map((proposal,index)=>({...proposal,key:`${current.id}:negative:${index}:${proposal.bbox?.join(',')}`,bbox:normalizeBox(proposal.bbox,current.width,current.height)})).filter(proposal=>proposal.bbox);
+  }
+
   function renderAI() {
     const value = draft(), shown = Boolean(value?.showAI); $('ai-results').hidden = !shown; $('ai-assisted').hidden = !value?.aiAssisted;
     $('show-ai').textContent = shown ? 'Hide AI suggestions' : 'Show AI suggestions'; $('ai-list').replaceChildren();
     if (shown) {
-      const found = proposals(), info = frame()?.ai, model = typeof info?.model === 'string' ? info.model : info?.model?.name;
+      const found = proposals(), objects=negativeProposals(), info = frame()?.ai;
       const status = String(info?.status ?? 'not run');
-      $('ai-summary').textContent = found.length ? `${found.length} suggestion${found.length === 1 ? '' : 's'}${model ? ` from ${model}` : ''}. Blue dashed boxes are unaccepted AI guesses. Accept only what you can see.` : `No suggestions available for this frame. AI status: ${status}. No suggestion does not mean no mushroom.`;
+      $('ai-summary').textContent = found.length||objects.length ? `${found.length} mushroom candidate${found.length===1?'':'s'} and ${objects.length} non-mushroom object guess${objects.length===1?'':'es'}. Dashed boxes are unaccepted AI guesses; pink marks non-mushroom guesses. Accept only what you can see.` : `No box suggestions available for this image. AI status: ${status}. No suggestion does not mean no mushroom.`;
+      $('visual-ai-review').replaceChildren();const audit=info?.audit;
+      $('visual-ai-review').append(create('strong','',auditScope(audit)));
+      if(audit){
+        $('visual-ai-review').append(create('p','',`AI observation: ${audit.status}. ${audit.evidence??''}`),create('p','',audit.observation?.mode==='original-image'?'Original-image observation; AI judgment is not human confirmation.':'Reduced or partial view only. The original displayed here still needs a full human check.'));
+        if(audit.confounderTags?.length)$('visual-ai-review').append(create('p','',`Objects noted: ${audit.confounderTags.map(confounderLabel).join(', ')}.`));
+      }
+      $('ai-comparison').value=value.aiAssessment?.decision??'';
       for (const [index, proposal] of found.entries()) {
-        const row = create('div', 'ai-proposal'), description = create('div', '', `Suggestion ${index + 1}`);
-        const score = Number.isFinite(proposal.score) ? ` · ${Math.round(proposal.score * 100)}% model score` : '';
+        const visual=proposal.origin==='visual-ai-review';
+        const row = create('div', 'ai-proposal'), description = create('div', '', `${visual?'AI visual review':'Detector proposal'} ${index + 1}`);
+        const score = Number.isFinite(proposal.score) ? ` · ${Math.round(proposal.score * 100)}% ${visual?'AI confidence':'model score'}` : '';
         description.append(create('span', '', `${String(proposal.label ?? 'Possible mushroom')}${score}`));
         const accepted = value.accepted.includes(proposal.key), button = create('button', '', accepted ? 'Added to draft' : 'Use this box'); button.type = 'button'; button.dataset.accepted = String(accepted);
         button.addEventListener('click', () => {
-          if (!canDraw()) { reviewError('Choose “Yes” before adding a suggested box, and only if you can see the mushroom yourself.'); return; }
+          if (!editable()||value.status!=='visible') { reviewError('Choose “Yes” before adding a suggested box, and only if you can see the mushroom yourself.'); return; }
           if (value.boxes.length >= 64) { reviewError('This frame already has the maximum 64 boxes.'); return; }
           value.boxes.push({ bbox: [...proposal.bbox], group: validGroup(proposal.label) }); value.accepted.push(proposal.key); value.aiAssisted = true;
           state.selectedBox = value.boxes.length - 1; markDirty('AI box added to your draft. Adjust its edges and group before saving.'); renderBoxes(); renderAI(); renderOverlay();
-        }); row.append(description, button); $('ai-list').append(row);
+        }); const reject=create('button','','Mark as confusing object');reject.type='button';reject.addEventListener('click',()=>{if(!editable()||value.boxes.length>=64)return;value.boxes.push({bbox:[...proposal.bbox],group:'unknown',kind:validConfounder(state.boxType)?state.boxType:'other_non_mushroom'});value.aiAssisted=true;state.selectedBox=value.boxes.length-1;markDirty('Non-mushroom region added. Choose the object type and adjust its edges.');renderBoxes();renderOverlay();});row.append(description,button,reject);$('ai-list').append(row);
+      }
+      for(const proposal of objects){
+        const row=create('div','ai-proposal'),description=create('div','',`AI object guess: ${confounderLabel(proposal.kind)}`);
+        if(proposal.evidence)description.append(create('span','',proposal.evidence));
+        const accepted=value.accepted.includes(proposal.key),button=create('button','',accepted?'Added to draft':'Review this object box');button.type='button';button.dataset.accepted=String(accepted);
+        button.addEventListener('click',()=>{if(!editable()||value.boxes.length>=64)return;value.boxes.push({bbox:[...proposal.bbox],group:'unknown',kind:proposal.kind});value.accepted.push(proposal.key);value.aiAssisted=true;state.selectedBox=value.boxes.length-1;markDirty('AI object box copied into your draft. Correct its object type and edges before saving.');renderBoxes();renderAI();renderOverlay();});
+        row.append(description,button);$('ai-list').append(row);
       }
     }
     updateControls(); renderOverlay();
   }
 
-  function drawRect(box, index, { proposal = false, preview = false } = {}) {
+  function drawRect(box, index, { proposal = false, preview = false, negative = false } = {}) {
     const overlay = $('box-overlay'), [x1, y1, x2, y2] = box;
-    const rect = svg('rect', { x: x1, y: y1, width: x2 - x1, height: y2 - y1, class: `box${proposal ? ' proposal' : ''}${state.selectedBox === index && !proposal ? ' selected' : ''}` });
+    const rect = svg('rect', { x: x1, y: y1, width: x2 - x1, height: y2 - y1, class: `box${proposal ? ' proposal' : ''}${negative?' negative':''}${state.selectedBox === index && !proposal ? ' selected' : ''}` });
     if (!proposal) rect.dataset.box = index; overlay.append(rect);
     if (proposal || preview) return;
     const tagWidth = 23 / state.zoom, tagHeight = 20 / state.zoom, fontSize = 11 / state.zoom;
@@ -251,7 +305,8 @@ if (typeof document !== 'undefined') {
     $('box-overlay').replaceChildren(); const current = frame(), value = draft(); if (!current || !value || !state.imageReady) return;
     $('box-overlay').setAttribute('viewBox', `0 0 ${current.width} ${current.height}`);
     if (value.showAI) for (const proposal of proposals()) if (!value.accepted.includes(proposal.key)) drawRect(proposal.bbox, -1, { proposal: true });
-    value.boxes.forEach((box, index) => drawRect(box.bbox, index));
+    if (value.showAI) for (const proposal of negativeProposals()) if (!value.accepted.includes(proposal.key)) drawRect(proposal.bbox,-1,{proposal:true,negative:true});
+    value.boxes.forEach((box, index) => {drawRect(box.bbox, index);if(validConfounder(box.kind))$('box-overlay').querySelector(`rect[data-box="${index}"]`)?.classList.add('negative');});
     if (state.gesture?.type === 'draw' && state.gesture.preview) drawRect(state.gesture.preview, -1, { preview: true });
   }
 
@@ -298,7 +353,8 @@ if (typeof document !== 'undefined') {
         const result = await api(`reviews/${encodeURIComponent(current.id)}`, { signal: state.abort.signal }); if (token !== state.sequence) return;
         const review = result.review;
         state.drafts.set(current.id, { status: ['visible', 'absent', 'uncertain'].includes(review?.status) ? review.status : null,
-          boxes: (review?.boxes ?? []).map(box => ({ bbox: normalizeBox(box.bbox, current.width, current.height), group: validGroup(box.group),...(box.taxonCandidate?{taxonCandidate:structuredClone(box.taxonCandidate)}:{}) })).filter(box => box.bbox),
+          boxes: [...(review?.boxes ?? []).map(box => ({ bbox: normalizeBox(box.bbox, current.width, current.height), group: validGroup(box.group),...(box.taxonCandidate?{taxonCandidate:structuredClone(box.taxonCandidate)}:{}) })),...(review?.negativeBoxes??[]).map(box=>({bbox:normalizeBox(box.bbox,current.width,current.height),kind:box.kind,group:'unknown'}))].filter(box=>box.bbox),
+          aiAssessment:review?.aiAssessment,
           complete: review?.complete === true, trainingConsent: review?.trainingConsent === true, aiAssisted: review?.aiAssisted === true,
           revision: Number.isInteger(review?.revision) ? review.revision : 0, dirty: false, loaded: true, showAI: false, accepted: [] });
         state.reviewReady = true;
@@ -318,11 +374,11 @@ if (typeof document !== 'undefined') {
   async function saveReview(next) {
     if (!editable()) return; const current = frame(), value = draft();
     if (!value.status) { reviewError('Choose whether mushrooms are visible before saving.'); return; }
-    if (value.status === 'visible' && !value.boxes.length) { reviewError('Mark at least one mushroom with a box, or choose “Not sure”.'); $('image-viewport').focus(); return; }
-    if (value.status !== 'visible' && value.boxes.length) { reviewError('Remove the boxes before saving “No mushrooms visible” or “Not sure”, or keep “Yes” if you can see mushrooms.'); return; }
+    if (value.status === 'visible' && !mushroomBoxes(value).length) { reviewError('Mark at least one mushroom with a box, or choose “Not sure”.'); $('image-viewport').focus(); return; }
+    if (value.status !== 'visible' && mushroomBoxes(value).length) { reviewError('Remove the mushroom boxes before saving “No mushrooms visible” or “Not sure”, or keep “Yes” if you can see mushrooms.'); return; }
     state.saving = true; reviewError(); $('save-status').textContent = 'Saving your observation…'; updateControls();
     try {
-      const result = await api(`reviews/${encodeURIComponent(current.id)}`, { method: 'POST', body: { status: value.status, boxes: value.boxes.map(box => ({ bbox: [...box.bbox], group: box.group,...(box.taxonCandidate?{taxonCandidate:box.taxonCandidate}:{}) })), complete: value.complete, participationTerms:{version:state.terms.version,noticeSha256:state.terms.noticeSha256}, aiAssisted: value.aiAssisted, baseRevision: value.revision } });
+      const result = await api(`reviews/${encodeURIComponent(current.id)}`, { method: 'POST', body: { status: value.status, boxes: mushroomBoxes(value).map(box => ({ bbox: [...box.bbox], group: box.group,...(box.taxonCandidate?{taxonCandidate:box.taxonCandidate}:{}) })), negativeBoxes:value.boxes.filter(box=>validConfounder(box.kind)).map(box=>({bbox:[...box.bbox],kind:box.kind})),...(value.aiAssessment?{aiAssessment:value.aiAssessment}:{}),complete: value.complete, participationTerms:{version:state.terms.version,noticeSha256:state.terms.noticeSha256}, aiAssisted: value.aiAssisted, baseRevision: value.revision } });
       value.revision = result.review.revision; value.trainingConsent=result.review.trainingConsent; value.dirty = false; value.loaded = true;
       if (result.summary) { state.collection.summary = result.summary; renderCounts(); }
       $('save-status').textContent = 'Saved. Thank you—your observation is ready for curator review.'; $('review-state').textContent = 'Your saved review'; announce('Review saved for curator approval.'); renderTimeline();
@@ -390,7 +446,7 @@ if (typeof document !== 'undefined') {
   });
   overlay.addEventListener('pointerup', event => {
     const gesture = state.gesture; if (!gesture || gesture.pointerId !== event.pointerId) return;
-    if (gesture.type === 'draw' && gesture.preview) { draft().boxes.push({ bbox: gesture.preview, group: 'unknown' }); state.selectedBox = draft().boxes.length - 1; }
+    if (gesture.type === 'draw' && gesture.preview) { draft().boxes.push(newBox(gesture.preview)); state.selectedBox = draft().boxes.length - 1; }
     if (gesture.type !== 'draw' || gesture.preview) markDirty();
     state.gesture = null; if (overlay.hasPointerCapture(event.pointerId)) overlay.releasePointerCapture(event.pointerId); renderBoxes(); renderOverlay();
   });
@@ -413,10 +469,13 @@ if (typeof document !== 'undefined') {
   for (const eventName of ['pointerup', 'pointercancel']) $('image-viewport').addEventListener(eventName, () => { pan = null; $('image-viewport').classList.remove('dragging'); });
   for (const input of document.querySelectorAll('input[name="visibility"]')) input.addEventListener('change', () => {
     if (!editable()) return;
-    if (input.value !== 'visible' && draft().boxes.length) { renderDraft(); reviewError('Your boxes are still in your draft. Remove them to choose “No mushrooms visible” or “Not sure”, or keep “Yes” if you can see mushrooms.'); return; }
+    if (input.value !== 'visible' && mushroomBoxes(draft()).length) { renderDraft(); reviewError('Your mushroom boxes are still in your draft. Remove them or change their object type to choose No mushrooms or Not sure.'); return; }
     draft().status = input.value; if (input.value === 'visible') state.tool = 'draw'; if (input.value === 'uncertain') { draft().complete = false; $('review-complete').checked = false; } markDirty(); renderAI(); updateControls();
   });
-  $('add-box').addEventListener('click', () => { if (!canDraw()) return; const current = frame(), w = Math.max(2, Math.round(current.width * .2)), h = Math.max(2, Math.round(current.height * .2)), x = Math.round((current.width - w) / 2), y = Math.round((current.height - h) / 2); draft().boxes.push({ bbox: [x, y, x + w, y + h], group: 'unknown' }); state.selectedBox = draft().boxes.length - 1; markDirty('A box was added at the center. Move it to the mushroom, or open its coordinate fields.'); renderBoxes(); renderOverlay(); });
+  $('add-box').addEventListener('click', () => { if (!canDraw()) return; const current = frame(), w = Math.max(2, Math.round(current.width * .2)), h = Math.max(2, Math.round(current.height * .2)), x = Math.round((current.width - w) / 2), y = Math.round((current.height - h) / 2); draft().boxes.push(newBox([x,y,x+w,y+h])); state.selectedBox = draft().boxes.length - 1; markDirty('A box was added at the center. Move it to the object, or open its coordinate fields.'); renderBoxes(); renderOverlay(); });
+  for(const [id,name] of CONFOUNDERS){for(const target of ['box-type','confounder-filter']){const option=create('option','',name);option.value=id;$(target).append(option);}}
+  $('box-type').addEventListener('change',()=>{cancelGesture();state.boxType=$('box-type').value;state.tool='draw';updateControls();});
+  $('ai-comparison').addEventListener('change',()=>{const audit=frame()?.ai?.audit;if(!editable()||!audit)return;if($('ai-comparison').value)draft().aiAssessment={decision:$('ai-comparison').value,reviewId:audit.reviewId,revision:audit.revision};else delete draft().aiAssessment;draft().aiAssisted=true;markDirty();});
   $('draw-tool').addEventListener('click', () => { state.tool = 'draw'; updateControls(); });
   $('pan-tool').addEventListener('click', () => { cancelGesture(); state.tool = 'pan'; updateControls(); });
   $('fit-image').addEventListener('click', () => setZoom('fit'));
@@ -434,7 +493,9 @@ if (typeof document !== 'undefined') {
   $('next-frame').addEventListener('click', () => openFrame(state.index + 1));
   $('next-priority').addEventListener('click',()=>{const seen=new Set([...state.drafts].filter(([,value])=>value.revision).map(([id])=>id)),index=priorityFrameIndex(state.frames,frame()?.id,seen);if(index>=0)openFrame(index);});
   $('review-retry').addEventListener('click', () => state.retry?.());
-  $('source-filter').addEventListener('change', () => { state.source = $('source-filter').value; state.frames = state.collection.frames.filter(item => !state.source || item.sourceId === state.source); openFrame(0); });
+  $('source-filter').addEventListener('change', () => { state.source = $('source-filter').value;applyFilters();});
+  for(const id of ['audit-filter','confounder-filter','kind-filter'])$(id).addEventListener('change',applyFilters);
+  $('catalog-previous').addEventListener('click',()=>{state.catalogPage--;renderCatalog();});$('catalog-next').addEventListener('click',()=>{state.catalogPage++;renderCatalog();});
   window.addEventListener('beforeunload', event => { if ([...state.drafts.values()].some(value => value.dirty)) { event.preventDefault(); event.returnValue = ''; } });
   new ResizeObserver(() => { if (state.zoomMode === 'fit' && state.imageReady) setZoom('fit'); }).observe($('image-viewport'));
 
@@ -444,8 +505,8 @@ if (typeof document !== 'undefined') {
       const results = await Promise.all([api('session', { method: 'POST', body: {} }), api('collection')]);
       state.csrf = results[0].csrfToken; state.collection = results[1];setTerms(results[0].participationTerms);
       if (!state.csrf || !Array.isArray(state.collection.sources) || !Array.isArray(state.collection.frames)) throw new Error('The collection could not be opened. Please try again.');
-      state.frames = state.collection.frames; renderCounts(); $('source-filter').replaceChildren();
-      const all = create('option', '', 'All videos'); all.value = ''; $('source-filter').append(all);
+      state.frames = state.collection.frames; renderCounts();renderCatalog(); $('source-filter').replaceChildren();
+      const all = create('option', '', 'All sources'); all.value = ''; $('source-filter').append(all);
       for (const source of state.collection.sources) { const option = create('option', '', source.title); option.value = source.id; $('source-filter').append(option); }
       if (!state.frames.length) { $('image-message-text').textContent = 'The first field collection is being prepared. Please check back soon.'; $('image-message').querySelector('.loading-ring').hidden = true; state.loading = false; updateControls(); announce('The collection has no frames yet.'); return; }
       const requestedFrame = new URLSearchParams(location.search).get('frame');

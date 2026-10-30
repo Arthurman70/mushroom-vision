@@ -1,7 +1,7 @@
 {
   "schema": "mushroom-vision.source-release.v1",
-  "files": 385,
-  "bytes": 6382572,
+  "files": 412,
+  "bytes": 6587820,
   "findings": [],
   "sourceSelectionVerified": true,
   "photosIncluded": false,
@@ -10,8 +10,8 @@
   "sourceFiles": [
     {
       "path": "README.md",
-      "bytes": 18725,
-      "sha256": "69beca5191ea3de71ef595229a4a3d29149c5b8f002c659f1737ff2d8aa7a730"
+      "bytes": 19906,
+      "sha256": "711f9ccb8345bd64f129c118c51b5d81ba6983309d69c1f2b17bc751340d21eb"
     },
     {
       "path": "TRAINING_PIPELINE.md",
@@ -41,12 +41,12 @@
     {
       "path": "package.json",
       "bytes": 662,
-      "sha256": "956f7a6af174ea3773c6b5c49394a3b80532203cfc3f51ac4cd79f4a2dc3a08c"
+      "sha256": "6668e3962a12978f56705372350b002cf3eeaaeb8ee1357a592598aa1cf51787"
     },
     {
       "path": "server.mjs",
-      "bytes": 39308,
-      "sha256": "32bfe47c34b4a221c1c1addf8a09a9297b27771ae122c806df770ba2c8628c99"
+      "bytes": 40997,
+      "sha256": "7cfe5bddc8053dbb578883d08a3c1695aaf772d5098cf3a9ae5e19b7b2718974"
     },
     {
       "path": "START-MYCOSCOUT.cmd",
@@ -75,8 +75,8 @@
     },
     {
       "path": "public/ai-review.html",
-      "bytes": 6978,
-      "sha256": "d455224fb916bdaa52b6613ef706e5c93f9f815729d479fa92d1a0567113ae1b"
+      "bytes": 7027,
+      "sha256": "85b890aeeedaa7a889157cd30e04a636804d0f33bc75498d6cef8fe179964ac4"
     },
     {
       "path": "public/ai-review.js",
@@ -87,6 +87,21 @@
       "path": "public/app.js",
       "bytes": 19210,
       "sha256": "b8f795254308fa208c54c026131459892ca74b1de4e977b2fecbea9fef575177"
+    },
+    {
+      "path": "public/bulk-ai-review.css",
+      "bytes": 2724,
+      "sha256": "b7675f587970f205c83b19991515789a9b85b66c0f8dd933ce5097041df2f19e"
+    },
+    {
+      "path": "public/bulk-ai-review.html",
+      "bytes": 5303,
+      "sha256": "d9bdcf2ce3e65804d0c37c237c9efdc8ba551d89f821bacdfab125b24d429b9f"
+    },
+    {
+      "path": "public/bulk-ai-review.js",
+      "bytes": 9133,
+      "sha256": "7a6383a7a31fed87b7c3499ba238d1ad42179293eb3c86f17616f0256191bd2d"
     },
     {
       "path": "public/demo-state.json",
@@ -145,8 +160,8 @@
     },
     {
       "path": "public/index.html",
-      "bytes": 6047,
-      "sha256": "0ca2e6a49a3637f03fd321982130d534bf7c27cff7806a22097c62686e6c58e0"
+      "bytes": 6110,
+      "sha256": "1c73d7b6cdebfa284c8463a9540f1d2008478c0a69f0f8ec8abe8b99d61fb041"
     },
     {
       "path": "public/investigation-view.mjs",
@@ -160,8 +175,8 @@
     },
     {
       "path": "public/lab.html",
-      "bytes": 15221,
-      "sha256": "334f1904d220f596e1e55fdcb970c7f04afc939e55a041c80aa7f16879d8a586"
+      "bytes": 15284,
+      "sha256": "e82cf5dcf6ebdb97109333cf56814505929a5cbfcdb50dde92f987d665eff05a"
     },
     {
       "path": "public/lab.js",
@@ -320,8 +335,8 @@
     },
     {
       "path": "public/video-distance-lab.js",
-      "bytes": 14582,
-      "sha256": "4b7f0eb943648a8d80b613febd6e7fb43f22c061139fd18b879c56b5e27b2cb7"
+      "bytes": 15536,
+      "sha256": "b3108cd519608eb1111c1bbbfda639882ac99e4718937079181b148d474c15eb"
     },
     {
       "path": "public/video-grader-logic.mjs",
@@ -362,6 +377,11 @@
       "path": "core/ai-review.mjs",
       "bytes": 21990,
       "sha256": "ddd157967f5752b614136684519b042d7dd40b65ae11be12f099aeee40fd86c7"
+    },
+    {
+      "path": "core/bulk-ai-review.mjs",
+      "bytes": 21507,
+      "sha256": "9ea62d7e3e7a1f84f70f98d0d95bd1bc202ab46784deee4cda29a9da899ca18e"
     },
     {
       "path": "core/candidate-comparison.mjs",
@@ -412,6 +432,11 @@
       "path": "core/live-station.mjs",
       "bytes": 7247,
       "sha256": "07f2434422f8ce6b4e23ffbcd4159666eb678f1e539184d52fa79455f96e66fb"
+    },
+    {
+      "path": "core/observed-ai-notes.mjs",
+      "bytes": 1357,
+      "sha256": "d20a719da54e329c7dff48043d1be701dd6957df6316031f2c295a0fa71b5d50"
     },
     {
       "path": "core/planner.mjs",
@@ -470,8 +495,8 @@
     },
     {
       "path": "core/video-distance-report.mjs",
-      "bytes": 14790,
-      "sha256": "c13704bf5e0fc6d858f9223cc044a2609db680cf42cca1f0cc48c37e44685ac1"
+      "bytes": 15980,
+      "sha256": "a7e2368c3796985b77648bf6a9598bb4341bda805f711106054a7511858d5608"
     },
     {
       "path": "core/video-grades.mjs",
@@ -490,8 +515,13 @@
     },
     {
       "path": "community/import-reviews.mjs",
-      "bytes": 4432,
-      "sha256": "099ffd813b3fc76246a50220863df2cb75c3c9d2df79889c3a3bf03e53d2acc0"
+      "bytes": 6176,
+      "sha256": "df816356e248e6277326647dae0ee0e5002065bf340209cddb7ce728d1b1a505"
+    },
+    {
+      "path": "community/package-bulk.py",
+      "bytes": 8882,
+      "sha256": "5fa2b4efca5657ce145c7a76e8e54f78df772010ef3b944ad801e8b544c0f67f"
     },
     {
       "path": "community/package-collection.mjs",
@@ -500,23 +530,33 @@
     },
     {
       "path": "community/server.mjs",
-      "bytes": 14678,
-      "sha256": "faa9cf99d002dac824fd25b2cbf498201baf2cfd0ea5e8c316413dd547ab7388"
+      "bytes": 15774,
+      "sha256": "a86ac3eb4d425bb7a970caa3ada5b4d3bd45b55a70b515a2bb1bc611126383fc"
     },
     {
       "path": "community/store.mjs",
-      "bytes": 11733,
-      "sha256": "66df5687fa95b9dc7fa59615c2a0e472af6498f698a8f12d4e5ebfeb72d4a58d"
+      "bytes": 13059,
+      "sha256": "3a0ae95131f26d8e1a14d1b45f4e302eb096249f6f1b7a18ef5dc3facec51fa5"
+    },
+    {
+      "path": "community/test_package_bulk.py",
+      "bytes": 1752,
+      "sha256": "c08fb82da2a1589333a2ed4d48f43e8d95e66ebda686280f7ebdc46f5964e3c3"
+    },
+    {
+      "path": "community/public/ai-review-data.js",
+      "bytes": 1947,
+      "sha256": "56ff1139560d62aa83d549495332bd3e7dbf73210f3857ebace31823cb8e0912"
     },
     {
       "path": "community/public/app.js",
-      "bytes": 44161,
-      "sha256": "95d6f090ba7191f412733f275aa801045d10bd95569bd04ad3873aa089b0ccd9"
+      "bytes": 52814,
+      "sha256": "a426bf5b09ceacfe5e6518228fe43bf2de0299e2b734f68262b7647b74d22921"
     },
     {
       "path": "community/public/index.html",
-      "bytes": 13147,
-      "sha256": "409d1c7e91499b4bbe1b884d169eed0a1c4c917c3924175c6cefa28195de18e9"
+      "bytes": 15206,
+      "sha256": "b12faff0f3d222144c87703c45eda78ce11ece764515b26966b1273777c7842d"
     },
     {
       "path": "community/public/research-taxon-editor.js",
@@ -529,9 +569,14 @@
       "sha256": "5510174eb28fa0fc6f840c511c567c56b7698380b1dc7b1beafd337b95f8da39"
     },
     {
+      "path": "community/public/review-evidence.js",
+      "bytes": 1312,
+      "sha256": "36f48837d0f83759fa71043da2ea7f7ebc2be4d4ec32a67e7c3c1d8ac769e3bd"
+    },
+    {
       "path": "community/public/styles.css",
-      "bytes": 22779,
-      "sha256": "58803d02df579e3cf7d284bfc3ee83caaee297c171ffe8a52fb58fe600753f60"
+      "bytes": 24742,
+      "sha256": "b1efa62bb1d72b36fcc613795d3f61c2c2c19458129ff94654eeffc06df8a36f"
     },
     {
       "path": "tests/ai-review.test.mjs",
@@ -539,9 +584,19 @@
       "sha256": "eaf17f0259c37210613bb785fc7e2d0ff64a2dad8b8e630f26208fc40f25604d"
     },
     {
+      "path": "tests/bulk-ai-review.test.mjs",
+      "bytes": 7716,
+      "sha256": "e1bd4f5f3bf6c635d1dc1bf58b52dc3c0f5efa78ad106cee2b68949b920b2dd0"
+    },
+    {
       "path": "tests/candidate-comparison.test.mjs",
       "bytes": 9643,
       "sha256": "2df3bd572ca1e70061d8d9f1a831a50e759643185ecf2d1f15b734ce54c582e3"
+    },
+    {
+      "path": "tests/community-ai-reviews.test.mjs",
+      "bytes": 5556,
+      "sha256": "42809b033c778630b2238a4e0df7e3cef4cd974c34f1f323fe327539a4af8193"
     },
     {
       "path": "tests/community-learning-bridge.test.mjs",
@@ -619,6 +674,11 @@
       "sha256": "7f83090e8a748c054e435bf4e7c6dbb29747980615a646f7fa4e973beb246ad8"
     },
     {
+      "path": "tests/observed-ai-notes.test.mjs",
+      "bytes": 1593,
+      "sha256": "329e2ec3ac4aa848bdabfb13003ac7bc814325fb97559bfa3057de08a3e497de"
+    },
+    {
       "path": "tests/planner.test.mjs",
       "bytes": 4491,
       "sha256": "11badd6e9003a0813dbc40840b395dae30d05583f5bd506c22806eea81764dfc"
@@ -635,8 +695,8 @@
     },
     {
       "path": "tests/server.test.mjs",
-      "bytes": 17657,
-      "sha256": "6ab8cd23982839bf1a63636e254c8bd6ab782ec88afbe3a1a2a53186c1adff47"
+      "bytes": 19556,
+      "sha256": "3c5560d17581b8ac95f8e4bcc9cbeb8963031e7dd51e2330dc0cb3edc60e40e4"
     },
     {
       "path": "tests/species-lab.test.mjs",
@@ -655,8 +715,8 @@
     },
     {
       "path": "tests/test_source_package.py",
-      "bytes": 3169,
-      "sha256": "d9fe7ee9fa5fb2a4ff8cc5d071577559ffb4345ba79a20018d8b26ae260231cc"
+      "bytes": 5396,
+      "sha256": "2aa9f4b8ef4e4064804227097840d38d3ec7281b02f283e33162c6b2a8dfaf27"
     },
     {
       "path": "tests/testbench-api.test.mjs",
@@ -695,8 +755,8 @@
     },
     {
       "path": "tests/video-distance-report.test.mjs",
-      "bytes": 11881,
-      "sha256": "9fb0368ccda34ca20f7f45b6ddc582220a672b755352a0eb92fe10b7ba19eaca"
+      "bytes": 13552,
+      "sha256": "e305379a3dda6af87feebfd62ae822c36a90d2b5f52b2f2ce68231f8851a05fd"
     },
     {
       "path": "tests/video-grader-logic.test.mjs",
@@ -954,6 +1014,11 @@
       "sha256": "de4d3858b3db20adb9059bb78e8d871f9bb7fb48a1bf5c369748b564c3789c12"
     },
     {
+      "path": "docs/AI_CORPUS_TRAINING_RUN.md",
+      "bytes": 8323,
+      "sha256": "c2c47246e554a4c276947c206ce1e5b3934ea9a592b47175fade948d4749033c"
+    },
+    {
       "path": "docs/AI_REVIEW_RUN_V1.md",
       "bytes": 4380,
       "sha256": "9713fc938cfd4f1066b2f045aec45c7d585c06068e92c2e0841c93a0ed0e0c43"
@@ -967,6 +1032,11 @@
       "path": "docs/ANDROID.md",
       "bytes": 6200,
       "sha256": "e1644c1ef1b0a69336e8d43eef9f3f3c61c14b7df8a2e532b67228d6f7615b64"
+    },
+    {
+      "path": "docs/BULK_AI_REVIEW.md",
+      "bytes": 6170,
+      "sha256": "8ac4cb07a0e1f42074a84de2c7090802d25325ff642d1915343356449d818564"
     },
     {
       "path": "docs/CONNECTED_WORKFLOW.md",
@@ -1180,8 +1250,8 @@
     },
     {
       "path": "deploy/community/README.md",
-      "bytes": 17687,
-      "sha256": "d524b1075cc5f0f2c5ae9627021da3954cb782804b40f4729f0fc1a32fc41d58"
+      "bytes": 20174,
+      "sha256": "b343085fdb0622e88beddc3fd11aed1535946efd25616a2755d4f450c8968307"
     },
     {
       "path": "deploy/community/caddy-route.txt",
@@ -1200,13 +1270,18 @@
     },
     {
       "path": "deploy/community/deploy.py",
-      "bytes": 17770,
-      "sha256": "098cfd8cf16a3c8813adf6d214d7b900e4be3e68e4a8b364eb206fa44ec4c30c"
+      "bytes": 22070,
+      "sha256": "e561876f88c05f97391a09c67773fcfb715175edcec610f247f178250a788105"
     },
     {
       "path": "deploy/community/package.py",
-      "bytes": 4987,
-      "sha256": "b8024a3f2c00380a530787d4cde59315d3d2b6351d73c42bc03ca18bcff8b67d"
+      "bytes": 5095,
+      "sha256": "f3ec92ef670b4f06f371eee54fcb081f2632d124db3e5ec779b24d1d19080868"
+    },
+    {
+      "path": "deploy/community/resume_upload.py",
+      "bytes": 6711,
+      "sha256": "ad31168c4a34d82d57b6682bc73679ae9b7d65cb094789275048aa961f14976e"
     },
     {
       "path": "deploy/community/site-link.py",
@@ -1215,8 +1290,13 @@
     },
     {
       "path": "deploy/community/test_deploy.py",
-      "bytes": 10191,
-      "sha256": "0f5f0cb51e6f4f865663553b9684f0d6ea5a6ad74df1b1d27018085abcd72502"
+      "bytes": 11230,
+      "sha256": "778c92f6f9147aa3cb3b5bc3e8a8b766f45d1d69b03cf7a60fe5dea93a452756"
+    },
+    {
+      "path": "deploy/community/test_resume_upload.py",
+      "bytes": 4673,
+      "sha256": "a2c4d56013c61e8da19bff25c9ddab9bb3d33bbdccf25a9ba907b0ee7471a7ab"
     },
     {
       "path": "scripts/acquire_morel_videos.py",
@@ -1239,6 +1319,16 @@
       "sha256": "095144de45abfd8c592aa9a4cf5e561556de9dc89465d47208d350e2783a5c73"
     },
     {
+      "path": "scripts/bulk-ai-review.mjs",
+      "bytes": 1261,
+      "sha256": "6660856a878d4c5a610a687e56f95d62f1cba4c1eb81e1ec16b89ab4bc8a1645"
+    },
+    {
+      "path": "scripts/import-observed-ai-notes.mjs",
+      "bytes": 2411,
+      "sha256": "3851f3b7911854598abe20cb75ff5cf141f2641833dd1b435d3cecf1955ff193"
+    },
+    {
       "path": "scripts/install-learning-worker.ps1",
       "bytes": 1705,
       "sha256": "7589f9388a554c127e42c57e1016bd0f48eeb1843412be89e2bbe749cef72fdd"
@@ -1247,6 +1337,11 @@
       "path": "scripts/install-video-preview.ps1",
       "bytes": 1036,
       "sha256": "54e7edac8a2196dabdcc0cd1741af6c6cf67893c1b7f11b194dc751490318de6"
+    },
+    {
+      "path": "scripts/inventory_bulk_ai_review.py",
+      "bytes": 15461,
+      "sha256": "2c9df13d391b140505db306d1546e1103b116b9bc411bc044855ee823b213e54"
     },
     {
       "path": "scripts/package_release.py",
@@ -1260,8 +1355,8 @@
     },
     {
       "path": "scripts/prepare_github_source.py",
-      "bytes": 7704,
-      "sha256": "dc8c3309b2d005629e655c8a455a801d6c2d380b043a7df01d12f20e7155c5b5"
+      "bytes": 8283,
+      "sha256": "316dde43ee837269c150777b6eb0be5fda9e45e3d8be53e76fb0114d3c1098a0"
     },
     {
       "path": "scripts/prepare_morel_feed.py",
@@ -1312,6 +1407,11 @@
       "path": "scripts/start-video-preview.ps1",
       "bytes": 4461,
       "sha256": "672d10a2e4fe7d2c84e7e4ed729d8a82a9b0f37d9cff115f09659bdb77081bcc"
+    },
+    {
+      "path": "scripts/submit-ai-sheet-notes.mjs",
+      "bytes": 1992,
+      "sha256": "fb0fda7954ef745fb8a43c33ae7eef29e276b164dce5d648ea9b125dfab4f5da"
     },
     {
       "path": "scripts/ui-smoke.cjs",
@@ -1704,6 +1804,11 @@
       "sha256": "7c755e7a8bf30e050a969f5136b1b84a6db65dc3be49983085c3e8d7a4b4b813"
     },
     {
+      "path": "experiments/active_video_distance_retest.py",
+      "bytes": 6385,
+      "sha256": "73fe70ba8347e5935b04c0ee9c8bb20e02d26d6c02ac05f1abef21780f526f2b"
+    },
+    {
       "path": "experiments/benchmark_features_v2.py",
       "bytes": 2561,
       "sha256": "eba79cc54f8b31f777631c17d884363ea199976208947856f5330a878a1ab2a8"
@@ -1734,9 +1839,24 @@
       "sha256": "79b597899be8bd9149332782a0d2f22690207a9ec64a9181ce92c708bd62d42a"
     },
     {
+      "path": "experiments/diagnose_ai_corpus_checkpoint.py",
+      "bytes": 2595,
+      "sha256": "3deb3e5cb363105359bcd4b5bd50fddd4f41cdc95d15f5f7030d579123cc713d"
+    },
+    {
+      "path": "experiments/diagnose_ai_corpus_fit.py",
+      "bytes": 1926,
+      "sha256": "08236faaeb5de1734210142ba4d9d0ceac9627f745b9160699e063a9335eff45"
+    },
+    {
       "path": "experiments/evaluate_ai_candidate_distance.py",
       "bytes": 7108,
       "sha256": "ff8438fb99f99c3376fe1292181be97d269a0484c9318bcedf0c6c6674c7bb7f"
+    },
+    {
+      "path": "experiments/evaluate_ai_corpus_distance.py",
+      "bytes": 10137,
+      "sha256": "c00378ae0b3d400623b1eea7191ed8409cabc34d0548e81d84567d18c0b987a8"
     },
     {
       "path": "experiments/evaluate_discovery_v2.py",
@@ -1834,6 +1954,16 @@
       "sha256": "310ea92483e17ee980f6cc6e6ebafd97b19261d8f2927fc18e27fd4ca724f78f"
     },
     {
+      "path": "experiments/test_ai_corpus_candidate.py",
+      "bytes": 7553,
+      "sha256": "5bdb6921492b0adb5d0013bc3acea041ff84a81c8c32932c3881fef45aa1d1ec"
+    },
+    {
+      "path": "experiments/test_ai_corpus_distance.py",
+      "bytes": 2072,
+      "sha256": "5c6698e69e95185faeb3266ddbe25cda2362bc4b4e6f171e159080400d1894ef"
+    },
+    {
       "path": "experiments/test_ai_review_candidate.py",
       "bytes": 10727,
       "sha256": "42cde96cd16a498a5697fe23ba276f1d3fb309321facb88244bbc9a4e36421ab"
@@ -1882,6 +2012,11 @@
       "path": "experiments/test_vision_views.py",
       "bytes": 1876,
       "sha256": "7be04f56bdcd4ff2339caa7bbb4d57ec317677fd5a6ee8ca36513aa9c26e44cd"
+    },
+    {
+      "path": "experiments/train_ai_corpus_candidate.py",
+      "bytes": 22456,
+      "sha256": "bbea6e7b08e1358c52909a490eec2360482da0fc44bcd3f2a6936178e4396208"
     },
     {
       "path": "experiments/train_ai_review_candidate.py",

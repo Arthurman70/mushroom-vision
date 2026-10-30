@@ -3,6 +3,7 @@ import { randomBytes, createHash } from 'node:crypto';
 import { mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { COMMUNITY_GROUPS, normalizeTaxonCandidate } from './public/research-taxonomy.js';
+import { validConfounder } from './public/review-evidence.js';
 
 export class ReviewError extends Error {
   constructor(message, status = 400) { super(message); this.status = status; }
@@ -51,7 +52,22 @@ export function validateReview(input, frame, {historical=false,acceptedAt=new Da
     catch(error){throw new ReviewError(error.message);}
     return {bbox: [...b], group: box.group ?? 'unknown',...(taxonCandidate?{taxonCandidate}:{})};
   });
+  let negativeBoxes,aiAssessment;
+  if(input.negativeBoxes!==undefined){
+    if(!Array.isArray(input.negativeBoxes)||input.negativeBoxes.length>64)throw new ReviewError('Use at most 64 confusing-object boxes.');
+    negativeBoxes=input.negativeBoxes.map(item=>{
+      const b=item?.bbox;
+      if(!validConfounder(item?.kind)||!Array.isArray(b)||b.length!==4||!b.every(Number.isFinite)||b[0]<0||b[1]<0||b[2]>frame.width||b[3]>frame.height||b[2]<=b[0]||b[3]<=b[1])throw new ReviewError('Mark a supported non-mushroom object inside the image.');
+      return {kind:item.kind,bbox:[...b],explicitNonFungal:true,labelAuthority:'community-unverified',trainingApproved:false};
+    });
+  }
+  if(input.aiAssessment!==undefined){
+    const a=input.aiAssessment;
+    if(!input.aiAssisted||!a||!['agree','corrected','uncertain'].includes(a.decision)||typeof a.reviewId!=='string'||a.reviewId.length>180||!/^[-A-Za-z0-9_:]+$/.test(a.reviewId)||!Number.isSafeInteger(a.revision)||a.revision<1)throw new ReviewError('Choose a valid comparison with the displayed AI review.');
+    aiAssessment={decision:a.decision,reviewId:a.reviewId,revision:a.revision,labelAuthority:'community-unverified'};
+  }
   return {status:input.status, boxes, complete:input.complete, trainingConsent:permission.trainingConsent,
+    ...(negativeBoxes?{negativeBoxes}:{}),...(aiAssessment?{aiAssessment}:{}),
     aiAssisted:input.aiAssisted, labelAuthority:'community-unverified', trainingApproved:false,
     ...(permission.participationTerms?{participationTerms:permission.participationTerms}:{}),
     ...(permission.permissionWithdrawal?{permissionWithdrawal:permission.permissionWithdrawal}:{})};

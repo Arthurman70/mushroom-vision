@@ -17,11 +17,11 @@ def build(collection, output):
     if manifest.get("schema") != "mycoscout.community-collection.v1":
         raise ValueError("Expected the explicitly exported public collection")
     sources = manifest.get("sources", [])
-    if not sources or not 1 <= len(manifest.get("frames", [])) <= 2000:
+    if not sources or not 1 <= len(manifest.get("frames", [])) <= 10000:
         raise ValueError("Public sources and a bounded set of frames are required")
     for source in sources:
         license_text = str(source.get("license", ""))
-        if not re.search(r"CC[ -]?BY|CC0|public domain", license_text, re.I) or re.search(r"\bNC\b|\bND\b|research.only", license_text, re.I):
+        if not re.search(r"CC[ -]?BY|CC0|public domain|^CDLA-Permissive-1\.0$", license_text, re.I) or re.search(r"\bNC\b|\bND\b|research.only", license_text, re.I):
             raise ValueError(f"Unapproved publication license for {source.get('id')}")
         for field in ("sourceUrl", "licenseUrl", "attribution"):
             if not source.get(field):
@@ -60,8 +60,8 @@ def build(collection, output):
     for name in ("Dockerfile", "compose.yaml", "caddy-route.txt", "deploy-server.py"):
         add(HERE / name, name)
     total = sum(path.stat().st_size for path in entries.values())
-    if total > 512 * 1024 * 1024:
-        raise ValueError("Public release exceeds the 512 MiB bound")
+    if total > 4 * 1024 * 1024 * 1024:
+        raise ValueError("Public release exceeds the 4 GiB bound")
     # Snapshot changing JSON/code once, so a progressive AI update cannot create
     # an archive whose bytes disagree with its integrity manifest.
     snapshots = {name: path.read_bytes() for name, path in entries.items() if not name.startswith("collection/images/")}
@@ -72,7 +72,7 @@ def build(collection, output):
     encoded = json.dumps({"schema": "mycoscout.community-release.v1", "frames": len(manifest["frames"]), "files": integrity}, indent=2).encode()
     output = Path(output).resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
-    with tarfile.open(output, "x:gz") as archive:
+    with tarfile.open(output, "x:gz",compresslevel=1) as archive:
         for name, path in sorted(entries.items()):
             if name in snapshots:
                 info = tarfile.TarInfo(name)
@@ -85,7 +85,8 @@ def build(collection, output):
         info.size = len(encoded)
         info.mode = 0o644
         archive.addfile(info, io.BytesIO(encoded))
-    return {"bundle": str(output), "sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "files": len(entries), "frames": len(manifest["frames"]), "uncompressedBytes": total, "archiveBytes": output.stat().st_size}
+    with output.open('rb') as stream: archive_hash=hashlib.file_digest(stream,'sha256').hexdigest()
+    return {"bundle": str(output), "sha256": archive_hash, "files": len(entries), "frames": len(manifest["frames"]), "uncompressedBytes": total, "archiveBytes": output.stat().st_size}
 
 
 if __name__ == "__main__":
