@@ -73,7 +73,7 @@ python -m experiments.device_compute_benchmark --output experiments/results/devi
 node experiments/device_compute_simulation.mjs experiments/results/device-compute-local.json experiments/results/device-compute-scenarios.json
 ```
 
-The checked-in run is in `experiments/results/device-compute-v1/`. The measured PC has an AMD Ryzen 7 5700X3D, 16 logical processors and 32 GiB RAM. The installed PyTorch runtime is CPU-only; this does not establish whether a physical GPU is present or how it would perform with another runtime. Detector execution uses four CPU threads. Model loading, first-inference warmup, JPEG decoding and warm detector inference are reported separately.
+The local benchmark reports are in `experiments/results/device-compute-v1/`; generated reports are excluded from the public source package. The measurements below summarize that run. The measured PC has an AMD Ryzen 7 5700X3D, 16 logical processors and 32 GiB RAM. The installed PyTorch runtime is CPU-only; this does not establish whether a physical GPU is present or how it would perform with another runtime. Detector execution uses four CPU threads. Model loading, first-inference warmup, JPEG decoding and warm detector inference are reported separately.
 
 Simulation is deterministic and uses the measured PC processing time plus explicit hypothetical bandwidth, latency, jitter, whole-transfer failures and deadlines. It models one worker and serialized image uploads, with no retransmission, encoding overhead, contention, power draw or thermal throttling. It is a scheduling experiment, not a phone/Quest/Pi benchmark and not a mushroom accuracy or distance test. No other physical device, radio or drone was tested.
 

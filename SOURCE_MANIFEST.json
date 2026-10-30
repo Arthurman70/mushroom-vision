@@ -1,7 +1,7 @@
 {
   "schema": "mushroom-vision.source-release.v1",
   "files": 362,
-  "bytes": 6148968,
+  "bytes": 6149084,
   "findings": [],
   "sourceSelectionVerified": true,
   "photosIncluded": false,
@@ -930,8 +930,8 @@
     },
     {
       "path": "docs/DEVICE_COMPUTE.md",
-      "bytes": 8742,
-      "sha256": "a8485e3efd42fe38ab002dd965bdd8f7ee7b01d7f752600ec870791b866e1307"
+      "bytes": 8858,
+      "sha256": "15bbca07b9a6280d1ab31e2ceeb093b80129bf963d0f558068850152855f0805"
     },
     {
       "path": "docs/ENGINEERING_PLAN.md",
