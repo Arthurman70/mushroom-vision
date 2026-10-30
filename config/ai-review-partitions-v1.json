@@ -1,0 +1,12 @@
+{
+  "schema": "mycoscout.ai-review-partitions.v1",
+  "notice": "Fixed source groups for an inactive AI-only experiment. Existing human holdouts always take precedence.",
+  "sourceGroups": {
+    "youtube:1Z9FgVpYris": "train",
+    "youtube:ng7VOJHum7U": "train",
+    "youtube:OhN1BQgK2L8": "train",
+    "youtube:go_1s6wVScI": "validation",
+    "youtube:creator:JoshuaMcConkeyFishing": "test",
+    "archive:Freestonew-theHugeMushroom948": "test"
+  }
+}

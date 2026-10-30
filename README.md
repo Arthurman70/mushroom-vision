@@ -25,6 +25,20 @@ separate licenses and are installed separately; see [vision setup](docs/VISION_R
 See [shared devices](docs/DEVICE_COMPUTE.md), [data sources](docs/DATA_SOURCES.md),
 and the [research vocabulary](config/research-taxa-v1.json).
 
+Open `/ai-review.html` for the separate **AI review desk** and `/tracking-lab.html`
+for **video tracking**. The desk preserves original-pixel boxes, evidence,
+uncertainty and AI provenance without converting them into human confirmations.
+An actual 21-frame visual pass and a six-frame, one-epoch inactive experiment
+are described in [AI review run](docs/AI_REVIEW_RUN_V1.md). No validation accuracy
+is claimed for that small experiment.
+
+The tracking page supports a licensed recording with precomputed detections,
+local videos with new sampled inference, and an explicitly requested live camera.
+Tracks show observation age, prediction and loss; closer-photo proposals have no
+actuator authority or invented GPS. See [tracking setup](docs/TRACKING_LAB.md).
+The [distance retest](docs/VIDEO_DISTANCE_RETEST.md) reports fixed pixel-size
+tests separately from any real-world range claim.
+
 The new research vocabulary accepts 108 taxon labels, including 78 species and
 30 genera, without changing Michigan certification scope. Accepting a label is
 not evidence that the model can recognize it. Species candidates keep their

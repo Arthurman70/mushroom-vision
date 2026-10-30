@@ -1,6 +1,6 @@
 {
   "name": "mushroom-vision",
-  "version": "0.9.0-alpha.1",
+  "version": "0.9.0-alpha.2",
   "private": true,
   "type": "module",
   "description": "Unfinished open-source mushroom vision, human review, shared-device analysis and mission simulation. Physical flight disabled.",

@@ -1,7 +1,7 @@
 import { open } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-const FILE='experiments/results/video-distance-v1/report.json';
+const FILES=['experiments/results/video-distance-v2/report.json','experiments/results/video-distance-v1/report.json'];
 const MAX_BYTES=4*1024*1024;
 const count=value=>Number.isSafeInteger(value)&&value>=0;
 const fraction=value=>Number.isFinite(value)&&value>=0&&value<=1;
@@ -18,12 +18,12 @@ function realizedWidths(row){
 }
 const empty=availability=>({schema:'mycoscout.video-distance-summary.v1',availability,status:'unavailable',generatedAt:null,
   readOnly:true,actualDistanceMeasured:false,automaticTraining:false,automaticActivation:false,sample:null,progress:null,rows:[],
-  nativeBaseline:null,nativeSmallPositiveOnly:null,methodNote:'No comparable measurements are available.',limitations:[]});
+  nativeBaseline:null,nativeSmallPositiveOnly:null,classificationRows:[],cropContextRows:[],aiCandidateDistance:null,runVersion:null,methodNote:'No comparable measurements are available.',limitations:[]});
 
-async function saved(root){
+async function saved(root,file){
   let handle;
   try{
-    handle=await open(resolve(root,FILE),'r');const info=await handle.stat();
+    handle=await open(resolve(root,file),'r');const info=await handle.stat();
     if(!info.isFile()||info.size>MAX_BYTES)return {availability:'invalid'};
     const bytes=Buffer.alloc(MAX_BYTES+1);let length=0;
     while(length<bytes.length){const {bytesRead}=await handle.read(bytes,length,bytes.length-length,null);if(!bytesRead)break;length+=bytesRead;}
@@ -31,6 +31,72 @@ async function saved(root){
     return {availability:'available',data:JSON.parse(bytes.subarray(0,length).toString('utf8'))};
   }catch(error){return {availability:error.code==='ENOENT'?'missing':'invalid'};}
   finally{await handle?.close();}
+}
+
+function classificationRows(data,detectorRows,sample){
+  if(!Array.isArray(data)||data.length>32)return [];
+  const result=[],seen=new Set();
+  for(const row of data){
+    const condition=detectorRows.find(value=>(value.native?'native':`${value.targetPixels}`)===String(row?.id).replace(/px$/,'').replace('p','.'));
+    if(!condition||seen.has(condition.id)||row.referenceAuthority!=='assistant'||row.referenceClass!=='true_morels'||row.humanSpeciesGroundTruth!==false||
+      !count(row.targets)||row.targets>sample.targets||!count(row.productionEligible)||row.productionEligible>row.targets)continue;
+    const clean={id:condition.id,label:condition.label,targets:row.targets,productionEligible:row.productionEligible,
+      referenceAuthority:'assistant',humanSpeciesGroundTruth:false};
+    let valid=true;
+    for(const name of ['baseline','expanded']){
+      const value=row[name],keys=['top1Agreement','top3Agreement','retained','retainedAgreement','abstained'];
+      if(!value||keys.some(key=>!count(value[key])||value[key]>row.targets)||value.top1Agreement>value.top3Agreement||
+        value.retainedAgreement>value.retained||value.retainedAgreement>value.top1Agreement||value.retained+value.abstained!==row.targets){valid=false;break;}
+      clean[name]=Object.fromEntries(keys.map(key=>[key,value[key]]));
+    }
+    if(valid){result.push(clean);seen.add(condition.id);}
+  }
+  return result;
+}
+
+function cropContextRows(data,detectorRows,sample){
+  if(data?.schema!=='mycoscout.crop-context-report.v1'||data.status!=='completed'||data.protocol?.referenceAuthority!=='assistant'||
+    data.protocol?.referenceClass!=='true_morels'||data.protocol?.humanSpeciesGroundTruth!==false||data.protocol?.knownTargetLocation!==true||
+    data.protocol?.localizationEvaluated!==false||data.protocol?.modelActivation!==false||!Array.isArray(data.rows)||data.rows.length>32)return [];
+  const result=[],seen=new Set();
+  for(const row of data.rows){
+    const condition=detectorRows.find(value=>(value.native?'native':`${value.targetPixels}`)===String(row?.condition).replace(/px$/,'').replace('p','.'));
+    if(!condition||seen.has(condition.id)||!count(row.targets)||row.targets>sample.targets||!count(row.productionEligible)||row.productionEligible>row.targets)continue;
+    const clean={id:condition.id,label:condition.label,targets:row.targets,productionEligible:row.productionEligible,policies:{}};
+    let valid=true;
+    for(const policy of ['tight','fitted','context']){
+      clean.policies[policy]={};
+      for(const name of ['baseline','expanded']){
+        const value=row.policies?.[policy]?.[name],keys=['top1Agreement','retained','retainedAgreement'];
+        if(!value||keys.some(key=>!count(value[key])||value[key]>row.targets)||value.retainedAgreement>value.retained||value.retainedAgreement>value.top1Agreement){valid=false;break;}
+        clean.policies[policy][name]=Object.fromEntries(keys.map(key=>[key,value[key]]));
+      }
+      if(!valid)break;
+    }
+    if(valid){result.push(clean);seen.add(condition.id);}
+  }
+  return result;
+}
+
+function candidateDistance(data,detectorRows,sample){
+  const protocol=data?.protocol;
+  if(data?.schema!=='mushroom-vision.ai-candidate-distance-report.v1'||data.status!=='completed'||data.modelActivation!==false||data.productionModelChanged!==false||
+    protocol?.trainingLabelAuthority!=='ai-visual-review'||protocol.evaluationBoxAuthority!=='human'||protocol.activationEligible!==false||
+    protocol.thresholdSelectionOnTest!==false||protocol.additionalTraining!==false||protocol.epochs!==1||protocol.scoreThreshold!==.3||protocol.iouThreshold!==.5||
+    protocol.model!=='fasterrcnn_mobilenet_v3_large_320_fpn'||['trainingFrames','trainingSourceGroups','trainingBoxes'].some(key=>!count(protocol[key])||protocol[key]>10000)||
+    protocol.trainingSourceGroups>protocol.trainingFrames||!Array.isArray(data.rows)||data.rows.length>32)return null;
+  const result={trainingFrames:protocol.trainingFrames,trainingSourceGroups:protocol.trainingSourceGroups,trainingBoxes:protocol.trainingBoxes,
+    scoreThreshold:.3,iouThreshold:.5,activationEligible:false,trainingLabelAuthority:'ai-visual-review',evaluationBoxAuthority:'human',rows:[]};
+  const seen=new Set();
+  for(const row of data.rows){
+    const condition=detectorRows.find(value=>(value.native?'native':`${value.targetPixels}`)===String(row?.condition).replace(/px$/,'').replace('p','.'));
+    if(!condition||seen.has(condition.id)||['frames','targets','matched','unmatchedDetections','negativeFrames','negativeFalsePositives'].some(key=>!count(row[key]))||
+      row.frames>sample.positiveFrames||row.targets>sample.targets||row.matched>row.targets||!row.frames&&(row.targets||row.unmatchedDetections)||
+      row.negativeFrames>sample.negativeFrames||!row.negativeFrames&&row.negativeFalsePositives)continue;
+    result.rows.push({id:condition.id,label:condition.label,...Object.fromEntries(['frames','targets','matched','unmatchedDetections','negativeFrames','negativeFalsePositives'].map(key=>[key,row[key]]))});
+    seen.add(condition.id);
+  }
+  return result.rows.length?result:null;
 }
 
 function metric(value,sample){
@@ -60,7 +126,9 @@ function nativeEvidence(value,positiveOnly){
 // Only bounded aggregate evidence is exposed. Source paths, frame records,
 // contributor identities and image bytes remain in the local experiment.
 export async function readVideoDistanceReport(root){
-  const artifact=await saved(root);if(artifact.availability!=='available')return empty(artifact.availability);
+  let artifact;
+  for(const file of FILES){artifact=await saved(root,file);if(artifact.availability!=='missing')break;}
+  if(artifact.availability!=='available')return empty(artifact.availability);
   const data=artifact.data,sample=data?.sample,progress=data?.progress,protocol=data?.protocol;
   if(data?.schema!=='mycoscout.video-distance-report.v1'||!['running','completed','completed_with_errors'].includes(data.status)||
     !sample||['positiveFrames','negativeFrames','targets','sourceVideos','sourceGroups'].some(key=>!count(sample[key]))||
@@ -94,12 +162,18 @@ export async function readVideoDistanceReport(root){
   if(sample.labelAuthority==='assistant')limitations.unshift('Assistant visual labels are provisional and await a human check. These are agreement measurements against those labels.');
   if(Array.isArray(data.limitations))for(const note of data.limitations.slice(0,12))if(typeof note==='string'&&note.trim())limitations.push(note.slice(0,1000));
   if(invalidConditions)limitations.push(`${invalidConditions} condition(s) were omitted because their metrics or comparison denominators were invalid.`);
+  const cropContext=await saved(root,'experiments/results/video-distance-context-v1/report.json');
+  const candidate=await saved(root,'experiments/results/ai-candidate-distance-v1/report.json');
   return {schema:'mycoscout.video-distance-summary.v1',availability:'available',status:data.status,
     generatedAt:typeof data.generatedAt==='string'&&Number.isFinite(Date.parse(data.generatedAt))?data.generatedAt:null,
+    runVersion:data.runVersion==='video-distance-v2'?'video-distance-v2':'video-distance-v1',
     readOnly:true,actualDistanceMeasured:false,automaticTraining:false,automaticActivation:false,
     sample:Object.fromEntries(['positiveFrames','negativeFrames','targets','sourceVideos','sourceGroups','labelAuthority'].map(key=>[key,sample[key]])),
     progress:{completed:progress.completed,total:progress.total,unit:['method-results','model-forwards'].includes(progress.unit)?progress.unit:'steps'},rows,limitations,
     nativeBaseline:nativeEvidence(data.nativeBaseline,false),nativeSmallPositiveOnly:nativeEvidence(data.nativeSmallPositiveOnly,true),
+    classificationRows:classificationRows(data.classificationRows,rows,sample),
+    cropContextRows:cropContext.availability==='available'?cropContextRows(cropContext.data,rows,sample):[],
+    aiCandidateDistance:candidate.availability==='available'?candidateDistance(candidate.data,rows,sample):null,
     methodNote:`Fixed detector score threshold ${protocol.scoreThreshold}; box-overlap threshold ${protocol.iouThreshold}; tiled view ${protocol.tileGrid} × ${protocol.tileGrid}. Missing method results remain unavailable.`,
     negativeNote:'Negative controls are labeled video frames with no visible mushrooms. False detections are separate from unmatched boxes on positive frames; zero is shown only for a completed measured result.',
   };

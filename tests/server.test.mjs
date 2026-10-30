@@ -16,6 +16,7 @@ async function fixture(t,options={}) {
   t.after(async()=>{
     app.server.closeAllConnections();
     await new Promise((resolveClose,reject)=>app.server.close(error=>error?reject(error):resolveClose()));
+    await app.closed;
     assert.ok(resolve(dir).startsWith(resolve(prefix)));
     assert.ok(resolve(dir).startsWith(resolve(tmpdir())+sep));
     await rm(dir,{recursive:true,force:true});
@@ -44,6 +45,11 @@ test('paired compute helpers cannot acquire station-owner permissions',async t=>
   assert.equal((await request('/api/device-compute/worker',announce,workerHeaders)).status,200);
   assert.equal((await request('/api/device-compute/status',undefined,workerHeaders)).status,401);
   assert.equal((await request('/api/learning/status',undefined,workerHeaders)).status,401);
+  assert.equal((await request('/api/ai-review/status',undefined,workerHeaders)).status,401);
+  assert.equal((await request('/api/ai-review/runs',{title:'Unauthorized'},workerHeaders)).status,401);
+  assert.equal((await request('/api/tracking-demo',undefined,workerHeaders)).status,401);
+  assert.equal((await request('/api/tracking-demo/video',undefined,workerHeaders)).status,401);
+  assert.equal((await request('/api/tracking-demo/detect',{},workerHeaders)).status,401);
   assert.equal((await request('/api/device-compute/pair',{name:'Unauthorized',profileId:'other-browser'},workerHeaders)).status,401);
   assert.equal((await request('/api/device-compute/worker',announce,{...workerHeaders,Origin:'https://untrusted.example'})).status,403);
   assert.equal((await request('/api/device-compute/revoke',{deviceId:paired.data.deviceId},ownerHeaders)).status,200);
@@ -51,6 +57,11 @@ test('paired compute helpers cannot acquire station-owner permissions',async t=>
   const research=await request('/api/research-catalog',undefined,ownerHeaders);
   assert.equal(research.status,200);
   assert.ok(research.data.taxa.length>=60);
+  const aiStatus=await request('/api/ai-review/status',undefined,ownerHeaders);
+  assert.equal(aiStatus.status,200);assert.equal(aiStatus.data.humanVerified,false);
+  assert.equal((await request('/api/ai-review/runs',{reviewerKind:'human'},ownerHeaders)).status,400);
+  assert.equal((await request('/api/tracking-demo',undefined,ownerHeaders)).status,200);
+  assert.equal((await request('/api/tracking-demo/detect',{},ownerHeaders)).status,400);
 });
 
 test('API lifecycle persists real inputs, clears demo, and enforces reviewed walking ground',async t=>{

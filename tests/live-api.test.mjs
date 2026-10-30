@@ -13,7 +13,7 @@ const packet=()=>({schema:'mycoscout.live-frame.v1',sessionId:'test-recording',f
 async function fixture(t,token=''){
  const dir=await mkdtemp(join(tmpdir(),'mycoscout-live-api-')),app=await createApp({host:'127.0.0.1',token,stateFile:join(dir,'state.json')});const address=await app.listen(0),base=`http://127.0.0.1:${address.port}`;
  const req=async(path,body,authorized=true)=>{const response=await fetch(base+path,{method:body===undefined?'GET':'POST',headers:{...(body===undefined?{}:{'Content-Type':'application/json'}),...(token&&authorized?{Authorization:'Bearer '+token}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});return {status:response.status,data:await response.json()};};
- t.after(async()=>{app.server.closeAllConnections();await new Promise(done=>app.server.close(done));await app.live.close();await app.learning.stop();assert.ok(resolve(dir).startsWith(resolve(tmpdir())+sep));await rm(dir,{recursive:true,force:true});});return {app,base,req};
+ t.after(async()=>{app.server.closeAllConnections();await new Promise(done=>app.server.close(done));await app.closed;await app.live.close();await app.learning.stop();assert.ok(resolve(dir).startsWith(resolve(tmpdir())+sep));await rm(dir,{recursive:true,force:true});});return {app,base,req};
 }
 test('camera byte verification, persistent track review and task queue work across shared APIs',async t=>{
  const {req,base}=await fixture(t);assert.equal((await req('/api/live/session',{sessionId:'test-recording',mode:'replay'})).status,201);

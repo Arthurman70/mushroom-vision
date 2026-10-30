@@ -124,7 +124,7 @@ async function apiFixture(t){
     frames:[{id:'frame1',sourceId:source.id,path:'frames/frame1.png',sha256:createHash('sha256').update(png).digest('hex'),width:1,height:1,timestampSeconds:1,blurScore:0,blurMetric:'fixture'}]}));
   const token='video-grades-test-token-123456789',app=await createApp({host:'127.0.0.1',token,stateFile:join(directory,'state.json'),videoCollectionDir:videoDir,
     testbenchWorker:{stop(){},status:async()=>({available:false})}}),address=await app.listen(0),base='http://127.0.0.1:'+address.port;
-  t.after(async()=>{app.server.closeAllConnections();await new Promise(done=>app.server.close(done));await app.testbench.pending;await app.finds.pending;
+  t.after(async()=>{app.server.closeAllConnections();await new Promise(done=>app.server.close(done));await app.closed;await app.testbench.pending;await app.finds.pending;
     assert.ok(resolve(directory).startsWith(resolve(tmpdir())+sep));await rm(directory,{recursive:true,force:true});});
   const request=async(path,body,headers={Authorization:'Bearer '+token})=>{const response=await fetch(base+path,{method:body===undefined?'GET':'POST',headers:{...headers,...(body===undefined?{}:{'Content-Type':'application/json'})},body:body===undefined?undefined:JSON.stringify(body)});return {status:response.status,data:await response.json()};};
   return {request,token};

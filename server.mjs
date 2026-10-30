@@ -27,6 +27,8 @@ import { readVideoDistanceReport } from './core/video-distance-report.mjs';
 import { validateCaptureAck } from './flight/live-executor.mjs';
 import { DeviceComputeHub, handleDeviceCompute } from './core/device-compute.mjs';
 import { RESEARCH_CATALOG } from './community/public/research-taxonomy.js';
+import { AiReviewStore, readAiCandidateSummary } from './core/ai-review.mjs';
+import { readTrackingDemo, readTrackingDemoVideo, detectTrackingFrame } from './core/tracking-demo.mjs';
 
 const ROOT=dirname(fileURLToPath(import.meta.url));
 const LOOPBACK=new Set(['127.0.0.1','localhost','::1']);
@@ -98,6 +100,8 @@ export async function createApp(options={}) {
     collectionDir:options.videoCollectionDir,testbenchDb:resolve(testbench.directory,'testbench.sqlite'),learningDir}).initialize();
   const communityInboxDir=options.communityInboxDir??resolve(ROOT,'data/community-inbox-v1');
   const learning=await new TrainingPipeline(ROOT,learningDir,{testbench,videos,videoGrades,collectionId:videoCollectionId,communityInboxFile:resolve(communityInboxDir,'reviews.json')}).initialize();
+  const aiReview=await new AiReviewStore(options.aiReviewDir??resolve(dirname(stateFile),'ai-visual-review'),{videos,collectionId:videoCollectionId,
+    partitionsFile:resolve(ROOT,'config/ai-review-partitions-v1.json'),holdoutSnapshot:()=>learning.sourceSnapshot()}).initialize();
   const communityBridge=await new CommunityLearningBridge(ROOT,resolve(learningDir,'community-sync'),{...options.communityBridgeOptions,inboxDir:communityInboxDir}).initialize();
   const comparisons=await new CandidateComparisons(resolve(learningDir,'comparisons'),{learning,beforeWork:()=>communityBridge.beforeWork()}).initialize();
   learning.releaseCheck=job=>comparisons.releaseCheck(job);
@@ -153,6 +157,10 @@ export async function createApp(options={}) {
         }
         if(token && !tokenMatches(request.headers.authorization,'Bearer '+token)) throw new ApiError('A valid Bearer token is required.',401,'UNAUTHORIZED');
         if(await handleDeviceCompute({hub:deviceCompute,request,response,url,readBody:body,sendJson:json}))return;
+        if(request.method==='GET'&&url.pathname==='/api/ai-review/experiment')return json(response,200,await readAiCandidateSummary(ROOT));
+        if(request.method==='GET'&&url.pathname.startsWith('/api/ai-review/')) {
+          const result=await aiReview.dispatch(request.method,url.pathname);if(result)return json(response,result.status,result.data);
+        }
         if(request.method==='GET'&&url.pathname==='/api/research-catalog')return json(response,200,RESEARCH_CATALOG);
         if(request.method==='GET'&&url.pathname==='/api/vision/research-status') {
           const summary={available:false,modelVersion:null,supportedClasses:[],humanVerificationRequired:true,
@@ -173,11 +181,15 @@ export async function createApp(options={}) {
           const image=validateImage(input);
           return json(response,200,{prediction:await researchClassifier.classify(image),experimental:true,defaultModelChanged:false});
         }
-        if(request.method==='POST' && (['/api/finds','/api/vision/classify','/api/testbench/runs','/api/testbench/sample','/api/live/frames','/api/live/captures'].includes(url.pathname)||/^\/api\/testbench\/videos\/frames\/[A-Za-z0-9_-]{1,160}\/run$/.test(url.pathname))) {
+        if(request.method==='POST' && (['/api/finds','/api/vision/classify','/api/testbench/runs','/api/testbench/sample','/api/live/frames','/api/live/captures','/api/tracking-demo/detect'].includes(url.pathname)||/^\/api\/testbench\/videos\/frames\/[A-Za-z0-9_-]{1,160}\/run$/.test(url.pathname))) {
           if(activeImageRequests>=2) throw new ApiError('Image processing is busy. Retry shortly.',429,'IMAGE_REQUEST_BUSY');
           activeImageRequests++; imageRequest=true;
         }
-        if(request.method==='GET' && url.pathname==='/api/health') return json(response,200,{ok:true,application:'MycoScout',version:'0.9.0-alpha.1',actuation:false});
+        if(request.method==='GET' && url.pathname==='/api/health') return json(response,200,{ok:true,application:'MycoScout',version:'0.9.0-alpha.2',actuation:false});
+        if(request.method==='GET'&&url.pathname==='/api/tracking-demo')return json(response,200,await readTrackingDemo(ROOT));
+        if(request.method==='GET'&&url.pathname==='/api/tracking-demo/video') {
+          const video=await readTrackingDemoVideo(ROOT);response.writeHead(200,{'Content-Type':video.mimeType,'Cache-Control':'no-store','Content-Length':video.bytes.length});return response.end(video.bytes);
+        }
         if(request.method==='GET' && url.pathname==='/api/live/state')return json(response,200,live.snapshot());
         if(request.method==='GET' && url.pathname==='/api/learning/status'){const loop=learningLoop.snapshot();return json(response,200,{...await learning.status(),automaticTraining:loop.config.enabled&&!loop.paused,automaticState:loop.workerState});}
         if(request.method==='GET' && url.pathname==='/api/learning/loop')return json(response,200,{loop:learningLoop.snapshot(),community:communityBridge.snapshot(),comparisons:comparisons.status(),releaseRequest,suggestions:suggestionRefresh.snapshot(),activeModel:learning.active?{jobId:learning.active.jobId,activatedAt:learning.active.activatedAt}:null});
@@ -262,7 +274,11 @@ export async function createApp(options={}) {
           return json(response,200,store.snapshot(),{'Content-Disposition':'attachment; filename="mycoscout-survey.json"'});
         }
         if(request.method!=='POST') throw new ApiError('API route not found.',404,'NOT_FOUND');
-        const input=await body(request,['/api/finds','/api/vision/classify','/api/testbench/runs','/api/live/frames','/api/live/captures','/api/live/navigation'].includes(url.pathname)?MAX_IMAGE_BODY:MAX_BODY);
+        const input=await body(request,['/api/finds','/api/vision/classify','/api/testbench/runs','/api/live/frames','/api/live/captures','/api/live/navigation','/api/tracking-demo/detect'].includes(url.pathname)?MAX_IMAGE_BODY:MAX_BODY);
+        if(url.pathname==='/api/tracking-demo/detect')return json(response,200,await detectTrackingFrame(input,testbenchWorker));
+        if(url.pathname.startsWith('/api/ai-review/')) {
+          const result=await aiReview.dispatch(request.method,url.pathname,input);if(result)return json(response,result.status,result.data);
+        }
         if(url.pathname==='/api/live/session'){
           if(live.child)throw new ApiError('Stop the replay before changing sessions.',409,'REPLAY_ACTIVE');
           return json(response,201,mission.startSession(input));
@@ -423,8 +439,17 @@ export async function createApp(options={}) {
   });
   server.requestTimeout=15000; server.headersTimeout=10000;
   server.keepAliveTimeout=5000;
-  server.on('close',()=>{for(const timer of backgroundTimers)clearInterval(timer);classifier.stop?.();researchClassifier.stop?.();finds.pending.finally(()=>finds.close());testbench.stop().catch(error=>console.error('Testbench shutdown:',error.message));communityBridge.close().catch(backgroundError);suggestionRefresh.close().catch(backgroundError);learning.stop().then(()=>learningLoop.close()).finally(()=>videoGrades.close()).catch(backgroundError);live.close().finally(()=>mission.close());});
-  return {server,store,finds,classifier,testbench,testbenchWorker,videos,videoGrades,live,mission,learning,learningLoop,communityBridge,comparisons,suggestionRefresh,deviceCompute,host,listen:(port=8787)=>new Promise((resolveListen,reject)=>{
+  let resolveClosed;
+  const closed=new Promise(done=>{resolveClosed=done;});
+  server.on('close',()=>{
+    for(const timer of backgroundTimers)clearInterval(timer);
+    aiReview.close();classifier.stop?.();researchClassifier.stop?.();
+    Promise.allSettled([
+      finds.pending.finally(()=>finds.close()),testbench.stop(),communityBridge.close(),suggestionRefresh.close(),
+      learning.stop().then(()=>learningLoop.close()).finally(()=>videoGrades.close()),live.close().finally(()=>mission.close())
+    ]).then(results=>{for(const result of results)if(result.status==='rejected')backgroundError(result.reason);resolveClosed();});
+  });
+  return {server,closed,store,finds,classifier,testbench,testbenchWorker,videos,videoGrades,live,mission,learning,learningLoop,communityBridge,comparisons,suggestionRefresh,deviceCompute,aiReview,host,listen:(port=8787)=>new Promise((resolveListen,reject)=>{
     server.once('error',reject);
     server.listen(port,host,()=>{server.off('error',reject);startBackground();resolveListen(server.address());});
   })};

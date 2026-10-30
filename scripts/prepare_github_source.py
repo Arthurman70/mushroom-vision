@@ -26,7 +26,9 @@ COMMUNITY_TEMPLATES = {'deploy/community/compose.yaml', 'deploy/community/Docker
 SYNTHETIC_EXAMPLES = {'examples/live-session-synthetic.json',
                       'examples/live-session-navigation-synthetic.json'}
 PRIVATE_SCHEMAS = {'mycoscout.community-reviews.v1', 'mycoscout.community-inbox.v1',
-                   'mycoscout.community-deployment-result.v1', 'mycoscout.review-export.v1'}
+                   'mycoscout.community-deployment-result.v1', 'mycoscout.review-export.v1',
+                   'mycoscout.ai-visual-review.v1', 'mycoscout.ai-visual-review-run.v1',
+                   'mycoscout.ai-visual-review-export.v1'}
 SECRET_PATTERNS = {
     'private-key': re.compile(r'-----BEGIN (?:RSA |OPENSSH |EC |DSA )?PRIVATE KEY-----'),
     'github-token': re.compile(r'\bgh[pousr]_[A-Za-z0-9]{30,}\b'),
