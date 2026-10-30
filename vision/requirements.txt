@@ -1,0 +1,4 @@
+# Minimal dataset, evaluation, synthetic scale, and trainable verifier runtime.
+# Detector runtime is separately pinned in adapters/requirements-vision.txt.
+Pillow>=10.4,<13
+numpy>=1.26,<3

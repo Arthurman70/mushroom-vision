@@ -1,0 +1,11 @@
+# Optional CPU detector environment, Python 3.10, 3.11 or 3.12.
+# Confirmed local CPU inference on Python 3.12; see docs/VISION_RUNTIME.md.
+# Torch/torchvision pairing follows the official PyTorch 2.6 release installation matrix.
+torch==2.6.0
+torchvision==0.21.0
+transformers==4.51.3
+Pillow==11.2.1
+numpy==1.26.4
+safetensors==0.5.3
+
+

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173e32">
+  <meta name="description" content="Join Great Lakes Gleaner's Mushroom Vision project: review woodland video frames and help build human-approved training data for mushroom detection.">
+  <title>Mushroom Vision · Great Lakes Gleaner</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#review-workspace">Skip to image review</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="brand" href="/" aria-label="Great Lakes Gleaner home">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 31c7-9 24-9 32 0M12 36c7-6 17-6 24 0M17 41c4-3 10-3 14 0"/><path d="M24 7v17M16 11l8 6 8-6M16 18l8 6 8-6"/></svg>
+        <span><span class="brand-small">THE GREAT LAKES</span><span class="brand-name">Gleaner</span></span>
+      </a>
+      <div class="masthead-note"><span class="live-dot"></span> Community fieldwork</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy"><p class="eyebrow">MUSHROOM VISION / COMMUNITY FIELDWORK</p><h1 id="page-title">A good eye makes<br> all the difference.</h1><p class="intro-text">Spot a mushroom. Mark what you can see. Help us understand what a camera can find on the forest floor—even when it’s small, distant, or blurry.</p></div>
+      <aside class="purpose-card"><span class="purpose-number">01 → 02 → 03</span><h2>Look. Mark. Help it learn.</h2><p>Your labels await curator approval before they can help improve mushroom vision. A guess is welcome; “not sure” is useful, too. Optional research names now include morel lookalikes, gilled fungi, jelly fungi, corals and more.</p><p class="purpose-note">This is image research, not verification of a species or whether a mushroom is edible.</p></aside>
+    </section>
+
+    <section class="collection-bar" aria-label="Collection progress">
+      <div class="collection-label"><span class="leaf-icon" aria-hidden="true">↗</span><span><strong>A shared view of the woods</strong><small>Real footage. Careful human observations.</small></span></div>
+      <div class="collection-counts"><div><strong id="frame-count">—</strong><span>frames</span></div><div><strong id="video-count">—</strong><span>videos</span></div><div><strong id="review-count">—</strong><span>reviews</span></div></div>
+    </section>
+
+    <p id="ai-run-status" class="ai-run-status" role="status">AI suggestions are being prepared. Human observations remain separate.</p>
+    <section class="learning-panel" aria-labelledby="learning-title"><div class="learning-heading"><div><p class="eyebrow">FROM OBSERVATIONS TO EVIDENCE</p><h2 id="learning-title">How the vision is learning</h2></div><span id="learning-worker" class="learning-worker" role="status">Checking progress…</span></div><div class="learning-counts"><p><strong id="learning-approved">—</strong><span>approved frames</span></p><p><strong id="learning-new">—</strong><span>new approved frames</span></p><p><strong id="learning-sessions">—</strong><span>new source sessions</span></p></div><p id="learning-thresholds" class="learning-detail">Only reviewed, eligible labels can enter training.</p><p id="learning-candidate" class="learning-detail">No candidate result has been reported.</p><p id="learning-updated" class="learning-detail">Waiting for the training computer’s report. New candidates are never activated automatically.</p></section>
+    <div id="page-error" class="notice error" role="alert" hidden><p id="page-error-text"></p><button id="page-retry" type="button">Try again</button></div>
+    <div id="page-status" class="sr-only" role="status" aria-live="polite"></div>
+
+    <section id="review-workspace" class="workspace" aria-label="Review a mushroom frame" tabindex="-1" aria-busy="true">
+      <div class="work-heading"><div><p class="eyebrow">YOUR FIELD NOTES</p><h2>What do you see?</h2></div><div id="frame-progress" class="frame-progress">Loading the collection…</div></div>
+      <div class="workspace-grid">
+        <div class="visual-column">
+          <section class="image-card" aria-label="Original image and drawing tools">
+            <div class="image-heading"><div class="source-heading"><span class="source-tag">VIDEO FRAME</span><h3 id="source-title">Loading footage…</h3></div><span id="frame-time" class="time-code">—:—</span></div>
+            <div class="image-toolbar" role="toolbar" aria-label="Image tools">
+              <div class="tool-group"><button id="draw-tool" class="tool active" type="button" aria-pressed="true" disabled><span aria-hidden="true">▧</span> Draw box</button><button id="pan-tool" class="tool" type="button" aria-pressed="false" disabled><span aria-hidden="true">✥</span> Pan</button></div>
+              <div class="tool-group zoom-tools"><button id="fit-image" class="tool" type="button" disabled>Fit</button><button id="original-image" class="tool" type="button" disabled>Original</button><button id="zoom-out" class="icon-button" type="button" aria-label="Zoom out" disabled>−</button><output id="zoom-label" aria-label="Image zoom">—</output><button id="zoom-in" class="icon-button" type="button" aria-label="Zoom in" disabled>+</button></div>
+            </div>
+            <div id="image-viewport" class="image-viewport" tabindex="0" role="region" aria-label="Image workspace. Choose visibility, then drag to draw a box. Arrow keys move a selected box; Shift moves ten pixels; Delete removes it." aria-describedby="drawing-help">
+              <div id="image-stage" class="image-stage" hidden><img id="frame-image" alt="Video frame awaiting human mushroom review" draggable="false"><svg id="box-overlay" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div>
+              <div id="image-message" class="image-message"><span class="loading-ring" aria-hidden="true"></span><strong id="image-message-text">Opening the field collection…</strong><button id="image-retry" type="button" hidden>Reload image</button></div>
+            </div>
+            <div class="image-caption"><p id="drawing-help">Choose what you see before drawing. Drag around each mushroom; use Pan to move a zoomed image.</p><span id="native-size">Original pixels</span></div>
+          </section>
+
+          <section class="timeline-card" aria-label="Frames from the same video">
+            <div class="timeline-heading"><label for="source-filter">Explore a video</label><select id="source-filter" disabled><option value="">All videos</option></select></div>
+            <p class="timeline-help">Nearby frames can reveal what was hiding in an earlier shot. Each frame keeps its own review.</p>
+            <button id="next-priority" class="secondary-button priority-button" type="button" disabled>Find a frame needing another look</button>
+            <div id="source-timeline" class="source-timeline" aria-label="Choose another frame from this video"></div>
+            <div class="attribution"><p id="source-attribution"></p><div id="source-links"></div></div>
+          </section>
+
+          <details class="help-card"><summary>A few tips from the forest floor</summary><ul><li>Look at the original image before viewing AI suggestions. Small changes in color or texture can matter.</li><li>Draw a tight box around each visible mushroom, even if you don’t know its group. Use separate boxes where you can distinguish individuals.</li><li>Only label what this frame shows. A mushroom in a later frame does not automatically make it visible here.</li><li>“Not sure” is valuable for blur, shadows, and tiny shapes. It records uncertainty without claiming that a particular patch is a mushroom.</li><li>Use the coordinate fields to adjust a box without dragging. Arrow keys move a selected box; hold Shift for ten pixels.</li></ul></details>
+        </div>
+
+        <form id="review-form" class="review-panel" novalidate>
+          <div class="panel-top"><span class="step-label">STEP 1</span><span id="review-state" class="review-state">Your observation</span></div>
+          <fieldset id="visibility-fieldset" disabled><legend>Are mushrooms visible?</legend><p class="field-help">Make your own first impression.</p><div class="visibility-options">
+            <label class="visibility-choice"><input type="radio" name="visibility" value="visible"><span class="choice-icon" aria-hidden="true">✓</span><span><strong>Yes, I can see them</strong><small>I’ll mark where they are.</small></span></label>
+            <label class="visibility-choice"><input type="radio" name="visibility" value="absent"><span class="choice-icon" aria-hidden="true">○</span><span><strong>No mushrooms visible</strong><small>I checked the whole image.</small></span></label>
+            <label class="visibility-choice"><input type="radio" name="visibility" value="uncertain"><span class="choice-icon" aria-hidden="true">?</span><span><strong>I’m not sure</strong><small>The details aren’t clear enough.</small></span></label>
+          </div></fieldset>
+
+          <section class="box-section" aria-labelledby="box-title"><div class="section-heading"><div><span class="step-label">STEP 2</span><h3 id="box-title">Mark the mushrooms <span id="box-count" class="count-pill">0</span></h3></div><button id="add-box" class="text-button" type="button" disabled>+ Add box</button></div><p id="box-help" class="field-help">Choose “Yes” to draw. You can leave the group unknown.</p><div id="box-list" class="box-list"></div><p id="boxes-empty" class="empty-note">Your boxes will appear here.</p></section>
+
+          <section class="ai-section" aria-labelledby="ai-title"><div class="section-heading"><h3 id="ai-title">A second pair of eyes</h3><span class="optional-tag">OPTIONAL</span></div><p class="field-help">After your first impression, compare with AI. Suggestions may miss mushrooms or mistake leaves and shadows for them.</p><button id="show-ai" class="secondary-button" type="button" disabled>Show AI suggestions</button><div id="ai-results" hidden><p id="ai-summary" class="field-help"></p><div id="ai-list"></div><button id="refresh-ai" class="text-button" type="button">Refresh suggestions</button></div><p id="ai-assisted" class="ai-assisted" hidden>This review is AI-assisted because you viewed suggestions. Accepted boxes are editable drafts; you still decide what to submit.</p></section>
+
+          <fieldset id="submission-options" class="submission-options" disabled><legend class="sr-only">Review completeness</legend><label class="checkbox-label"><input id="review-complete" type="checkbox"><span>I checked the whole frame and marked everything I can see.</span></label></fieldset>
+          <div id="review-error" class="review-error" role="alert" hidden><p id="review-error-text"></p><button id="review-retry" class="text-button" type="button" hidden>Try again</button></div>
+          <div id="save-status" class="save-status" role="status" aria-live="polite">Nothing submitted yet.</div>
+          <section class="participation-terms" aria-labelledby="terms-title"><h3 id="terms-title">Participation terms</h3><p id="participation-notice">By submitting this review, you permit Great Lakes Gleaner and MycoScout to use your annotations to train, evaluate and improve mushroom-vision software, including commercial software. This permission covers your annotations only; source images keep their existing licenses. You can withdraw permission for future use of this review from this browser session. Withdrawal cannot undo completed training.</p><p id="permission-state" class="permission-state"></p></section>
+          <button id="save-next" class="primary-button" type="submit" disabled aria-describedby="participation-notice">Submit review & next <span aria-hidden="true">→</span></button>
+          <button id="save-stay" class="save-stay" type="button" disabled aria-describedby="participation-notice">Submit and stay on this frame</button>
+          <button id="withdraw-permission" class="withdraw-permission" type="button" hidden disabled>Withdraw training permission for this saved review</button>
+          <div class="frame-navigation"><button id="previous-frame" type="button" disabled>← Previous</button><button id="next-frame" type="button" disabled>Next frame →</button></div>
+          <p class="submission-note">Your own review is saved to this browser’s session. Community labels await curator review. No label here verifies edibility.</p>
+        </form>
+      </div>
+    </section>
+    <footer class="page-footer"><strong>Great Lakes Gleaner</strong><p>Local eyes. Shared knowledge. A closer look at the natural world.</p><a href="https://github.com/Arthurman70/mushroom-vision" target="_blank" rel="noopener">Source code · unfinished research preview</a></footer>
+  </main>
+</body>
+</html>

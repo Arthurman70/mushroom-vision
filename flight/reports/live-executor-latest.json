@@ -1,0 +1,164 @@
+{
+  "schema": "mycoscout.live-executor-report.v1",
+  "createdAt": "2026-10-29T02:37:57.230Z",
+  "simulationOnly": true,
+  "realFlightTested": false,
+  "actuationEnabled": false,
+  "clearRoute": {
+    "actions": [
+      {
+        "type": "move_proposal",
+        "taskId": "4439ce8e-c71f-40c2-a2e7-ac4cc90940ab",
+        "waypointsEnuM": [
+          [
+            -4,
+            0,
+            1.5
+          ],
+          [
+            -0.32287565553229536,
+            0,
+            1.5
+          ]
+        ],
+        "simulationOnly": true,
+        "actuationEnabled": false,
+        "generatedAtMs": 1800000000000
+      },
+      {
+        "type": "aim_proposal",
+        "taskId": "4439ce8e-c71f-40c2-a2e7-ac4cc90940ab",
+        "aim": {
+          "yawRad": 0,
+          "pitchRad": -0.848062078981481,
+          "rangeM": 2
+        },
+        "actuationEnabled": false,
+        "generatedAtMs": 1800000000000
+      },
+      {
+        "type": "settle",
+        "taskId": "4439ce8e-c71f-40c2-a2e7-ac4cc90940ab",
+        "remainingMs": 800,
+        "actuationEnabled": false,
+        "generatedAtMs": 1800000000000
+      },
+      {
+        "type": "capture_request",
+        "requestId": "capture-4439ce8e-c71f-40c2-a2e7-ac4cc90940ab-104000",
+        "taskId": "4439ce8e-c71f-40c2-a2e7-ac4cc90940ab",
+        "sessionId": "demo-ca389a10-9974-40d2-9e20-819e862b9777",
+        "landmarkId": "sim-mushroom-1",
+        "mapRevision": "simulation-map-1",
+        "requestedMs": 104000,
+        "positionEnuM": [
+          -0.32287565553229536,
+          0,
+          1.5
+        ],
+        "aim": {
+          "yawRad": 0,
+          "pitchRad": -0.848062078981481,
+          "rangeM": 2
+        },
+        "nativeUncropped": true,
+        "targetFillFraction": 0.7,
+        "actuationEnabled": false,
+        "generatedAtMs": 1800000000000
+      },
+      {
+        "type": "completed",
+        "taskId": "4439ce8e-c71f-40c2-a2e7-ac4cc90940ab",
+        "result": "photo_ready_for_human_review",
+        "capture": {
+          "accepted": true,
+          "synthetic": true,
+          "photoSha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "photoRef": "simulation://synthetic-photo-no-real-image",
+          "capturedMs": 105000,
+          "fillFraction": 0.75,
+          "framingSatisfied": true,
+          "independentlyVerified": false,
+          "humanConfirmationRequired": true
+        },
+        "actuationEnabled": false,
+        "generatedAtMs": 1800000000000
+      }
+    ],
+    "task": {
+      "id": "4439ce8e-c71f-40c2-a2e7-ac4cc90940ab",
+      "sessionId": "demo-ca389a10-9974-40d2-9e20-819e862b9777",
+      "landmarkId": "sim-mushroom-1",
+      "mapRevision": "simulation-map-1",
+      "type": "inspect",
+      "status": "completed",
+      "phase": "review",
+      "source": "nearby_candidate",
+      "createdAtMs": 1800000000000,
+      "updatedMs": 105000,
+      "actuationEnabled": false,
+      "blockedReason": null,
+      "viewpointEnuM": [
+        -0.32287565553229536,
+        0,
+        1.5
+      ],
+      "settledSinceMs": 103000,
+      "route": [
+        [
+          -4,
+          0,
+          1.5
+        ],
+        [
+          -0.32287565553229536,
+          0,
+          1.5
+        ]
+      ],
+      "captureRequest": {
+        "requestId": "capture-4439ce8e-c71f-40c2-a2e7-ac4cc90940ab-104000",
+        "taskId": "4439ce8e-c71f-40c2-a2e7-ac4cc90940ab",
+        "sessionId": "demo-ca389a10-9974-40d2-9e20-819e862b9777",
+        "landmarkId": "sim-mushroom-1",
+        "mapRevision": "simulation-map-1",
+        "requestedMs": 104000,
+        "positionEnuM": [
+          -0.32287565553229536,
+          0,
+          1.5
+        ],
+        "aim": {
+          "yawRad": 0,
+          "pitchRad": -0.848062078981481,
+          "rangeM": 2
+        },
+        "nativeUncropped": true,
+        "targetFillFraction": 0.7
+      },
+      "capture": {
+        "accepted": true,
+        "synthetic": true,
+        "photoSha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "photoRef": "simulation://synthetic-photo-no-real-image",
+        "capturedMs": 105000,
+        "fillFraction": 0.75,
+        "framingSatisfied": true,
+        "independentlyVerified": false,
+        "humanConfirmationRequired": true
+      },
+      "completedMs": 105000,
+      "result": "photo_ready_for_human_review"
+    }
+  },
+  "blockedRoute": {
+    "action": {
+      "type": "hold",
+      "reason": "no_verified_3d_corridor",
+      "taskId": "7181fc60-9dff-4069-b891-c93f22774725",
+      "actuationEnabled": false,
+      "generatedAtMs": 1800000000000
+    }
+  },
+  "passed": true
+}

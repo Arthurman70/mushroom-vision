@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "status": "hardware-integration-plan-not-executed",
+  "actuationEnabled": false,
+  "hardware": {
+    "frame": "Holybro X500 v2",
+    "flightController": "Pixhawk 6C or the verified controller actually supplied with the used kit",
+    "companion": "Jetson Orin Nano 8GB; not the legacy Jetson Nano",
+    "camera": "Luxonis OAK-D S2, standard FOV, exact focus/sensor revision to record",
+    "missingCoverage": ["rear", "sides", "upward", "downward near field"],
+    "power": "Separate measured regulated supply for companion and USB3 camera; never assume a flight-controller peripheral rail can power them",
+    "mount": "Rigid calibrated camera/IMU transforms, vibration isolation appropriate to each sensor, measured propeller and cable envelope"
+  },
+  "softwareBaseline": {
+    "companionOS": "JetPack 6.2 / Jetson Linux 36.4.3 / Ubuntu 22.04 arm64 compatibility baseline, not an installed image",
+    "ros": "ROS 2 Humble (Ubuntu 22.04 arm64 Tier 1; support scheduled through May 2027)",
+    "depthDriver": "luxonis/depthai-ros Humble branch; resolve and record exact tested commit on the bench",
+    "px4": "Select stable release for the actual Pixhawk board and match px4_msgs definitions; no firmware was flashed",
+    "bridge": "uXRCE-DDS telemetry bridge proposed, disabled in this project",
+    "mapping": "RTAB-Map RGB-D odometry/map adapter already in project; a free-space raycasting 3D occupancy layer and covariance checks still required",
+    "gazebo": "Use the Gazebo/PX4 version pairing in the selected PX4 release documentation; do not infer compatibility from ROS Humble default packages"
+  },
+  "logicalStreams": [
+    { "name": "rgb", "type": "sensor_msgs/msg/Image", "proposedRemap": "/mycoscout/rgb/image", "requirements": "Keep original image plus inference resize metadata; capture exposure, gain, focus and sequence ID" },
+    { "name": "aligned_depth", "type": "sensor_msgs/msg/Image", "proposedRemap": "/mycoscout/depth/aligned", "requirements": "Calibrated alignment, units and validity mask; invalid/zero depth remains unknown" },
+    { "name": "camera_info", "type": "sensor_msgs/msg/CameraInfo", "proposedRemap": "/mycoscout/rgb/camera_info", "requirements": "Intrinsics for the exact crop, scale, focus and resolution; do not use illustrative fx=1380" },
+    { "name": "stereo_left", "type": "sensor_msgs/msg/Image", "proposedRemap": "/mycoscout/left/rectified", "requirements": "Synchronized raw evidence for depth failure diagnosis" },
+    { "name": "stereo_right", "type": "sensor_msgs/msg/Image", "proposedRemap": "/mycoscout/right/rectified", "requirements": "Synchronized raw evidence for depth failure diagnosis" },
+    { "name": "odometry", "type": "nav_msgs/msg/Odometry", "proposedRemap": "/mycoscout/odometry", "requirements": "Metric local pose, covariance, reset counter and timestamp; source/quality validated under canopy" },
+    { "name": "imu", "type": "sensor_msgs/msg/Imu", "proposedRemap": "/mycoscout/imu", "requirements": "Time-aligned sensor source and calibrated transforms; log actual OAK hardware IMU if present" }
+  ],
+  "frameContract": { "planner": "map_enu metres", "camera": "optical x right, y down, z forward", "px4": "NED/FRD conversions require a tested adapter; this code does not provide flight commands" },
+  "nextAcceptanceEvidence": ["mass, center of gravity, electrical and thermal bench report", "camera intrinsics/extrinsics and synchronization report", "held-out forest detector metrics by target pixels and measured range", "raw depth coverage and twig-miss rate", "recorded walk-through replay with pose reset/failure injection", "PX4 SITL test logs", "props-off integration test", "supervised open-area flight evidence before woodland tests"]
+}

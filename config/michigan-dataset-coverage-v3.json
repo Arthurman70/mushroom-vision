@@ -1,0 +1,2549 @@
+{
+  "schema": "mycoscout.michigan-dataset-coverage.v1",
+  "createdAt": "2026-10-26T17:53:58.428198+00:00",
+  "auditedAt": "2026-10-26",
+  "datasetManifestSha256": "fea75afafabbb21f80075286769b84aafd5e556feb28abf60813de5075e69bcf",
+  "catalogSha256": "3a2e8966fe3aeaa00a1ddb9dc148e9f54259dc6e8eb78af1342adeaa617c0692",
+  "taxonomySnapshotSha256": "96871e84aff9e318c98b22c08164cc0c58294e2756084dcd330407848b8cb9bb",
+  "summary": {
+    "photoCount": 3250,
+    "publicObservationCount": 3250,
+    "publicObserverCount": 1453,
+    "splitCounts": {
+      "train": 1906,
+      "validation": 622,
+      "test": 722
+    },
+    "catalogEntries": 21,
+    "documentedStudyEntries": 20,
+    "primaryNamedTargets": 35,
+    "primaryTargetsWithExactNamePhotos": 33,
+    "primaryTargetsWithNoExactNamePhotos": 2,
+    "primaryTargetsWithTrainingExactNamePhotos": 32,
+    "otherFungiComparisonPhotos": 655
+  },
+  "method": {
+    "exactName": "Case/whitespace-normalized observation taxon names; not image inspection.",
+    "aliases": "Only explicitly reported source synonyms, alternate spellings or headings; historical applications are excluded from equivalence.",
+    "descendants": "Separate count where a recorded target taxon ID occurs in the observation ancestor_ids; excludes exact/alias counts.",
+    "splitCheck": "Manifest freeze SHA and no exact content, normalized pixel, observation, photo, observer or split-group crossing partitions."
+  },
+  "entries": [
+    {
+      "id": "honey_mushrooms",
+      "groupId": "gilled",
+      "label": "Honey mushrooms",
+      "indexEntry": true,
+      "classPhotoCount": 118,
+      "classSplitCounts": {
+        "train": 72,
+        "validation": 18,
+        "test": 28
+      },
+      "classDistinctObservers": 91,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Armillaria",
+          "photos": 1
+        },
+        {
+          "name": "Armillaria cepistipes",
+          "photos": 1
+        },
+        {
+          "name": "Armillaria gallica",
+          "photos": 15
+        },
+        {
+          "name": "Armillaria mellea",
+          "photos": 30
+        },
+        {
+          "name": "Armillaria ostoyae",
+          "photos": 14
+        },
+        {
+          "name": "Desarmillaria caespitosa",
+          "photos": 44
+        },
+        {
+          "name": "Desarmillaria tabescens",
+          "photos": 13
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Armillaria gallica",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 15,
+          "exactNameSplitCounts": {
+            "train": 5,
+            "validation": 4,
+            "test": 6
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [
+            {
+              "name": "Armillaria bulbosa",
+              "kind": "synonym_as_reported_by_source"
+            },
+            {
+              "name": "Armillaria luteans",
+              "kind": "synonym_as_reported_by_source"
+            }
+          ],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            118401
+          ],
+          "matchedObservationNames": [
+            "Armillaria gallica"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Armillaria mellea",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 30,
+          "exactNameSplitCounts": {
+            "train": 19,
+            "validation": 6,
+            "test": 5
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            55950
+          ],
+          "matchedObservationNames": [
+            "Armillaria mellea"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Armillaria tabescens",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 0,
+          "exactNameSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [],
+          "matchedObservationNames": [],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "no_matching_target_name",
+          "notes": [
+            "There are 57 Desarmillaria tabescens/caespitosa photos in the honey class; legacy-name and North American species reconciliation remains unresolved, so they do not fill this exact-name gap."
+          ]
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-honey_mushrooms"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "giant_puffball",
+      "groupId": "puffballs",
+      "label": "Giant puffball",
+      "indexEntry": true,
+      "classPhotoCount": 100,
+      "classSplitCounts": {
+        "train": 50,
+        "validation": 29,
+        "test": 21
+      },
+      "classDistinctObservers": 77,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Calvatia gigantea",
+          "photos": 100
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Calvatia gigantea",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 100,
+          "exactNameSplitCounts": {
+            "train": 50,
+            "validation": 29,
+            "test": 21
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [
+            {
+              "name": "Langermannia gigantea",
+              "kind": "alternate_name_in_source_reference"
+            }
+          ],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            57692
+          ],
+          "matchedObservationNames": [
+            "Calvatia gigantea"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-giant_puffball"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "chanterelles",
+      "groupId": "chanterelles_trumpets",
+      "label": "Chanterelles",
+      "indexEntry": true,
+      "classPhotoCount": 130,
+      "classSplitCounts": {
+        "train": 70,
+        "validation": 23,
+        "test": 37
+      },
+      "classDistinctObservers": 98,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Cantharellus amethysteus",
+          "photos": 1
+        },
+        {
+          "name": "Cantharellus cibarius",
+          "photos": 53
+        },
+        {
+          "name": "Cantharellus cinnabarinus",
+          "photos": 31
+        },
+        {
+          "name": "Cantharellus coccolobae",
+          "photos": 7
+        },
+        {
+          "name": "Cantharellus concinnus",
+          "photos": 1
+        },
+        {
+          "name": "Cantharellus enelensis",
+          "photos": 3
+        },
+        {
+          "name": "Cantharellus flavolateritius",
+          "photos": 2
+        },
+        {
+          "name": "Cantharellus formosus",
+          "photos": 16
+        },
+        {
+          "name": "Cantharellus minor",
+          "photos": 6
+        },
+        {
+          "name": "Cantharellus pallens",
+          "photos": 2
+        },
+        {
+          "name": "Cantharellus roseocanus",
+          "photos": 5
+        },
+        {
+          "name": "Cantharellus subalbidus",
+          "photos": 3
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Cantharellus",
+          "status": "curriculum_open_genus",
+          "exactNamePhotos": 0,
+          "exactNameSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 130,
+          "descendantTaxonSplitCounts": {
+            "train": 70,
+            "validation": 23,
+            "test": 37
+          },
+          "matchedTaxonIds": [
+            47348
+          ],
+          "matchedObservationNames": [
+            "Cantharellus amethysteus",
+            "Cantharellus cibarius",
+            "Cantharellus cinnabarinus",
+            "Cantharellus coccolobae",
+            "Cantharellus concinnus",
+            "Cantharellus enelensis",
+            "Cantharellus flavolateritius",
+            "Cantharellus formosus",
+            "Cantharellus minor",
+            "Cantharellus pallens",
+            "Cantharellus roseocanus",
+            "Cantharellus subalbidus"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "open_genus_scope_not_exhaustive",
+          "notes": [
+            "Guide covers Michigan yellow and red chanterelles; species boundaries are explicitly unsettled."
+          ]
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-chanterelles"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "black_trumpets",
+      "groupId": "chanterelles_trumpets",
+      "label": "Black trumpets",
+      "indexEntry": true,
+      "classPhotoCount": 490,
+      "classSplitCounts": {
+        "train": 300,
+        "validation": 88,
+        "test": 102
+      },
+      "classDistinctObservers": 286,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Craterellus calicornucopioides",
+          "photos": 63
+        },
+        {
+          "name": "Craterellus cornucopioides",
+          "photos": 163
+        },
+        {
+          "name": "Craterellus fallax",
+          "photos": 264
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Craterellus fallax",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 264,
+          "exactNameSplitCounts": {
+            "train": 178,
+            "validation": 41,
+            "test": 45
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            194231
+          ],
+          "matchedObservationNames": [
+            "Craterellus fallax"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-black_trumpets"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "shaggy_mane",
+      "groupId": "gilled",
+      "label": "Shaggy mane",
+      "indexEntry": true,
+      "classPhotoCount": 114,
+      "classSplitCounts": {
+        "train": 69,
+        "validation": 27,
+        "test": 18
+      },
+      "classDistinctObservers": 100,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Coprinus comatus",
+          "photos": 114
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Coprinus comatus",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 114,
+          "exactNameSplitCounts": {
+            "train": 69,
+            "validation": 27,
+            "test": 18
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            47392
+          ],
+          "matchedObservationNames": [
+            "Coprinus comatus"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-shaggy_mane"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "aborted_entoloma",
+      "groupId": "crust_parasitized",
+      "label": "Shrimp of the woods",
+      "indexEntry": true,
+      "classPhotoCount": 101,
+      "classSplitCounts": {
+        "train": 68,
+        "validation": 13,
+        "test": 20
+      },
+      "classDistinctObservers": 72,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Entoloma abortivum",
+          "photos": 101
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Entoloma abortivum",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 101,
+          "exactNameSplitCounts": {
+            "train": 68,
+            "validation": 13,
+            "test": 20
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            70222
+          ],
+          "matchedObservationNames": [
+            "Entoloma abortivum"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": [
+            "Coverage is restricted to the aborted form associated with parasitized Armillaria fruiting bodies."
+          ]
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-aborted_entoloma"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "ganoderma",
+      "groupId": "polypores",
+      "label": "Reishi and artist conks",
+      "indexEntry": true,
+      "classPhotoCount": 110,
+      "classSplitCounts": {
+        "train": 71,
+        "validation": 13,
+        "test": 26
+      },
+      "classDistinctObservers": 90,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Ganoderma",
+          "photos": 1
+        },
+        {
+          "name": "Ganoderma adspersum",
+          "photos": 5
+        },
+        {
+          "name": "Ganoderma applanatum",
+          "photos": 37
+        },
+        {
+          "name": "Ganoderma australe",
+          "photos": 1
+        },
+        {
+          "name": "Ganoderma brownii",
+          "photos": 1
+        },
+        {
+          "name": "Ganoderma carnosum",
+          "photos": 1
+        },
+        {
+          "name": "Ganoderma curtisii",
+          "photos": 14
+        },
+        {
+          "name": "Ganoderma fallax",
+          "photos": 1
+        },
+        {
+          "name": "Ganoderma lobatum",
+          "photos": 2
+        },
+        {
+          "name": "Ganoderma lucidum",
+          "photos": 3
+        },
+        {
+          "name": "Ganoderma orbiforme",
+          "photos": 2
+        },
+        {
+          "name": "Ganoderma oregonense",
+          "photos": 8
+        },
+        {
+          "name": "Ganoderma resinaceum",
+          "photos": 8
+        },
+        {
+          "name": "Ganoderma sessile",
+          "photos": 16
+        },
+        {
+          "name": "Ganoderma tsugae",
+          "photos": 10
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Ganoderma applanatum",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 37,
+          "exactNameSplitCounts": {
+            "train": 24,
+            "validation": 7,
+            "test": 6
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            48473
+          ],
+          "matchedObservationNames": [
+            "Ganoderma applanatum"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Ganoderma sessile",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 16,
+          "exactNameSplitCounts": {
+            "train": 11,
+            "validation": 2,
+            "test": 3
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            350821
+          ],
+          "matchedObservationNames": [
+            "Ganoderma sessile"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Ganoderma curtisii",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 14,
+          "exactNameSplitCounts": {
+            "train": 10,
+            "validation": 0,
+            "test": 4
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            335051
+          ],
+          "matchedObservationNames": [
+            "Ganoderma curtisii"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Ganoderma tsugae",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 10,
+          "exactNameSplitCounts": {
+            "train": 6,
+            "validation": 2,
+            "test": 2
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            63274
+          ],
+          "matchedObservationNames": [
+            "Ganoderma tsugae"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-ganoderma"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "hen_of_woods",
+      "groupId": "polypores",
+      "label": "Hen of the woods",
+      "indexEntry": true,
+      "classPhotoCount": 102,
+      "classSplitCounts": {
+        "train": 62,
+        "validation": 20,
+        "test": 20
+      },
+      "classDistinctObservers": 84,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Grifola frondosa",
+          "photos": 102
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Grifola frondosa",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 102,
+          "exactNameSplitCounts": {
+            "train": 62,
+            "validation": 20,
+            "test": 20
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            53714
+          ],
+          "matchedObservationNames": [
+            "Grifola frondosa"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-hen_of_woods"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "hericium",
+      "groupId": "tooth_fungi",
+      "label": "Lion mane and branching tooth fungi",
+      "indexEntry": true,
+      "classPhotoCount": 113,
+      "classSplitCounts": {
+        "train": 61,
+        "validation": 27,
+        "test": 25
+      },
+      "classDistinctObservers": 92,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Hericium abietis",
+          "photos": 4
+        },
+        {
+          "name": "Hericium americanum",
+          "photos": 22
+        },
+        {
+          "name": "Hericium carolinense",
+          "photos": 4
+        },
+        {
+          "name": "Hericium cirrhatum",
+          "photos": 2
+        },
+        {
+          "name": "Hericium coralloides",
+          "photos": 56
+        },
+        {
+          "name": "Hericium erinaceus",
+          "photos": 22
+        },
+        {
+          "name": "Hericium novae-zealandiae",
+          "photos": 2
+        },
+        {
+          "name": "Hericium ophelieae",
+          "photos": 1
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Hericium erinaceus",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 22,
+          "exactNameSplitCounts": {
+            "train": 15,
+            "validation": 0,
+            "test": 7
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            49158
+          ],
+          "matchedObservationNames": [
+            "Hericium erinaceus"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Hericium coralloides",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 56,
+          "exactNameSplitCounts": {
+            "train": 23,
+            "validation": 24,
+            "test": 9
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [
+            {
+              "name": "Hericium ramosum",
+              "kind": "synonym_as_reported_by_source"
+            }
+          ],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            49162
+          ],
+          "matchedObservationNames": [
+            "Hericium coralloides"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Hericium americanum",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 22,
+          "exactNameSplitCounts": {
+            "train": 15,
+            "validation": 1,
+            "test": 6
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            124335
+          ],
+          "matchedObservationNames": [
+            "Hericium americanum"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-hericium"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "hedgehogs",
+      "groupId": "tooth_fungi",
+      "label": "Hedgehog mushrooms",
+      "indexEntry": true,
+      "classPhotoCount": 111,
+      "classSplitCounts": {
+        "train": 64,
+        "validation": 22,
+        "test": 25
+      },
+      "classDistinctObservers": 88,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Hydnum crocidens",
+          "photos": 9
+        },
+        {
+          "name": "Hydnum cuspidatum",
+          "photos": 1
+        },
+        {
+          "name": "Hydnum jussii",
+          "photos": 1
+        },
+        {
+          "name": "Hydnum melitosarx",
+          "photos": 1
+        },
+        {
+          "name": "Hydnum oregonense",
+          "photos": 7
+        },
+        {
+          "name": "Hydnum pallidum",
+          "photos": 1
+        },
+        {
+          "name": "Hydnum repandum",
+          "photos": 60
+        },
+        {
+          "name": "Hydnum rufescens",
+          "photos": 11
+        },
+        {
+          "name": "Hydnum sp. 'PNW02'",
+          "photos": 1
+        },
+        {
+          "name": "Hydnum umbilicatum",
+          "photos": 7
+        },
+        {
+          "name": "Hydnum washingtonianum",
+          "photos": 1
+        },
+        {
+          "name": "Hydnum wellingtonii",
+          "photos": 11
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Hydnum repandum",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 60,
+          "exactNameSplitCounts": {
+            "train": 31,
+            "validation": 19,
+            "test": 10
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            48641
+          ],
+          "matchedObservationNames": [
+            "Hydnum repandum"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Hydnum rufescens",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 11,
+          "exactNameSplitCounts": {
+            "train": 6,
+            "validation": 2,
+            "test": 3
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            340866
+          ],
+          "matchedObservationNames": [
+            "Hydnum rufescens"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Hydnum",
+          "status": "curriculum_open_genus",
+          "exactNamePhotos": 0,
+          "exactNameSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 111,
+          "descendantTaxonSplitCounts": {
+            "train": 64,
+            "validation": 22,
+            "test": 25
+          },
+          "matchedTaxonIds": [
+            48422
+          ],
+          "matchedObservationNames": [
+            "Hydnum crocidens",
+            "Hydnum cuspidatum",
+            "Hydnum jussii",
+            "Hydnum melitosarx",
+            "Hydnum oregonense",
+            "Hydnum pallidum",
+            "Hydnum repandum",
+            "Hydnum rufescens",
+            "Hydnum sp. 'PNW02'",
+            "Hydnum umbilicatum",
+            "Hydnum washingtonianum",
+            "Hydnum wellingtonii"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "open_genus_scope_not_exhaustive",
+          "notes": [
+            "The heading includes other Hydnum species without a closed list."
+          ]
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-hedgehogs"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "lobster_mushroom",
+      "groupId": "crust_parasitized",
+      "label": "Lobster mushroom",
+      "indexEntry": true,
+      "classPhotoCount": 100,
+      "classSplitCounts": {
+        "train": 56,
+        "validation": 15,
+        "test": 29
+      },
+      "classDistinctObservers": 77,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Hypomyces lactifluorum",
+          "photos": 100
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Hypomyces lactifluorum",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 100,
+          "exactNameSplitCounts": {
+            "train": 56,
+            "validation": 15,
+            "test": 29
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            48215
+          ],
+          "matchedObservationNames": [
+            "Hypomyces lactifluorum"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-lobster_mushroom"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "chaga",
+      "groupId": "polypores",
+      "label": "Chaga",
+      "indexEntry": true,
+      "classPhotoCount": 100,
+      "classSplitCounts": {
+        "train": 56,
+        "validation": 25,
+        "test": 19
+      },
+      "classDistinctObservers": 65,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Inonotus obliquus",
+          "photos": 98
+        },
+        {
+          "name": "Inonotus obliquus sterilis",
+          "photos": 2
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Inonotus obliquus",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 98,
+          "exactNameSplitCounts": {
+            "train": 55,
+            "validation": 25,
+            "test": 18
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 2,
+          "descendantTaxonSplitCounts": {
+            "train": 1,
+            "validation": 0,
+            "test": 1
+          },
+          "matchedTaxonIds": [
+            127021
+          ],
+          "matchedObservationNames": [
+            "Inonotus obliquus",
+            "Inonotus obliquus sterilis"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-chaga"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "chicken_of_woods",
+      "groupId": "polypores",
+      "label": "Chicken of the woods",
+      "indexEntry": true,
+      "classPhotoCount": 118,
+      "classSplitCounts": {
+        "train": 80,
+        "validation": 20,
+        "test": 18
+      },
+      "classDistinctObservers": 97,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Laetiporus cincinnatus",
+          "photos": 4
+        },
+        {
+          "name": "Laetiporus conifericola",
+          "photos": 2
+        },
+        {
+          "name": "Laetiporus gilbertsonii",
+          "photos": 25
+        },
+        {
+          "name": "Laetiporus portentosus",
+          "photos": 2
+        },
+        {
+          "name": "Laetiporus sulphureus",
+          "photos": 85
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Laetiporus sulphureus",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 85,
+          "exactNameSplitCounts": {
+            "train": 64,
+            "validation": 10,
+            "test": 11
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            53713
+          ],
+          "matchedObservationNames": [
+            "Laetiporus sulphureus"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Laetiporus cincinnatus",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 4,
+          "exactNameSplitCounts": {
+            "train": 2,
+            "validation": 2,
+            "test": 0
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            487301
+          ],
+          "matchedObservationNames": [
+            "Laetiporus cincinnatus"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-chicken_of_woods"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "true_morels",
+      "groupId": "morels",
+      "label": "True morels",
+      "indexEntry": true,
+      "classPhotoCount": 130,
+      "classSplitCounts": {
+        "train": 84,
+        "validation": 22,
+        "test": 24
+      },
+      "classDistinctObservers": 105,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Distantes",
+          "photos": 1
+        },
+        {
+          "name": "Morchella",
+          "photos": 2
+        },
+        {
+          "name": "Morchella americana",
+          "photos": 53
+        },
+        {
+          "name": "Morchella angusticeps",
+          "photos": 5
+        },
+        {
+          "name": "Morchella australiana",
+          "photos": 1
+        },
+        {
+          "name": "Morchella diminutiva",
+          "photos": 12
+        },
+        {
+          "name": "Morchella elata",
+          "photos": 2
+        },
+        {
+          "name": "Morchella esculenta",
+          "photos": 8
+        },
+        {
+          "name": "Morchella eximia",
+          "photos": 1
+        },
+        {
+          "name": "Morchella galilaea",
+          "photos": 1
+        },
+        {
+          "name": "Morchella importuna",
+          "photos": 1
+        },
+        {
+          "name": "Morchella norvegiensis",
+          "photos": 1
+        },
+        {
+          "name": "Morchella punctipes",
+          "photos": 16
+        },
+        {
+          "name": "Morchella rufobrunnea",
+          "photos": 3
+        },
+        {
+          "name": "Morchella semilibera",
+          "photos": 3
+        },
+        {
+          "name": "Morchella snyderi",
+          "photos": 9
+        },
+        {
+          "name": "Morchella steppicola",
+          "photos": 3
+        },
+        {
+          "name": "Morchella tomentosa",
+          "photos": 1
+        },
+        {
+          "name": "Morchella tridentina",
+          "photos": 4
+        },
+        {
+          "name": "Morchella vulgaris",
+          "photos": 3
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Morchella americana",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 53,
+          "exactNameSplitCounts": {
+            "train": 36,
+            "validation": 9,
+            "test": 8
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [
+            {
+              "name": "Morchella esculentoides",
+              "kind": "synonym_as_reported_by_source"
+            }
+          ],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            462132
+          ],
+          "matchedObservationNames": [
+            "Morchella americana"
+          ],
+          "historicalApplicationPhotosNotCounted": 8,
+          "historicalNamesNotEquated": [
+            "Morchella esculenta",
+            "Morchella crassipes",
+            "Morchella deliciosa"
+          ],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": [
+            "Historical name applications are listed separately and are not counted as equivalent target species."
+          ]
+        },
+        {
+          "name": "Morchella angusticeps",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 5,
+          "exactNameSplitCounts": {
+            "train": 2,
+            "validation": 2,
+            "test": 1
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            133686
+          ],
+          "matchedObservationNames": [
+            "Morchella angusticeps"
+          ],
+          "historicalApplicationPhotosNotCounted": 2,
+          "historicalNamesNotEquated": [
+            "Morchella elata"
+          ],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": [
+            "Historical name applications are listed separately and are not counted as equivalent target species."
+          ]
+        },
+        {
+          "name": "Morchella diminutiva",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 12,
+          "exactNameSplitCounts": {
+            "train": 9,
+            "validation": 1,
+            "test": 2
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            127217
+          ],
+          "matchedObservationNames": [
+            "Morchella diminutiva"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Morchella exuberans",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 0,
+          "exactNameSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [
+            {
+              "name": "Morchella capitata",
+              "kind": "synonym_as_reported_by_source"
+            }
+          ],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [],
+          "matchedObservationNames": [],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "no_matching_target_name",
+          "notes": []
+        },
+        {
+          "name": "Morchella importuna",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 1,
+          "exactNameSplitCounts": {
+            "train": 1,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            487375
+          ],
+          "matchedObservationNames": [
+            "Morchella importuna"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Morchella punctipes",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 16,
+          "exactNameSplitCounts": {
+            "train": 7,
+            "validation": 5,
+            "test": 4
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            133684
+          ],
+          "matchedObservationNames": [
+            "Morchella punctipes"
+          ],
+          "historicalApplicationPhotosNotCounted": 3,
+          "historicalNamesNotEquated": [
+            "Morchella semilibera"
+          ],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": [
+            "Historical name applications are listed separately and are not counted as equivalent target species."
+          ]
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-true_morels",
+        "mami-morel-lookalikes"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "oysters",
+      "groupId": "gilled",
+      "label": "Oyster mushrooms",
+      "indexEntry": true,
+      "classPhotoCount": 114,
+      "classSplitCounts": {
+        "train": 67,
+        "validation": 21,
+        "test": 26
+      },
+      "classDistinctObservers": 99,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Pleurotus",
+          "photos": 1
+        },
+        {
+          "name": "Pleurotus citrinopileatus",
+          "photos": 32
+        },
+        {
+          "name": "Pleurotus cornucopiae",
+          "photos": 1
+        },
+        {
+          "name": "Pleurotus djamor",
+          "photos": 3
+        },
+        {
+          "name": "Pleurotus dryinus",
+          "photos": 20
+        },
+        {
+          "name": "Pleurotus levis",
+          "photos": 24
+        },
+        {
+          "name": "Pleurotus ostreatus",
+          "photos": 16
+        },
+        {
+          "name": "Pleurotus parsonsiae",
+          "photos": 1
+        },
+        {
+          "name": "Pleurotus populinus",
+          "photos": 1
+        },
+        {
+          "name": "Pleurotus pulmonarius",
+          "photos": 15
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Pleurotus ostreatus",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 16,
+          "exactNameSplitCounts": {
+            "train": 7,
+            "validation": 4,
+            "test": 5
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            48494
+          ],
+          "matchedObservationNames": [
+            "Pleurotus ostreatus"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Pleurotus populinus",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 1,
+          "exactNameSplitCounts": {
+            "train": 1,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            468509
+          ],
+          "matchedObservationNames": [
+            "Pleurotus populinus"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        },
+        {
+          "name": "Pleurotus pulmonarius",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 15,
+          "exactNameSplitCounts": {
+            "train": 12,
+            "validation": 2,
+            "test": 1
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            136399
+          ],
+          "matchedObservationNames": [
+            "Pleurotus pulmonarius"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-oysters"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "dryads_saddle",
+      "groupId": "polypores",
+      "label": "Dryad saddle",
+      "indexEntry": true,
+      "classPhotoCount": 107,
+      "classSplitCounts": {
+        "train": 69,
+        "validation": 15,
+        "test": 23
+      },
+      "classDistinctObservers": 94,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Cerioporus squamosus",
+          "photos": 107
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Cerioporus squamosus",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 107,
+          "exactNameSplitCounts": {
+            "train": 69,
+            "validation": 15,
+            "test": 23
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [
+            {
+              "name": "Polyporus squamosus",
+              "kind": "guide_page_heading_for_index_taxon"
+            }
+          ],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            940028
+          ],
+          "matchedObservationNames": [
+            "Cerioporus squamosus"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-dryads_saddle"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "umbrella_polypore",
+      "groupId": "polypores",
+      "label": "Umbrella polypore",
+      "indexEntry": true,
+      "classPhotoCount": 55,
+      "classSplitCounts": {
+        "train": 33,
+        "validation": 12,
+        "test": 10
+      },
+      "classDistinctObservers": 48,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Polyporus umbellatus",
+          "photos": 55
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Polyporus umbellatus",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 55,
+          "exactNameSplitCounts": {
+            "train": 33,
+            "validation": 12,
+            "test": 10
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            143309
+          ],
+          "matchedObservationNames": [
+            "Polyporus umbellatus"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-umbrella_polypore"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "wine_cap",
+      "groupId": "gilled",
+      "label": "Wine cap",
+      "indexEntry": true,
+      "classPhotoCount": 100,
+      "classSplitCounts": {
+        "train": 61,
+        "validation": 14,
+        "test": 25
+      },
+      "classDistinctObservers": 78,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Stropharia rugosoannulata",
+          "photos": 94
+        },
+        {
+          "name": "Stropharia rugosoannulata lutea",
+          "photos": 6
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Stropharia rugosoannulata",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 94,
+          "exactNameSplitCounts": {
+            "train": 57,
+            "validation": 14,
+            "test": 23
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [
+            {
+              "name": "Stropharia rugoso-annulata",
+              "kind": "alternate_spelling_in_source"
+            }
+          ],
+          "descendantTaxonPhotos": 6,
+          "descendantTaxonSplitCounts": {
+            "train": 4,
+            "validation": 0,
+            "test": 2
+          },
+          "matchedTaxonIds": [
+            119151
+          ],
+          "matchedObservationNames": [
+            "Stropharia rugosoannulata",
+            "Stropharia rugosoannulata lutea"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-wine_cap"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "turkey_tail",
+      "groupId": "polypores",
+      "label": "Turkey tail",
+      "indexEntry": true,
+      "classPhotoCount": 120,
+      "classSplitCounts": {
+        "train": 72,
+        "validation": 24,
+        "test": 24
+      },
+      "classDistinctObservers": 101,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Trametes versicolor",
+          "photos": 120
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Trametes versicolor",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 120,
+          "exactNameSplitCounts": {
+            "train": 72,
+            "validation": 24,
+            "test": 24
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [
+            {
+              "name": "Coriolus versicolor",
+              "kind": "synonym_as_reported_by_source"
+            },
+            {
+              "name": "Polyporus versicolor",
+              "kind": "synonym_as_reported_by_source"
+            }
+          ],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            54134
+          ],
+          "matchedObservationNames": [
+            "Trametes versicolor"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "weak_label_presence_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-turkey_tail"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "michigan_truffle",
+      "groupId": "truffles",
+      "label": "Michigan truffle",
+      "indexEntry": true,
+      "classPhotoCount": 1,
+      "classSplitCounts": {
+        "train": 0,
+        "validation": 0,
+        "test": 1
+      },
+      "classDistinctObservers": 1,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Tuber canaliculatum",
+          "photos": 1
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Tuber canaliculatum",
+          "status": "curriculum_primary_named",
+          "exactNamePhotos": 1,
+          "exactNameSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 1
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [
+            629233
+          ],
+          "matchedObservationNames": [
+            "Tuber canaliculatum"
+          ],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "represented_outside_training_only",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-michigan_truffle"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    },
+    {
+      "id": "bolete_research",
+      "groupId": "boletes",
+      "label": "Boletes research coverage",
+      "indexEntry": false,
+      "classPhotoCount": 161,
+      "classSplitCounts": {
+        "train": 68,
+        "validation": 51,
+        "test": 42
+      },
+      "classDistinctObservers": 105,
+      "classObservedTaxonCounts": [
+        {
+          "name": "Aureoboletus betula",
+          "photos": 2
+        },
+        {
+          "name": "Aureoboletus mirabilis",
+          "photos": 15
+        },
+        {
+          "name": "Boletus aereus",
+          "photos": 2
+        },
+        {
+          "name": "Boletus edulis",
+          "photos": 37
+        },
+        {
+          "name": "Boletus fibrillosus",
+          "photos": 1
+        },
+        {
+          "name": "Boletus pinophilus",
+          "photos": 4
+        },
+        {
+          "name": "Boletus pseudopinophilus",
+          "photos": 4
+        },
+        {
+          "name": "Buchwaldoboletus lignicola",
+          "photos": 1
+        },
+        {
+          "name": "Butyriboletus regius",
+          "photos": 1
+        },
+        {
+          "name": "Butyriboletus roseogriseus",
+          "photos": 1
+        },
+        {
+          "name": "Butyriboletus sp. 'MS01'",
+          "photos": 1
+        },
+        {
+          "name": "Butyriboletus sp. 'VA01'",
+          "photos": 1
+        },
+        {
+          "name": "Caloboletus conifericola",
+          "photos": 1
+        },
+        {
+          "name": "Caloboletus radicans",
+          "photos": 1
+        },
+        {
+          "name": "Chalciporus piperatus",
+          "photos": 2
+        },
+        {
+          "name": "Cyanoboletus pulverulentus",
+          "photos": 2
+        },
+        {
+          "name": "Exsudoporus frostii",
+          "photos": 1
+        },
+        {
+          "name": "Hortiboletus rubellus",
+          "photos": 2
+        },
+        {
+          "name": "Imleria badia",
+          "photos": 37
+        },
+        {
+          "name": "Leccinum",
+          "photos": 1
+        },
+        {
+          "name": "Leccinum aurantiacum",
+          "photos": 2
+        },
+        {
+          "name": "Leccinum holopus",
+          "photos": 2
+        },
+        {
+          "name": "Leccinum leucopodium",
+          "photos": 1
+        },
+        {
+          "name": "Leccinum scabrum",
+          "photos": 9
+        },
+        {
+          "name": "Leccinum versipelle",
+          "photos": 4
+        },
+        {
+          "name": "Neoboletus erythropus",
+          "photos": 6
+        },
+        {
+          "name": "Neoboletus sp. 'LA01'",
+          "photos": 1
+        },
+        {
+          "name": "Phylloporus arenicola",
+          "photos": 1
+        },
+        {
+          "name": "Porphyrellus porphyrosporus",
+          "photos": 1
+        },
+        {
+          "name": "Rubroboletus satanas",
+          "photos": 1
+        },
+        {
+          "name": "Strobilomyces strobilaceus",
+          "photos": 3
+        },
+        {
+          "name": "Suillellus luridus",
+          "photos": 1
+        },
+        {
+          "name": "Tylopilus felleus",
+          "photos": 2
+        },
+        {
+          "name": "Xerocomellus chrysenteron",
+          "photos": 8
+        },
+        {
+          "name": "Xerocomellus cisalpinus",
+          "photos": 1
+        },
+        {
+          "name": "Xerocomellus zelleri",
+          "photos": 1
+        }
+      ],
+      "taxa": [
+        {
+          "name": "Bolete-form fungi",
+          "status": "research_visual_group_not_taxon",
+          "exactNamePhotos": 0,
+          "exactNameSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliasPhotos": 0,
+          "sourceAliasSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "sourceAliases": [],
+          "descendantTaxonPhotos": 0,
+          "descendantTaxonSplitCounts": {
+            "train": 0,
+            "validation": 0,
+            "test": 0
+          },
+          "matchedTaxonIds": [],
+          "matchedObservationNames": [],
+          "historicalApplicationPhotosNotCounted": 0,
+          "historicalNamesNotEquated": [],
+          "coverageStatus": "research_visual_group_not_species_inventory",
+          "notes": []
+        }
+      ],
+      "sourceIds": [
+        "mami-index"
+      ],
+      "speciesAccuracyMeasured": false,
+      "legalScopeInferred": false
+    }
+  ],
+  "priorityGaps": [
+    {
+      "entryId": "honey_mushrooms",
+      "name": "Armillaria tabescens",
+      "coverageStatus": "no_matching_target_name"
+    },
+    {
+      "entryId": "true_morels",
+      "name": "Morchella exuberans",
+      "coverageStatus": "no_matching_target_name"
+    },
+    {
+      "entryId": "michigan_truffle",
+      "name": "Tuber canaliculatum",
+      "coverageStatus": "represented_outside_training_only"
+    }
+  ],
+  "limitations": [
+    "This is dataset label coverage, not species recognition accuracy or verified image content.",
+    "The classifier is trained on broad entry classes, not each named species.",
+    "A photo count of one or a few is presence evidence only; no species accuracy threshold is established.",
+    "Global observation taxa are not a Michigan-only inventory.",
+    "Entoloma abortivum aborted form, chaga growth form, specimen condition and other eligibility constraints are not annotated.",
+    "Open-genus study coverage cannot be converted to a complete species checklist by this dataset.",
+    "Morel historical name applications and ringless honey taxonomy are not silently equated.",
+    "All guesses still require human review; no edibility or sales approval is inferred."
+  ],
+  "sources": [
+    {
+      "id": "mami-home",
+      "url": "https://midwestmycology.org/"
+    },
+    {
+      "id": "mami-workshops",
+      "url": "https://midwestmycology.org/workshops/"
+    },
+    {
+      "id": "mami-sales",
+      "url": "https://midwestmycology.org/selling-mushrooms/"
+    },
+    {
+      "id": "mami-index",
+      "url": "https://midwestmycology.org/mushroom-study-guides/"
+    },
+    {
+      "id": "mami-identify",
+      "url": "https://midwestmycology.org/identify/"
+    },
+    {
+      "id": "mami-morel-lookalikes",
+      "url": "https://midwestmycology.org/morchella-americana/morchella-look-alikes/"
+    },
+    {
+      "id": "mami-honey_mushrooms",
+      "url": "https://midwestmycology.org/armillaria-mellea/"
+    },
+    {
+      "id": "mami-giant_puffball",
+      "url": "https://midwestmycology.org/calvatia-gigantea/"
+    },
+    {
+      "id": "mami-chanterelles",
+      "url": "https://midwestmycology.org/cantharellus-species/"
+    },
+    {
+      "id": "mami-black_trumpets",
+      "url": "https://midwestmycology.org/craterellus-cornucopiodes/"
+    },
+    {
+      "id": "mami-shaggy_mane",
+      "url": "https://midwestmycology.org/coprinus-comatus/"
+    },
+    {
+      "id": "mami-aborted_entoloma",
+      "url": "https://midwestmycology.org/entoloma-abortivum/"
+    },
+    {
+      "id": "mami-ganoderma",
+      "url": "https://midwestmycology.org/ganoderma-applanatum/"
+    },
+    {
+      "id": "mami-hen_of_woods",
+      "url": "https://midwestmycology.org/grifola-frondosa/"
+    },
+    {
+      "id": "mami-hericium",
+      "url": "https://midwestmycology.org/hericium-erinaceus/"
+    },
+    {
+      "id": "mami-hedgehogs",
+      "url": "https://midwestmycology.org/hydnum-repandum/"
+    },
+    {
+      "id": "mami-lobster_mushroom",
+      "url": "https://midwestmycology.org/hypomyces-lactifluorum/"
+    },
+    {
+      "id": "mami-chaga",
+      "url": "https://midwestmycology.org/inonotus-obliquus/"
+    },
+    {
+      "id": "mami-chicken_of_woods",
+      "url": "https://midwestmycology.org/laetiporus-sulphureus/"
+    },
+    {
+      "id": "mami-true_morels",
+      "url": "https://midwestmycology.org/morchella-americana/"
+    },
+    {
+      "id": "mami-oysters",
+      "url": "https://midwestmycology.org/pleurotus-ostreatus/"
+    },
+    {
+      "id": "mami-dryads_saddle",
+      "url": "https://midwestmycology.org/polyporus-squamosus/"
+    },
+    {
+      "id": "mami-umbrella_polypore",
+      "url": "https://midwestmycology.org/polyporus-umbellatus/"
+    },
+    {
+      "id": "mami-wine_cap",
+      "url": "https://midwestmycology.org/stropharia-rugoso-annulata/"
+    },
+    {
+      "id": "mami-turkey_tail",
+      "url": "https://midwestmycology.org/trametes-versicolor/"
+    },
+    {
+      "id": "mami-michigan_truffle",
+      "url": "https://midwestmycology.org/tuber-canaliculatum/"
+    }
+  ]
+}

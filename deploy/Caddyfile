@@ -1,0 +1,4 @@
+{$MYCOSCOUT_DOMAIN} {
+  encode zstd gzip
+  reverse_proxy station:8787
+}

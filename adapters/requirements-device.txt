@@ -1,0 +1,4 @@
+# Lightweight worker dependencies tested on the development PC.
+# Python 3.10+; ARM/Linux compatibility still requires a device test.
+Pillow==11.2.1
+numpy==1.26.4

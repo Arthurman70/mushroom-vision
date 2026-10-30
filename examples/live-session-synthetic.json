@@ -1,0 +1,32 @@
+{
+  "schema": "mycoscout.live-sensor-fixture.v1",
+  "simulationOnly": true,
+  "description": "Synthetic optical-to-ENU geometry fixture. Generated colored rectangles are not real mushrooms. No physical flight clearance is supplied.",
+  "imageSize": [320, 240],
+  "defaults": {
+    "mapRevision": "synthetic-enu-v1",
+    "detectorStatus": "synthetic-fixture",
+    "depthFixture": {"kind": "constant-plane", "meters": 4},
+    "georeference": {"datum": "WGS84", "mapAxes": "true-enu", "latitude": 44, "longitude": -85, "altitudeM": 250, "horizontalStdM": 3, "verticalStdM": 5, "headingStdRad": 0.02, "sourceId": "synthetic-anchor", "timestampSeconds": 0}
+  },
+  "frames": [
+    {
+      "frameId": "synthetic-000", "timestampSeconds": 1,
+      "camera": {"calibrationId": "synthetic-calibration", "rectified": true, "intrinsics": {"fx": 200, "fy": 200, "cx": 160, "cy": 120}, "cameraToMap4x4": [[1,0,0,0],[0,0,1,0],[0,-1,0,1.5],[0,0,0,1]], "poseTimestampSeconds": 1, "positionStdM": 0.03, "orientationStdRad": 0.005},
+      "depth": {"alignedTo": "color", "calibrationId": "synthetic-calibration", "timestampSeconds": 1, "method": "rgbd", "scaleToMeters": 1, "minRangeM": 0.2, "maxRangeM": 10, "stdM": 0.03},
+      "detections": [{"bboxPixelsXYXY": [150,130,170,150], "confidence": 0.7}]
+    },
+    {
+      "frameId": "synthetic-001", "timestampSeconds": 1.1,
+      "camera": {"calibrationId": "synthetic-calibration", "rectified": true, "intrinsics": {"fx": 200, "fy": 200, "cx": 160, "cy": 120}, "cameraToMap4x4": [[1,0,0,0.1],[0,0,1,0],[0,-1,0,1.5],[0,0,0,1]], "poseTimestampSeconds": 1.1, "positionStdM": 0.03, "orientationStdRad": 0.005},
+      "depth": {"alignedTo": "color", "calibrationId": "synthetic-calibration", "timestampSeconds": 1.1, "method": "rgbd", "scaleToMeters": 1, "minRangeM": 0.2, "maxRangeM": 10, "stdM": 0.03},
+      "detections": [{"bboxPixelsXYXY": [145,130,165,150], "confidence": 0.75}]
+    },
+    {
+      "frameId": "synthetic-002", "timestampSeconds": 1.2,
+      "camera": {"calibrationId": "synthetic-calibration", "rectified": true, "intrinsics": {"fx": 200, "fy": 200, "cx": 160, "cy": 120}, "cameraToMap4x4": [[1,0,0,0.2],[0,0,1,0],[0,-1,0,1.5],[0,0,0,1]], "poseTimestampSeconds": 1.2, "positionStdM": 0.03, "orientationStdRad": 0.005},
+      "depth": {"alignedTo": "color", "calibrationId": "synthetic-calibration", "timestampSeconds": 1.2, "method": "rgbd", "scaleToMeters": 1, "minRangeM": 0.2, "maxRangeM": 10, "stdM": 0.03},
+      "detections": [{"bboxPixelsXYXY": [140,130,160,150], "confidence": 0.8}]
+    }
+  ]
+}

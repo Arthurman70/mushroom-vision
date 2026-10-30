@@ -1,0 +1,14 @@
+	# BEGIN MYCOSCOUT COMMUNITY
+	@community path /mushroom-lab /mushroom-lab/*
+	handle @community {
+		@community_www host www.thegreatlakesgleaner.press
+		redir @community_www https://thegreatlakesgleaner.press{uri} 308
+		request_body {
+			max_size 64KB
+		}
+		reverse_proxy gleaner-mushroom-lab:8791 {
+			header_up X-Forwarded-For {remote_host}
+			header_up -Forwarded
+		}
+	}
+	# END MYCOSCOUT COMMUNITY

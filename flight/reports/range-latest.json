@@ -1,0 +1,4189 @@
+{
+  "schema": "mycoscout.range-inspection-report.v1",
+  "generatedAt": "2026-10-26T20:53:55.403Z",
+  "simulationOnly": true,
+  "actuationEnabled": false,
+  "physicalFlights": 0,
+  "physicalPhotos": 0,
+  "summary": {
+    "checks": 10,
+    "passed": 10,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "title": "10 m and 20 m prioritize confirmation; 50 m and 100 m enter habitat log",
+      "passed": true,
+      "result": "Measured-range simulation fixtures only; no physical-distance detection accuracy is implied."
+    },
+    {
+      "title": "Uncertainty crossing 50 m remains habitat",
+      "passed": true,
+      "result": "49.9 ±0.2 m is retained as an unconfirmed habitat follow-up."
+    },
+    {
+      "title": "Unknown-range color cue cannot become a mushroom marker",
+      "passed": true,
+      "result": "Color contrast creates an unlocated habitat cue, never a species guess or flight target."
+    },
+    {
+      "title": "Nearby target pauses then resumes the scout route",
+      "passed": true,
+      "result": "Inspection begins at a settled scout capture; remaining scout work resumes with current clearance checks."
+    },
+    {
+      "title": "Approach segments replan fresh geometry before next movement",
+      "passed": true,
+      "result": "2 m maximum approach segments preserve altitude, fresh target evidence, map clearance and travel/time budgets."
+    },
+    {
+      "title": "One final target photo requires explicit synthetic acknowledgment",
+      "passed": true,
+      "result": "Intermediate route captures are proposals only; real photographs captured: zero."
+    },
+    {
+      "title": "No photo acknowledgment means no completed visit",
+      "passed": true,
+      "result": "The close-up request remains pending/manual after timeout."
+    },
+    {
+      "title": "Fabricated external acknowledgment cannot claim a physical photo",
+      "passed": true,
+      "result": "Simulation accepts only explicitly synthetic capture acknowledgments."
+    },
+    {
+      "title": "Close-photo framing geometry reports a zoom/manual closeup requirement",
+      "passed": true,
+      "result": "Illustrative 5 cm cap needs approximately 5.1 cm range to fill 70% native width; the 1 m minimum standoff is preserved."
+    },
+    {
+      "title": "Stale evidence cannot continue an approach",
+      "passed": true,
+      "result": "Range thresholds and priority never bypass synchronized fresh depth/pose and corridor gates."
+    }
+  ],
+  "routing": [
+    {
+      "rangeM": 10,
+      "routingCategory": "immediate_investigation",
+      "eligible": false,
+      "confirmedMushroom": false
+    },
+    {
+      "rangeM": 20,
+      "routingCategory": "immediate_investigation",
+      "eligible": false,
+      "confirmedMushroom": false
+    },
+    {
+      "rangeM": 50,
+      "routingCategory": "habitat_followup",
+      "eligible": false,
+      "confirmedMushroom": false
+    },
+    {
+      "rangeM": 100,
+      "routingCategory": "habitat_followup",
+      "eligible": false,
+      "confirmedMushroom": false
+    }
+  ],
+  "framing": {
+    "targetFillFraction": 0.7,
+    "fillDimension": "native_frame_width",
+    "nativeWidthPx": 1920,
+    "nativeHeightPx": 1080,
+    "targetDiameterM": 0.05,
+    "targetDiameterMeasured": false,
+    "calibrationStatus": "illustrative-unmeasured",
+    "expectedNativeWidthPx": 69,
+    "expectedFillFraction": 0.0359375,
+    "requiredRangeM": 0.05133928571428571,
+    "minimumStandoffM": 1,
+    "requiredOpticalMagnification": 19.47826086956522,
+    "digitalCropAddsDetail": false,
+    "framingVerified": false,
+    "aim": {
+      "yawRad": 3.141592653589793,
+      "pitchRad": 0,
+      "rangeM": 1
+    },
+    "pitchErrorRad": 0.610865,
+    "cameraAimPossible": false,
+    "closeupStatus": "zoom_required_or_manual_closeup",
+    "humanConfirmationRequired": true
+  },
+  "habitatLog": [
+    {
+      "leadId": "inspection-3",
+      "originalKind": "fungus",
+      "cueType": "detector",
+      "label": "Distant visual cue — habitat follow-up",
+      "routingCategory": "habitat_followup",
+      "routingReason": "distant_visual_cue",
+      "rangeEvidence": {
+        "status": "known",
+        "method": "surveyed",
+        "valueM": 50,
+        "uncertaintyM": 0,
+        "lowerM": 50,
+        "upperM": 50,
+        "capturedMs": 0,
+        "sourceId": "simulation-range-fixture",
+        "calibrationId": "simulation-fixture",
+        "synthetic": true
+      },
+      "locationStatus": "screen_only",
+      "position": null,
+      "coordinateFrame": null,
+      "capturedMs": 0,
+      "firstLoggedMs": 0,
+      "lastLoggedMs": 0,
+      "frameId": "fixture-50",
+      "confirmedMushroom": false,
+      "humanConfirmationRequired": true
+    },
+    {
+      "leadId": "inspection-4",
+      "originalKind": "fungus",
+      "cueType": "detector",
+      "label": "Distant visual cue — habitat follow-up",
+      "routingCategory": "habitat_followup",
+      "routingReason": "distant_visual_cue",
+      "rangeEvidence": {
+        "status": "known",
+        "method": "surveyed",
+        "valueM": 100,
+        "uncertaintyM": 0,
+        "lowerM": 100,
+        "upperM": 100,
+        "capturedMs": 0,
+        "sourceId": "simulation-range-fixture",
+        "calibrationId": "simulation-fixture",
+        "synthetic": true
+      },
+      "locationStatus": "screen_only",
+      "position": null,
+      "coordinateFrame": null,
+      "capturedMs": 0,
+      "firstLoggedMs": 0,
+      "lastLoggedMs": 0,
+      "frameId": "fixture-100",
+      "confirmedMushroom": false,
+      "humanConfirmationRequired": true
+    }
+  ],
+  "photoRequests": [
+    {
+      "type": "request",
+      "requestId": "inspection-photo-1",
+      "frameId": "target-frame-1",
+      "leadId": "inspection-1",
+      "requestedMs": 22800,
+      "position": {
+        "x": 2.4637681159420284,
+        "y": 0,
+        "z": 2
+      },
+      "targetPosition": {
+        "x": 5,
+        "y": 0,
+        "z": 0.3
+      },
+      "coordinateFrame": "map_enu",
+      "aim": {
+        "yawRad": 0,
+        "pitchRad": -0.5905039148133805,
+        "rangeM": 3.0532723707052813
+      },
+      "photoPlan": {
+        "targetFillFraction": 0.7,
+        "fillDimension": "native_frame_width",
+        "nativeWidthPx": 1920,
+        "nativeHeightPx": 1080,
+        "targetDiameterM": 0.05,
+        "targetDiameterMeasured": false,
+        "calibrationStatus": "illustrative-unmeasured",
+        "expectedNativeWidthPx": 22.59870447917542,
+        "expectedFillFraction": 0.011770158582903865,
+        "requiredRangeM": 0.05133928571428571,
+        "minimumStandoffM": 1,
+        "requiredOpticalMagnification": 59.472435742433305,
+        "digitalCropAddsDetail": false,
+        "framingVerified": false,
+        "aim": {
+          "yawRad": 0,
+          "pitchRad": -0.5905039148133805,
+          "rangeM": 3.0532723707052813
+        },
+        "pitchErrorRad": 0.0203610851866195,
+        "cameraAimPossible": true,
+        "closeupStatus": "zoom_required_or_manual_closeup",
+        "humanConfirmationRequired": true
+      },
+      "requiredStreams": [
+        "rgb",
+        "aligned_depth",
+        "camera_info",
+        "odometry"
+      ],
+      "nativeUncroppedRequired": true,
+      "photoCaptured": false,
+      "syntheticProposal": true,
+      "humanConfirmationRequired": true
+    },
+    {
+      "type": "ack",
+      "requestId": "inspection-photo-1",
+      "accepted": true,
+      "reason": "simulated_capture_acknowledged",
+      "synthetic": true,
+      "framingSatisfied": false,
+      "fillFraction": 0.01177015858290389,
+      "frameId": "target-frame-1",
+      "photoSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "photoRef": "simulation://no-real-photo",
+      "capturedMs": 23000,
+      "realPhotoIndependentlyVerified": false,
+      "humanConfirmationRequired": true
+    }
+  ],
+  "scenarios": [
+    {
+      "schemaVersion": 2,
+      "simulationOnly": true,
+      "weightsAreHeuristic": true,
+      "liveHabitatClassifierImplemented": false,
+      "stage": "COMPLETE",
+      "mapTargets": [
+        {
+          "id": "inspection-1",
+          "kind": "fungus",
+          "label": "Nearby visual candidate — investigate and confirm",
+          "observationIds": [
+            "synthetic-fungus"
+          ],
+          "createdMs": 0,
+          "lastObservedMs": 56800,
+          "locationStatus": "metric",
+          "signals": {},
+          "confidence": 0.18,
+          "visits": 1,
+          "nextEligibleMs": 53000,
+          "status": "inspected",
+          "evidence": [
+            {
+              "frameId": "synthetic-fungus-55400",
+              "capturedMs": 55400,
+              "receivedMs": 55400,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-55600",
+              "capturedMs": 55600,
+              "receivedMs": 55600,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-55800",
+              "capturedMs": 55800,
+              "receivedMs": 55800,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-56000",
+              "capturedMs": 56000,
+              "receivedMs": 56000,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-56200",
+              "capturedMs": 56200,
+              "receivedMs": 56200,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-56400",
+              "capturedMs": 56400,
+              "receivedMs": 56400,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-56600",
+              "capturedMs": 56600,
+              "receivedMs": 56600,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-56800",
+              "capturedMs": 56800,
+              "receivedMs": 56800,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            }
+          ],
+          "identifiedSpecies": null,
+          "edible": null,
+          "groundSafety": "unknown",
+          "liveClassifier": false,
+          "originalCapturedMs": 56800,
+          "captureTimeKnown": true,
+          "receivedMs": 56800,
+          "capturePose": {
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "capturedMs": 56800
+          },
+          "frameId": "synthetic-fungus-56800",
+          "originalKind": "fungus",
+          "cueType": "detector",
+          "rangeEvidence": {
+            "status": "known",
+            "method": "simulation_metric",
+            "valueM": 5.17830650145995,
+            "uncertaintyM": 0.15000000000000002,
+            "lowerM": 5.02830650145995,
+            "upperM": 5.32830650145995,
+            "capturedMs": 56800,
+            "calibrationId": "simulation-fixture",
+            "synthetic": true
+          },
+          "routingCategory": "immediate_investigation",
+          "routingReason": "measured_range_below_50m",
+          "humanConfirmationRequired": true,
+          "confirmedMushroom": false,
+          "photoStatus": "simulated_safe_photo_manual_closeup_required",
+          "inspectionRequest": {
+            "directTargetViewRequired": true,
+            "nativePhotoRequired": true,
+            "targetNativeWidthFraction": 0.7,
+            "humanConfirmationRequired": true,
+            "actuationEnabled": false,
+            "status": "simulated_safe_photo_manual_closeup_required",
+            "closeupPending": true
+          },
+          "targetExtent": null,
+          "position": {
+            "x": 5,
+            "y": 0,
+            "z": 0.3
+          },
+          "metric": {
+            "frame": "map_enu",
+            "position": {
+              "x": 5,
+              "y": 0,
+              "z": 0.3
+            },
+            "depthKnown": true,
+            "depthCapturedMs": 56800,
+            "positionVarianceM2": 0.0025
+          },
+          "bbox": null,
+          "semanticFractions": {},
+          "month": 8,
+          "source": "simulated_semantics",
+          "synthetic": true,
+          "evidenceMode": "simulation_fixture",
+          "lastOutcome": "simulated_safe_photo_manual_closeup_required",
+          "priority": 0.11699999999999999,
+          "priorityIsProbability": false,
+          "reasons": [
+            "Unverified visual cue (18% detector score)",
+            "measured_range_below_50m"
+          ],
+          "ageMs": 0,
+          "eligible": true,
+          "expiresMs": 176800
+        }
+      ],
+      "screenLeads": [],
+      "habitatLog": [],
+      "photoHistory": [
+        {
+          "type": "request",
+          "requestId": "inspection-photo-1",
+          "frameId": "target-frame-1",
+          "leadId": "inspection-1",
+          "requestedMs": 22800,
+          "position": {
+            "x": 2.4637681159420284,
+            "y": 0,
+            "z": 2
+          },
+          "targetPosition": {
+            "x": 5,
+            "y": 0,
+            "z": 0.3
+          },
+          "coordinateFrame": "map_enu",
+          "aim": {
+            "yawRad": 0,
+            "pitchRad": -0.5905039148133805,
+            "rangeM": 3.0532723707052813
+          },
+          "photoPlan": {
+            "targetFillFraction": 0.7,
+            "fillDimension": "native_frame_width",
+            "nativeWidthPx": 1920,
+            "nativeHeightPx": 1080,
+            "targetDiameterM": 0.05,
+            "targetDiameterMeasured": false,
+            "calibrationStatus": "illustrative-unmeasured",
+            "expectedNativeWidthPx": 22.59870447917542,
+            "expectedFillFraction": 0.011770158582903865,
+            "requiredRangeM": 0.05133928571428571,
+            "minimumStandoffM": 1,
+            "requiredOpticalMagnification": 59.472435742433305,
+            "digitalCropAddsDetail": false,
+            "framingVerified": false,
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "pitchErrorRad": 0.0203610851866195,
+            "cameraAimPossible": true,
+            "closeupStatus": "zoom_required_or_manual_closeup",
+            "humanConfirmationRequired": true
+          },
+          "requiredStreams": [
+            "rgb",
+            "aligned_depth",
+            "camera_info",
+            "odometry"
+          ],
+          "nativeUncroppedRequired": true,
+          "photoCaptured": false,
+          "syntheticProposal": true,
+          "humanConfirmationRequired": true
+        },
+        {
+          "type": "ack",
+          "requestId": "inspection-photo-1",
+          "accepted": true,
+          "reason": "simulated_capture_acknowledged",
+          "synthetic": true,
+          "framingSatisfied": false,
+          "fillFraction": 0.01177015858290389,
+          "frameId": "target-frame-1",
+          "photoSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "photoRef": "simulation://no-real-photo",
+          "capturedMs": 23000,
+          "realPhotoIndependentlyVerified": false,
+          "humanConfirmationRequired": true
+        }
+      ],
+      "schedule": [
+        {
+          "leadId": "inspection-1",
+          "kind": "fungus",
+          "status": "scheduled",
+          "reason": "inspect_viewpoint_only",
+          "priority": 0.11699999999999999,
+          "reasons": [
+            "Unverified visual cue (18% detector score)",
+            "measured_range_below_50m"
+          ],
+          "nowMs": 3000,
+          "route": [
+            {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            {
+              "x": 2,
+              "y": 0,
+              "z": 2
+            }
+          ],
+          "viewpoint": {
+            "x": 2,
+            "y": 0,
+            "z": 2
+          }
+        },
+        {
+          "leadId": "inspection-1",
+          "kind": "fungus",
+          "status": "capture_acknowledged",
+          "reason": "simulated_safe_photo_manual_closeup_required",
+          "nowMs": 23000,
+          "synthetic": true,
+          "framingSatisfied": false
+        }
+      ],
+      "budget": {
+        "inspections": 1,
+        "plannedTravelM": 5.376178373350805,
+        "startedMs": 3000
+      },
+      "completedInspections": 0,
+      "completedSimulationInspections": 1,
+      "physicalFlights": 0,
+      "retention": {
+        "droppedHabitatLog": 0,
+        "droppedPhotoHistory": 0,
+        "droppedHistoryEvents": 0,
+        "droppedScheduleEvents": 0,
+        "droppedInputObservations": 0,
+        "rejectedObservations": 0
+      },
+      "events": [
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "preflight_requested",
+          "nowMs": 0,
+          "proposal": null,
+          "capture": null,
+          "childState": "PREFLIGHT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "simulation_preflight_passed",
+          "nowMs": 200,
+          "proposal": null,
+          "capture": null,
+          "childState": "READY"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "waiting_for_still_image",
+          "nowMs": 400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "settling",
+          "nowMs": 1800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SELECT_INSPECTION",
+          "reason": "near_candidate_pauses_scout_at_settled_capture",
+          "nowMs": 2800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 2800,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": -0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "SURVEY_CAPTURE",
+          "remainingSurveyWaypoints": 1
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "closer_inspection_scheduled",
+          "nowMs": 3000,
+          "proposal": null,
+          "capture": null,
+          "childState": null,
+          "leadId": "inspection-1",
+          "kind": "fungus",
+          "plan": {
+            "status": "ready",
+            "points": [
+              {
+                "x": 0,
+                "y": 0,
+                "z": 2
+              },
+              {
+                "x": 2,
+                "y": 0,
+                "z": 2
+              }
+            ],
+            "expanded": 0,
+            "clearance": {
+              "clear": true,
+              "checked": 360,
+              "radiusM": 1.085371245536652,
+              "method": "segment-versus-inflated-voxel-boxes"
+            },
+            "simulationOnly": true,
+            "leadId": "inspection-1",
+            "kind": "fungus",
+            "viewpoint": {
+              "x": 2,
+              "y": 0,
+              "z": 2
+            },
+            "routeDistanceM": 2,
+            "reservedTravelM": 4,
+            "initialRangeM": 5.281098370604357,
+            "proposedRangeM": 3.448187929913334,
+            "reason": "inspect_viewpoint_only",
+            "identifiedSpecies": null,
+            "photoPlan": {
+              "targetFillFraction": 0.7,
+              "fillDimension": "native_frame_width",
+              "nativeWidthPx": 1920,
+              "nativeHeightPx": 1080,
+              "targetDiameterM": 0.05,
+              "targetDiameterMeasured": false,
+              "calibrationStatus": "illustrative-unmeasured",
+              "expectedNativeWidthPx": 20.010510274518083,
+              "expectedFillFraction": 0.010422140767978169,
+              "requiredRangeM": 0.05133928571428571,
+              "minimumStandoffM": 1,
+              "requiredOpticalMagnification": 67.16470402613797,
+              "digitalCropAddsDetail": false,
+              "framingVerified": false,
+              "aim": {
+                "yawRad": 0,
+                "pitchRad": -0.515549007458979,
+                "rangeM": 3.448187929913334
+              },
+              "pitchErrorRad": 0.09531599254102097,
+              "cameraAimPossible": false,
+              "closeupStatus": "zoom_required_or_manual_closeup",
+              "humanConfirmationRequired": true
+            },
+            "moreApproachRequired": true
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "preflight_requested",
+          "nowMs": 3200,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "PREFLIGHT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "simulation_preflight_passed",
+          "nowMs": 3400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "READY"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "orient_before_translation",
+          "nowMs": 3600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "survey_translation",
+          "nowMs": 5000,
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 2,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985502
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "waiting_for_still_image",
+          "nowMs": 15400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "settling",
+          "nowMs": 15600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "fresh_target_segment_replanned",
+          "nowMs": 16600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 16600,
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "COMPLETE",
+          "plan": {
+            "status": "ready",
+            "points": [
+              {
+                "x": 1.8840579710144905,
+                "y": 0,
+                "z": 2
+              },
+              {
+                "x": 2.572147157689893,
+                "y": 0,
+                "z": 2
+              }
+            ],
+            "expanded": 0,
+            "clearance": {
+              "clear": true,
+              "checked": 252,
+              "radiusM": 1.085371245536652,
+              "method": "segment-versus-inflated-voxel-boxes"
+            },
+            "simulationOnly": true,
+            "leadId": "inspection-1",
+            "kind": "fungus",
+            "viewpoint": {
+              "x": 2.572147157689893,
+              "y": 0,
+              "z": 2
+            },
+            "routeDistanceM": 0.6880891866754024,
+            "reservedTravelM": 1.3761783733508048,
+            "initialRangeM": 3.549520351821966,
+            "proposedRangeM": 2.963860560808026,
+            "reason": "inspect_viewpoint_only",
+            "identifiedSpecies": null,
+            "photoPlan": {
+              "targetFillFraction": 0.7,
+              "fillDimension": "native_frame_width",
+              "nativeWidthPx": 1920,
+              "nativeHeightPx": 1080,
+              "targetDiameterM": 0.05,
+              "targetDiameterMeasured": false,
+              "calibrationStatus": "illustrative-unmeasured",
+              "expectedNativeWidthPx": 23.28044743818474,
+              "expectedFillFraction": 0.012125233040721219,
+              "requiredRangeM": 0.05133928571428571,
+              "minimumStandoffM": 1,
+              "requiredOpticalMagnification": 57.7308491844346,
+              "digitalCropAddsDetail": false,
+              "framingVerified": false,
+              "aim": {
+                "yawRad": 0,
+                "pitchRad": -0.610865,
+                "rangeM": 2.963860560808026
+              },
+              "pitchErrorRad": 0,
+              "cameraAimPossible": true,
+              "closeupStatus": "zoom_required_or_manual_closeup",
+              "humanConfirmationRequired": true
+            },
+            "moreApproachRequired": false
+          },
+          "approachSegments": 2
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "preflight_requested",
+          "nowMs": 16800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "PREFLIGHT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "simulation_preflight_passed",
+          "nowMs": 17000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "READY"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "survey_translation",
+          "nowMs": 17200,
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.572147157689893,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "waiting_for_still_image",
+          "nowMs": 20400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "settling",
+          "nowMs": 20600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "AIM_CAPTURE",
+          "reason": "target_viewpoint_reached_capture_not_yet_confirmed",
+          "nowMs": 21600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 21600,
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "COMPLETE",
+          "photoPlan": {
+            "targetFillFraction": 0.7,
+            "fillDimension": "native_frame_width",
+            "nativeWidthPx": 1920,
+            "nativeHeightPx": 1080,
+            "targetDiameterM": 0.05,
+            "targetDiameterMeasured": false,
+            "calibrationStatus": "illustrative-unmeasured",
+            "expectedNativeWidthPx": 22.59870447917542,
+            "expectedFillFraction": 0.011770158582903865,
+            "requiredRangeM": 0.05133928571428571,
+            "minimumStandoffM": 1,
+            "requiredOpticalMagnification": 59.472435742433305,
+            "digitalCropAddsDetail": false,
+            "framingVerified": false,
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "pitchErrorRad": 0.0203610851866195,
+            "cameraAimPossible": true,
+            "closeupStatus": "zoom_required_or_manual_closeup",
+            "humanConfirmationRequired": true
+          },
+          "approachSegments": 2
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "AIM_CAPTURE",
+          "reason": "aim_and_settle_for_target_photo",
+          "nowMs": 21800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null,
+          "photoPlan": {
+            "targetFillFraction": 0.7,
+            "fillDimension": "native_frame_width",
+            "nativeWidthPx": 1920,
+            "nativeHeightPx": 1080,
+            "targetDiameterM": 0.05,
+            "targetDiameterMeasured": false,
+            "calibrationStatus": "illustrative-unmeasured",
+            "expectedNativeWidthPx": 22.59870447917542,
+            "expectedFillFraction": 0.011770158582903865,
+            "requiredRangeM": 0.05133928571428571,
+            "minimumStandoffM": 1,
+            "requiredOpticalMagnification": 59.472435742433305,
+            "digitalCropAddsDetail": false,
+            "framingVerified": false,
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "pitchErrorRad": 0.0203610851866195,
+            "cameraAimPossible": true,
+            "closeupStatus": "zoom_required_or_manual_closeup",
+            "humanConfirmationRequired": true
+          },
+          "imageQuality": {
+            "ready": false,
+            "reason": "settling",
+            "blurPx": 0,
+            "settledMs": 0
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "WAIT_CAPTURE",
+          "reason": "target_photo_requested",
+          "nowMs": 22800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null,
+          "photoRequest": {
+            "requestId": "inspection-photo-1",
+            "frameId": "target-frame-1",
+            "leadId": "inspection-1",
+            "requestedMs": 22800,
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "targetPosition": {
+              "x": 5,
+              "y": 0,
+              "z": 0.3
+            },
+            "coordinateFrame": "map_enu",
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "photoPlan": {
+              "targetFillFraction": 0.7,
+              "fillDimension": "native_frame_width",
+              "nativeWidthPx": 1920,
+              "nativeHeightPx": 1080,
+              "targetDiameterM": 0.05,
+              "targetDiameterMeasured": false,
+              "calibrationStatus": "illustrative-unmeasured",
+              "expectedNativeWidthPx": 22.59870447917542,
+              "expectedFillFraction": 0.011770158582903865,
+              "requiredRangeM": 0.05133928571428571,
+              "minimumStandoffM": 1,
+              "requiredOpticalMagnification": 59.472435742433305,
+              "digitalCropAddsDetail": false,
+              "framingVerified": false,
+              "aim": {
+                "yawRad": 0,
+                "pitchRad": -0.5905039148133805,
+                "rangeM": 3.0532723707052813
+              },
+              "pitchErrorRad": 0.0203610851866195,
+              "cameraAimPossible": true,
+              "closeupStatus": "zoom_required_or_manual_closeup",
+              "humanConfirmationRequired": true
+            },
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "camera_info",
+              "odometry"
+            ],
+            "nativeUncroppedRequired": true,
+            "photoCaptured": false,
+            "syntheticProposal": true,
+            "humanConfirmationRequired": true
+          },
+          "imageQuality": {
+            "ready": true,
+            "reason": "settled",
+            "blurPx": 0,
+            "settledMs": 1000
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SELECT_INSPECTION",
+          "reason": "target_photo_acknowledged",
+          "nowMs": 23000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null,
+          "captureAcknowledgment": {
+            "accepted": true,
+            "reason": "simulated_capture_acknowledged",
+            "synthetic": true,
+            "framingSatisfied": false,
+            "fillFraction": 0.01177015858290389,
+            "frameId": "target-frame-1",
+            "photoSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "photoRef": "simulation://no-real-photo",
+            "capturedMs": 23000,
+            "realPhotoIndependentlyVerified": false,
+            "humanConfirmationRequired": true
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "inspection_budget_exhausted_resume_scout",
+          "nowMs": 23200,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": null,
+          "remainingSurveyWaypoints": 1
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "drifted_from_capture_station",
+          "nowMs": 23400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "orient_before_translation",
+          "nowMs": 23600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 3.141592653589793
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "survey_translation",
+          "nowMs": 31800,
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 3.141592653589793,
+            "speedMps": 0.18115942028985504
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "waiting_for_still_image",
+          "nowMs": 44800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "settling",
+          "nowMs": 53000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "distant_scout_capture",
+          "nowMs": 54000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-2",
+            "purpose": "survey",
+            "capturedMs": 54000,
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "SURVEY_CAPTURE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "waiting_for_still_image",
+          "nowMs": 54200,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "settling",
+          "nowMs": 55600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SELECT_INSPECTION",
+          "reason": "distant_scout_capture",
+          "nowMs": 56600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": {
+            "frameId": "sim-3",
+            "purpose": "survey",
+            "capturedMs": 56600,
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "COMPLETE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "COMPLETE",
+          "reason": "exploration_budget_exhausted",
+          "nowMs": 56800,
+          "proposal": null,
+          "capture": null,
+          "childState": null
+        }
+      ]
+    },
+    {
+      "schemaVersion": 2,
+      "simulationOnly": true,
+      "weightsAreHeuristic": true,
+      "liveHabitatClassifierImplemented": false,
+      "stage": "COMPLETE",
+      "mapTargets": [
+        {
+          "id": "inspection-1",
+          "kind": "fungus",
+          "label": "Nearby visual candidate — investigate and confirm",
+          "observationIds": [
+            "synthetic-fungus"
+          ],
+          "createdMs": 0,
+          "lastObservedMs": 60600,
+          "locationStatus": "metric",
+          "signals": {},
+          "confidence": 0.18,
+          "visits": 0,
+          "nextEligibleMs": 86800,
+          "status": "deferred",
+          "evidence": [
+            {
+              "frameId": "synthetic-fungus-59200",
+              "capturedMs": 59200,
+              "receivedMs": 59200,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-59400",
+              "capturedMs": 59400,
+              "receivedMs": 59400,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-59600",
+              "capturedMs": 59600,
+              "receivedMs": 59600,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-59800",
+              "capturedMs": 59800,
+              "receivedMs": 59800,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-60000",
+              "capturedMs": 60000,
+              "receivedMs": 60000,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-60200",
+              "capturedMs": 60200,
+              "receivedMs": 60200,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-60400",
+              "capturedMs": 60400,
+              "receivedMs": 60400,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-60600",
+              "capturedMs": 60600,
+              "receivedMs": 60600,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            }
+          ],
+          "identifiedSpecies": null,
+          "edible": null,
+          "groundSafety": "unknown",
+          "liveClassifier": false,
+          "originalCapturedMs": 60600,
+          "captureTimeKnown": true,
+          "receivedMs": 60600,
+          "capturePose": {
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "capturedMs": 60600
+          },
+          "frameId": "synthetic-fungus-60600",
+          "originalKind": "fungus",
+          "cueType": "detector",
+          "rangeEvidence": {
+            "status": "known",
+            "method": "simulation_metric",
+            "valueM": 5.17830650145995,
+            "uncertaintyM": 0.15000000000000002,
+            "lowerM": 5.02830650145995,
+            "upperM": 5.32830650145995,
+            "capturedMs": 60600,
+            "calibrationId": "simulation-fixture",
+            "synthetic": true
+          },
+          "routingCategory": "immediate_investigation",
+          "routingReason": "measured_range_below_50m",
+          "humanConfirmationRequired": true,
+          "confirmedMushroom": false,
+          "photoStatus": "capture_ack_missing_manual_closeup_required",
+          "inspectionRequest": {
+            "directTargetViewRequired": true,
+            "nativePhotoRequired": true,
+            "targetNativeWidthFraction": 0.7,
+            "humanConfirmationRequired": true,
+            "actuationEnabled": false,
+            "status": "capture_ack_missing_manual_closeup_required",
+            "closeupPending": true
+          },
+          "targetExtent": null,
+          "position": {
+            "x": 5,
+            "y": 0,
+            "z": 0.3
+          },
+          "metric": {
+            "frame": "map_enu",
+            "position": {
+              "x": 5,
+              "y": 0,
+              "z": 0.3
+            },
+            "depthKnown": true,
+            "depthCapturedMs": 60600,
+            "positionVarianceM2": 0.0025
+          },
+          "bbox": null,
+          "semanticFractions": {},
+          "month": 8,
+          "source": "simulated_semantics",
+          "synthetic": true,
+          "evidenceMode": "simulation_fixture",
+          "lastOutcome": "capture_ack_missing_manual_closeup_required",
+          "pathAttempts": 1,
+          "priority": 0.11699999999999999,
+          "priorityIsProbability": false,
+          "reasons": [
+            "Unverified visual cue (18% detector score)",
+            "measured_range_below_50m",
+            "Revisit cooldown"
+          ],
+          "ageMs": 0,
+          "eligible": false,
+          "expiresMs": 180600
+        }
+      ],
+      "screenLeads": [],
+      "habitatLog": [],
+      "photoHistory": [
+        {
+          "type": "request",
+          "requestId": "inspection-photo-1",
+          "frameId": "target-frame-1",
+          "leadId": "inspection-1",
+          "requestedMs": 22800,
+          "position": {
+            "x": 2.4637681159420284,
+            "y": 0,
+            "z": 2
+          },
+          "targetPosition": {
+            "x": 5,
+            "y": 0,
+            "z": 0.3
+          },
+          "coordinateFrame": "map_enu",
+          "aim": {
+            "yawRad": 0,
+            "pitchRad": -0.5905039148133805,
+            "rangeM": 3.0532723707052813
+          },
+          "photoPlan": {
+            "targetFillFraction": 0.7,
+            "fillDimension": "native_frame_width",
+            "nativeWidthPx": 1920,
+            "nativeHeightPx": 1080,
+            "targetDiameterM": 0.05,
+            "targetDiameterMeasured": false,
+            "calibrationStatus": "illustrative-unmeasured",
+            "expectedNativeWidthPx": 22.59870447917542,
+            "expectedFillFraction": 0.011770158582903865,
+            "requiredRangeM": 0.05133928571428571,
+            "minimumStandoffM": 1,
+            "requiredOpticalMagnification": 59.472435742433305,
+            "digitalCropAddsDetail": false,
+            "framingVerified": false,
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "pitchErrorRad": 0.0203610851866195,
+            "cameraAimPossible": true,
+            "closeupStatus": "zoom_required_or_manual_closeup",
+            "humanConfirmationRequired": true
+          },
+          "requiredStreams": [
+            "rgb",
+            "aligned_depth",
+            "camera_info",
+            "odometry"
+          ],
+          "nativeUncroppedRequired": true,
+          "photoCaptured": false,
+          "syntheticProposal": true,
+          "humanConfirmationRequired": true
+        }
+      ],
+      "schedule": [
+        {
+          "leadId": "inspection-1",
+          "kind": "fungus",
+          "status": "scheduled",
+          "reason": "inspect_viewpoint_only",
+          "priority": 0.11699999999999999,
+          "reasons": [
+            "Unverified visual cue (18% detector score)",
+            "measured_range_below_50m"
+          ],
+          "nowMs": 3000,
+          "route": [
+            {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            {
+              "x": 2,
+              "y": 0,
+              "z": 2
+            }
+          ],
+          "viewpoint": {
+            "x": 2,
+            "y": 0,
+            "z": 2
+          }
+        },
+        {
+          "leadId": "inspection-1",
+          "kind": "fungus",
+          "status": "deferred",
+          "reason": "capture_ack_missing_manual_closeup_required",
+          "nowMs": 26800,
+          "synthetic": null,
+          "framingSatisfied": false
+        }
+      ],
+      "budget": {
+        "inspections": 1,
+        "plannedTravelM": 5.376178373350805,
+        "startedMs": 3000
+      },
+      "completedInspections": 0,
+      "completedSimulationInspections": 0,
+      "physicalFlights": 0,
+      "retention": {
+        "droppedHabitatLog": 0,
+        "droppedPhotoHistory": 0,
+        "droppedHistoryEvents": 0,
+        "droppedScheduleEvents": 0,
+        "droppedInputObservations": 0,
+        "rejectedObservations": 0
+      },
+      "events": [
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "preflight_requested",
+          "nowMs": 0,
+          "proposal": null,
+          "capture": null,
+          "childState": "PREFLIGHT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "simulation_preflight_passed",
+          "nowMs": 200,
+          "proposal": null,
+          "capture": null,
+          "childState": "READY"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "waiting_for_still_image",
+          "nowMs": 400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "settling",
+          "nowMs": 1800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SELECT_INSPECTION",
+          "reason": "near_candidate_pauses_scout_at_settled_capture",
+          "nowMs": 2800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 2800,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": -0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "SURVEY_CAPTURE",
+          "remainingSurveyWaypoints": 1
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "closer_inspection_scheduled",
+          "nowMs": 3000,
+          "proposal": null,
+          "capture": null,
+          "childState": null,
+          "leadId": "inspection-1",
+          "kind": "fungus",
+          "plan": {
+            "status": "ready",
+            "points": [
+              {
+                "x": 0,
+                "y": 0,
+                "z": 2
+              },
+              {
+                "x": 2,
+                "y": 0,
+                "z": 2
+              }
+            ],
+            "expanded": 0,
+            "clearance": {
+              "clear": true,
+              "checked": 360,
+              "radiusM": 1.085371245536652,
+              "method": "segment-versus-inflated-voxel-boxes"
+            },
+            "simulationOnly": true,
+            "leadId": "inspection-1",
+            "kind": "fungus",
+            "viewpoint": {
+              "x": 2,
+              "y": 0,
+              "z": 2
+            },
+            "routeDistanceM": 2,
+            "reservedTravelM": 4,
+            "initialRangeM": 5.281098370604357,
+            "proposedRangeM": 3.448187929913334,
+            "reason": "inspect_viewpoint_only",
+            "identifiedSpecies": null,
+            "photoPlan": {
+              "targetFillFraction": 0.7,
+              "fillDimension": "native_frame_width",
+              "nativeWidthPx": 1920,
+              "nativeHeightPx": 1080,
+              "targetDiameterM": 0.05,
+              "targetDiameterMeasured": false,
+              "calibrationStatus": "illustrative-unmeasured",
+              "expectedNativeWidthPx": 20.010510274518083,
+              "expectedFillFraction": 0.010422140767978169,
+              "requiredRangeM": 0.05133928571428571,
+              "minimumStandoffM": 1,
+              "requiredOpticalMagnification": 67.16470402613797,
+              "digitalCropAddsDetail": false,
+              "framingVerified": false,
+              "aim": {
+                "yawRad": 0,
+                "pitchRad": -0.515549007458979,
+                "rangeM": 3.448187929913334
+              },
+              "pitchErrorRad": 0.09531599254102097,
+              "cameraAimPossible": false,
+              "closeupStatus": "zoom_required_or_manual_closeup",
+              "humanConfirmationRequired": true
+            },
+            "moreApproachRequired": true
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "preflight_requested",
+          "nowMs": 3200,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "PREFLIGHT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "simulation_preflight_passed",
+          "nowMs": 3400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "READY"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "orient_before_translation",
+          "nowMs": 3600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "survey_translation",
+          "nowMs": 5000,
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 2,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985502
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "waiting_for_still_image",
+          "nowMs": 15400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "settling",
+          "nowMs": 15600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "fresh_target_segment_replanned",
+          "nowMs": 16600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 16600,
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "COMPLETE",
+          "plan": {
+            "status": "ready",
+            "points": [
+              {
+                "x": 1.8840579710144905,
+                "y": 0,
+                "z": 2
+              },
+              {
+                "x": 2.572147157689893,
+                "y": 0,
+                "z": 2
+              }
+            ],
+            "expanded": 0,
+            "clearance": {
+              "clear": true,
+              "checked": 252,
+              "radiusM": 1.085371245536652,
+              "method": "segment-versus-inflated-voxel-boxes"
+            },
+            "simulationOnly": true,
+            "leadId": "inspection-1",
+            "kind": "fungus",
+            "viewpoint": {
+              "x": 2.572147157689893,
+              "y": 0,
+              "z": 2
+            },
+            "routeDistanceM": 0.6880891866754024,
+            "reservedTravelM": 1.3761783733508048,
+            "initialRangeM": 3.549520351821966,
+            "proposedRangeM": 2.963860560808026,
+            "reason": "inspect_viewpoint_only",
+            "identifiedSpecies": null,
+            "photoPlan": {
+              "targetFillFraction": 0.7,
+              "fillDimension": "native_frame_width",
+              "nativeWidthPx": 1920,
+              "nativeHeightPx": 1080,
+              "targetDiameterM": 0.05,
+              "targetDiameterMeasured": false,
+              "calibrationStatus": "illustrative-unmeasured",
+              "expectedNativeWidthPx": 23.28044743818474,
+              "expectedFillFraction": 0.012125233040721219,
+              "requiredRangeM": 0.05133928571428571,
+              "minimumStandoffM": 1,
+              "requiredOpticalMagnification": 57.7308491844346,
+              "digitalCropAddsDetail": false,
+              "framingVerified": false,
+              "aim": {
+                "yawRad": 0,
+                "pitchRad": -0.610865,
+                "rangeM": 2.963860560808026
+              },
+              "pitchErrorRad": 0,
+              "cameraAimPossible": true,
+              "closeupStatus": "zoom_required_or_manual_closeup",
+              "humanConfirmationRequired": true
+            },
+            "moreApproachRequired": false
+          },
+          "approachSegments": 2
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "preflight_requested",
+          "nowMs": 16800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "PREFLIGHT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "simulation_preflight_passed",
+          "nowMs": 17000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "READY"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "survey_translation",
+          "nowMs": 17200,
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.572147157689893,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "waiting_for_still_image",
+          "nowMs": 20400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "settling",
+          "nowMs": 20600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "AIM_CAPTURE",
+          "reason": "target_viewpoint_reached_capture_not_yet_confirmed",
+          "nowMs": 21600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 21600,
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "COMPLETE",
+          "photoPlan": {
+            "targetFillFraction": 0.7,
+            "fillDimension": "native_frame_width",
+            "nativeWidthPx": 1920,
+            "nativeHeightPx": 1080,
+            "targetDiameterM": 0.05,
+            "targetDiameterMeasured": false,
+            "calibrationStatus": "illustrative-unmeasured",
+            "expectedNativeWidthPx": 22.59870447917542,
+            "expectedFillFraction": 0.011770158582903865,
+            "requiredRangeM": 0.05133928571428571,
+            "minimumStandoffM": 1,
+            "requiredOpticalMagnification": 59.472435742433305,
+            "digitalCropAddsDetail": false,
+            "framingVerified": false,
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "pitchErrorRad": 0.0203610851866195,
+            "cameraAimPossible": true,
+            "closeupStatus": "zoom_required_or_manual_closeup",
+            "humanConfirmationRequired": true
+          },
+          "approachSegments": 2
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "AIM_CAPTURE",
+          "reason": "aim_and_settle_for_target_photo",
+          "nowMs": 21800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null,
+          "photoPlan": {
+            "targetFillFraction": 0.7,
+            "fillDimension": "native_frame_width",
+            "nativeWidthPx": 1920,
+            "nativeHeightPx": 1080,
+            "targetDiameterM": 0.05,
+            "targetDiameterMeasured": false,
+            "calibrationStatus": "illustrative-unmeasured",
+            "expectedNativeWidthPx": 22.59870447917542,
+            "expectedFillFraction": 0.011770158582903865,
+            "requiredRangeM": 0.05133928571428571,
+            "minimumStandoffM": 1,
+            "requiredOpticalMagnification": 59.472435742433305,
+            "digitalCropAddsDetail": false,
+            "framingVerified": false,
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "pitchErrorRad": 0.0203610851866195,
+            "cameraAimPossible": true,
+            "closeupStatus": "zoom_required_or_manual_closeup",
+            "humanConfirmationRequired": true
+          },
+          "imageQuality": {
+            "ready": false,
+            "reason": "settling",
+            "blurPx": 0,
+            "settledMs": 0
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "WAIT_CAPTURE",
+          "reason": "target_photo_requested",
+          "nowMs": 22800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null,
+          "photoRequest": {
+            "requestId": "inspection-photo-1",
+            "frameId": "target-frame-1",
+            "leadId": "inspection-1",
+            "requestedMs": 22800,
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "targetPosition": {
+              "x": 5,
+              "y": 0,
+              "z": 0.3
+            },
+            "coordinateFrame": "map_enu",
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "photoPlan": {
+              "targetFillFraction": 0.7,
+              "fillDimension": "native_frame_width",
+              "nativeWidthPx": 1920,
+              "nativeHeightPx": 1080,
+              "targetDiameterM": 0.05,
+              "targetDiameterMeasured": false,
+              "calibrationStatus": "illustrative-unmeasured",
+              "expectedNativeWidthPx": 22.59870447917542,
+              "expectedFillFraction": 0.011770158582903865,
+              "requiredRangeM": 0.05133928571428571,
+              "minimumStandoffM": 1,
+              "requiredOpticalMagnification": 59.472435742433305,
+              "digitalCropAddsDetail": false,
+              "framingVerified": false,
+              "aim": {
+                "yawRad": 0,
+                "pitchRad": -0.5905039148133805,
+                "rangeM": 3.0532723707052813
+              },
+              "pitchErrorRad": 0.0203610851866195,
+              "cameraAimPossible": true,
+              "closeupStatus": "zoom_required_or_manual_closeup",
+              "humanConfirmationRequired": true
+            },
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "camera_info",
+              "odometry"
+            ],
+            "nativeUncroppedRequired": true,
+            "photoCaptured": false,
+            "syntheticProposal": true,
+            "humanConfirmationRequired": true
+          },
+          "imageQuality": {
+            "ready": true,
+            "reason": "settled",
+            "blurPx": 0,
+            "settledMs": 1000
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "WAIT_CAPTURE",
+          "reason": "waiting_for_native_photo_ack",
+          "nowMs": 23000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null,
+          "photoRequestId": "inspection-photo-1"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SELECT_INSPECTION",
+          "reason": "target_photo_not_confirmed",
+          "nowMs": 26800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "inspection_budget_exhausted_resume_scout",
+          "nowMs": 27000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": null,
+          "remainingSurveyWaypoints": 1
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "drifted_from_capture_station",
+          "nowMs": 27200,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "orient_before_translation",
+          "nowMs": 27400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 3.141592653589793
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "survey_translation",
+          "nowMs": 35600,
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 3.141592653589793,
+            "speedMps": 0.18115942028985504
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "waiting_for_still_image",
+          "nowMs": 48600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "settling",
+          "nowMs": 56800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "distant_scout_capture",
+          "nowMs": 57800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-2",
+            "purpose": "survey",
+            "capturedMs": 57800,
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "SURVEY_CAPTURE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "waiting_for_still_image",
+          "nowMs": 58000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "settling",
+          "nowMs": 59400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SELECT_INSPECTION",
+          "reason": "distant_scout_capture",
+          "nowMs": 60400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": {
+            "frameId": "sim-3",
+            "purpose": "survey",
+            "capturedMs": 60400,
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "COMPLETE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "COMPLETE",
+          "reason": "exploration_budget_exhausted",
+          "nowMs": 60600,
+          "proposal": null,
+          "capture": null,
+          "childState": null
+        }
+      ]
+    },
+    {
+      "schemaVersion": 2,
+      "simulationOnly": true,
+      "weightsAreHeuristic": true,
+      "liveHabitatClassifierImplemented": false,
+      "stage": "COMPLETE",
+      "mapTargets": [
+        {
+          "id": "inspection-1",
+          "kind": "fungus",
+          "label": "Nearby visual candidate — investigate and confirm",
+          "observationIds": [
+            "synthetic-fungus"
+          ],
+          "createdMs": 0,
+          "lastObservedMs": 60600,
+          "locationStatus": "metric",
+          "signals": {},
+          "confidence": 0.18,
+          "visits": 0,
+          "nextEligibleMs": 86800,
+          "status": "deferred",
+          "evidence": [
+            {
+              "frameId": "synthetic-fungus-59200",
+              "capturedMs": 59200,
+              "receivedMs": 59200,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-59400",
+              "capturedMs": 59400,
+              "receivedMs": 59400,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-59600",
+              "capturedMs": 59600,
+              "receivedMs": 59600,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-59800",
+              "capturedMs": 59800,
+              "receivedMs": 59800,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-60000",
+              "capturedMs": 60000,
+              "receivedMs": 60000,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-60200",
+              "capturedMs": 60200,
+              "receivedMs": 60200,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-60400",
+              "capturedMs": 60400,
+              "receivedMs": 60400,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            },
+            {
+              "frameId": "synthetic-fungus-60600",
+              "capturedMs": 60600,
+              "receivedMs": 60600,
+              "source": "simulated_semantics",
+              "confidence": 0.18,
+              "located": true
+            }
+          ],
+          "identifiedSpecies": null,
+          "edible": null,
+          "groundSafety": "unknown",
+          "liveClassifier": false,
+          "originalCapturedMs": 60600,
+          "captureTimeKnown": true,
+          "receivedMs": 60600,
+          "capturePose": {
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "capturedMs": 60600
+          },
+          "frameId": "synthetic-fungus-60600",
+          "originalKind": "fungus",
+          "cueType": "detector",
+          "rangeEvidence": {
+            "status": "known",
+            "method": "simulation_metric",
+            "valueM": 5.17830650145995,
+            "uncertaintyM": 0.15000000000000002,
+            "lowerM": 5.02830650145995,
+            "upperM": 5.32830650145995,
+            "capturedMs": 60600,
+            "calibrationId": "simulation-fixture",
+            "synthetic": true
+          },
+          "routingCategory": "immediate_investigation",
+          "routingReason": "measured_range_below_50m",
+          "humanConfirmationRequired": true,
+          "confirmedMushroom": false,
+          "photoStatus": "capture_ack_missing_manual_closeup_required",
+          "inspectionRequest": {
+            "directTargetViewRequired": true,
+            "nativePhotoRequired": true,
+            "targetNativeWidthFraction": 0.7,
+            "humanConfirmationRequired": true,
+            "actuationEnabled": false,
+            "status": "capture_ack_missing_manual_closeup_required",
+            "closeupPending": true
+          },
+          "targetExtent": null,
+          "position": {
+            "x": 5,
+            "y": 0,
+            "z": 0.3
+          },
+          "metric": {
+            "frame": "map_enu",
+            "position": {
+              "x": 5,
+              "y": 0,
+              "z": 0.3
+            },
+            "depthKnown": true,
+            "depthCapturedMs": 60600,
+            "positionVarianceM2": 0.0025
+          },
+          "bbox": null,
+          "semanticFractions": {},
+          "month": 8,
+          "source": "simulated_semantics",
+          "synthetic": true,
+          "evidenceMode": "simulation_fixture",
+          "lastOutcome": "capture_ack_missing_manual_closeup_required",
+          "pathAttempts": 1,
+          "priority": 0.11699999999999999,
+          "priorityIsProbability": false,
+          "reasons": [
+            "Unverified visual cue (18% detector score)",
+            "measured_range_below_50m",
+            "Revisit cooldown"
+          ],
+          "ageMs": 0,
+          "eligible": false,
+          "expiresMs": 180600
+        }
+      ],
+      "screenLeads": [],
+      "habitatLog": [],
+      "photoHistory": [
+        {
+          "type": "request",
+          "requestId": "inspection-photo-1",
+          "frameId": "target-frame-1",
+          "leadId": "inspection-1",
+          "requestedMs": 22800,
+          "position": {
+            "x": 2.4637681159420284,
+            "y": 0,
+            "z": 2
+          },
+          "targetPosition": {
+            "x": 5,
+            "y": 0,
+            "z": 0.3
+          },
+          "coordinateFrame": "map_enu",
+          "aim": {
+            "yawRad": 0,
+            "pitchRad": -0.5905039148133805,
+            "rangeM": 3.0532723707052813
+          },
+          "photoPlan": {
+            "targetFillFraction": 0.7,
+            "fillDimension": "native_frame_width",
+            "nativeWidthPx": 1920,
+            "nativeHeightPx": 1080,
+            "targetDiameterM": 0.05,
+            "targetDiameterMeasured": false,
+            "calibrationStatus": "illustrative-unmeasured",
+            "expectedNativeWidthPx": 22.59870447917542,
+            "expectedFillFraction": 0.011770158582903865,
+            "requiredRangeM": 0.05133928571428571,
+            "minimumStandoffM": 1,
+            "requiredOpticalMagnification": 59.472435742433305,
+            "digitalCropAddsDetail": false,
+            "framingVerified": false,
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "pitchErrorRad": 0.0203610851866195,
+            "cameraAimPossible": true,
+            "closeupStatus": "zoom_required_or_manual_closeup",
+            "humanConfirmationRequired": true
+          },
+          "requiredStreams": [
+            "rgb",
+            "aligned_depth",
+            "camera_info",
+            "odometry"
+          ],
+          "nativeUncroppedRequired": true,
+          "photoCaptured": false,
+          "syntheticProposal": true,
+          "humanConfirmationRequired": true
+        }
+      ],
+      "schedule": [
+        {
+          "leadId": "inspection-1",
+          "kind": "fungus",
+          "status": "scheduled",
+          "reason": "inspect_viewpoint_only",
+          "priority": 0.11699999999999999,
+          "reasons": [
+            "Unverified visual cue (18% detector score)",
+            "measured_range_below_50m"
+          ],
+          "nowMs": 3000,
+          "route": [
+            {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            {
+              "x": 2,
+              "y": 0,
+              "z": 2
+            }
+          ],
+          "viewpoint": {
+            "x": 2,
+            "y": 0,
+            "z": 2
+          }
+        },
+        {
+          "leadId": "inspection-1",
+          "kind": "fungus",
+          "status": "deferred",
+          "reason": "capture_ack_missing_manual_closeup_required",
+          "nowMs": 26800,
+          "synthetic": null,
+          "framingSatisfied": false
+        }
+      ],
+      "budget": {
+        "inspections": 1,
+        "plannedTravelM": 5.376178373350805,
+        "startedMs": 3000
+      },
+      "completedInspections": 0,
+      "completedSimulationInspections": 0,
+      "physicalFlights": 0,
+      "retention": {
+        "droppedHabitatLog": 0,
+        "droppedPhotoHistory": 0,
+        "droppedHistoryEvents": 0,
+        "droppedScheduleEvents": 0,
+        "droppedInputObservations": 0,
+        "rejectedObservations": 0
+      },
+      "events": [
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "preflight_requested",
+          "nowMs": 0,
+          "proposal": null,
+          "capture": null,
+          "childState": "PREFLIGHT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "simulation_preflight_passed",
+          "nowMs": 200,
+          "proposal": null,
+          "capture": null,
+          "childState": "READY"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "waiting_for_still_image",
+          "nowMs": 400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "settling",
+          "nowMs": 1800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SELECT_INSPECTION",
+          "reason": "near_candidate_pauses_scout_at_settled_capture",
+          "nowMs": 2800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 2800,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": -0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "SURVEY_CAPTURE",
+          "remainingSurveyWaypoints": 1
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "closer_inspection_scheduled",
+          "nowMs": 3000,
+          "proposal": null,
+          "capture": null,
+          "childState": null,
+          "leadId": "inspection-1",
+          "kind": "fungus",
+          "plan": {
+            "status": "ready",
+            "points": [
+              {
+                "x": 0,
+                "y": 0,
+                "z": 2
+              },
+              {
+                "x": 2,
+                "y": 0,
+                "z": 2
+              }
+            ],
+            "expanded": 0,
+            "clearance": {
+              "clear": true,
+              "checked": 360,
+              "radiusM": 1.085371245536652,
+              "method": "segment-versus-inflated-voxel-boxes"
+            },
+            "simulationOnly": true,
+            "leadId": "inspection-1",
+            "kind": "fungus",
+            "viewpoint": {
+              "x": 2,
+              "y": 0,
+              "z": 2
+            },
+            "routeDistanceM": 2,
+            "reservedTravelM": 4,
+            "initialRangeM": 5.281098370604357,
+            "proposedRangeM": 3.448187929913334,
+            "reason": "inspect_viewpoint_only",
+            "identifiedSpecies": null,
+            "photoPlan": {
+              "targetFillFraction": 0.7,
+              "fillDimension": "native_frame_width",
+              "nativeWidthPx": 1920,
+              "nativeHeightPx": 1080,
+              "targetDiameterM": 0.05,
+              "targetDiameterMeasured": false,
+              "calibrationStatus": "illustrative-unmeasured",
+              "expectedNativeWidthPx": 20.010510274518083,
+              "expectedFillFraction": 0.010422140767978169,
+              "requiredRangeM": 0.05133928571428571,
+              "minimumStandoffM": 1,
+              "requiredOpticalMagnification": 67.16470402613797,
+              "digitalCropAddsDetail": false,
+              "framingVerified": false,
+              "aim": {
+                "yawRad": 0,
+                "pitchRad": -0.515549007458979,
+                "rangeM": 3.448187929913334
+              },
+              "pitchErrorRad": 0.09531599254102097,
+              "cameraAimPossible": false,
+              "closeupStatus": "zoom_required_or_manual_closeup",
+              "humanConfirmationRequired": true
+            },
+            "moreApproachRequired": true
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "preflight_requested",
+          "nowMs": 3200,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "PREFLIGHT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "simulation_preflight_passed",
+          "nowMs": 3400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "READY"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "orient_before_translation",
+          "nowMs": 3600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "survey_translation",
+          "nowMs": 5000,
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 2,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985502
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "waiting_for_still_image",
+          "nowMs": 15400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "settling",
+          "nowMs": 15600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "fresh_target_segment_replanned",
+          "nowMs": 16600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 16600,
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "COMPLETE",
+          "plan": {
+            "status": "ready",
+            "points": [
+              {
+                "x": 1.8840579710144905,
+                "y": 0,
+                "z": 2
+              },
+              {
+                "x": 2.572147157689893,
+                "y": 0,
+                "z": 2
+              }
+            ],
+            "expanded": 0,
+            "clearance": {
+              "clear": true,
+              "checked": 252,
+              "radiusM": 1.085371245536652,
+              "method": "segment-versus-inflated-voxel-boxes"
+            },
+            "simulationOnly": true,
+            "leadId": "inspection-1",
+            "kind": "fungus",
+            "viewpoint": {
+              "x": 2.572147157689893,
+              "y": 0,
+              "z": 2
+            },
+            "routeDistanceM": 0.6880891866754024,
+            "reservedTravelM": 1.3761783733508048,
+            "initialRangeM": 3.549520351821966,
+            "proposedRangeM": 2.963860560808026,
+            "reason": "inspect_viewpoint_only",
+            "identifiedSpecies": null,
+            "photoPlan": {
+              "targetFillFraction": 0.7,
+              "fillDimension": "native_frame_width",
+              "nativeWidthPx": 1920,
+              "nativeHeightPx": 1080,
+              "targetDiameterM": 0.05,
+              "targetDiameterMeasured": false,
+              "calibrationStatus": "illustrative-unmeasured",
+              "expectedNativeWidthPx": 23.28044743818474,
+              "expectedFillFraction": 0.012125233040721219,
+              "requiredRangeM": 0.05133928571428571,
+              "minimumStandoffM": 1,
+              "requiredOpticalMagnification": 57.7308491844346,
+              "digitalCropAddsDetail": false,
+              "framingVerified": false,
+              "aim": {
+                "yawRad": 0,
+                "pitchRad": -0.610865,
+                "rangeM": 2.963860560808026
+              },
+              "pitchErrorRad": 0,
+              "cameraAimPossible": true,
+              "closeupStatus": "zoom_required_or_manual_closeup",
+              "humanConfirmationRequired": true
+            },
+            "moreApproachRequired": false
+          },
+          "approachSegments": 2
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "preflight_requested",
+          "nowMs": 16800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "PREFLIGHT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "simulation_preflight_passed",
+          "nowMs": 17000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 1.8840579710144905,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "READY"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "survey_translation",
+          "nowMs": 17200,
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.572147157689893,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "waiting_for_still_image",
+          "nowMs": 20400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "DETAIL",
+          "reason": "settling",
+          "nowMs": 20600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "AIM_CAPTURE",
+          "reason": "target_viewpoint_reached_capture_not_yet_confirmed",
+          "nowMs": 21600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 21600,
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "COMPLETE",
+          "photoPlan": {
+            "targetFillFraction": 0.7,
+            "fillDimension": "native_frame_width",
+            "nativeWidthPx": 1920,
+            "nativeHeightPx": 1080,
+            "targetDiameterM": 0.05,
+            "targetDiameterMeasured": false,
+            "calibrationStatus": "illustrative-unmeasured",
+            "expectedNativeWidthPx": 22.59870447917542,
+            "expectedFillFraction": 0.011770158582903865,
+            "requiredRangeM": 0.05133928571428571,
+            "minimumStandoffM": 1,
+            "requiredOpticalMagnification": 59.472435742433305,
+            "digitalCropAddsDetail": false,
+            "framingVerified": false,
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "pitchErrorRad": 0.0203610851866195,
+            "cameraAimPossible": true,
+            "closeupStatus": "zoom_required_or_manual_closeup",
+            "humanConfirmationRequired": true
+          },
+          "approachSegments": 2
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "AIM_CAPTURE",
+          "reason": "aim_and_settle_for_target_photo",
+          "nowMs": 21800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null,
+          "photoPlan": {
+            "targetFillFraction": 0.7,
+            "fillDimension": "native_frame_width",
+            "nativeWidthPx": 1920,
+            "nativeHeightPx": 1080,
+            "targetDiameterM": 0.05,
+            "targetDiameterMeasured": false,
+            "calibrationStatus": "illustrative-unmeasured",
+            "expectedNativeWidthPx": 22.59870447917542,
+            "expectedFillFraction": 0.011770158582903865,
+            "requiredRangeM": 0.05133928571428571,
+            "minimumStandoffM": 1,
+            "requiredOpticalMagnification": 59.472435742433305,
+            "digitalCropAddsDetail": false,
+            "framingVerified": false,
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "pitchErrorRad": 0.0203610851866195,
+            "cameraAimPossible": true,
+            "closeupStatus": "zoom_required_or_manual_closeup",
+            "humanConfirmationRequired": true
+          },
+          "imageQuality": {
+            "ready": false,
+            "reason": "settling",
+            "blurPx": 0,
+            "settledMs": 0
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "WAIT_CAPTURE",
+          "reason": "target_photo_requested",
+          "nowMs": 22800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null,
+          "photoRequest": {
+            "requestId": "inspection-photo-1",
+            "frameId": "target-frame-1",
+            "leadId": "inspection-1",
+            "requestedMs": 22800,
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "targetPosition": {
+              "x": 5,
+              "y": 0,
+              "z": 0.3
+            },
+            "coordinateFrame": "map_enu",
+            "aim": {
+              "yawRad": 0,
+              "pitchRad": -0.5905039148133805,
+              "rangeM": 3.0532723707052813
+            },
+            "photoPlan": {
+              "targetFillFraction": 0.7,
+              "fillDimension": "native_frame_width",
+              "nativeWidthPx": 1920,
+              "nativeHeightPx": 1080,
+              "targetDiameterM": 0.05,
+              "targetDiameterMeasured": false,
+              "calibrationStatus": "illustrative-unmeasured",
+              "expectedNativeWidthPx": 22.59870447917542,
+              "expectedFillFraction": 0.011770158582903865,
+              "requiredRangeM": 0.05133928571428571,
+              "minimumStandoffM": 1,
+              "requiredOpticalMagnification": 59.472435742433305,
+              "digitalCropAddsDetail": false,
+              "framingVerified": false,
+              "aim": {
+                "yawRad": 0,
+                "pitchRad": -0.5905039148133805,
+                "rangeM": 3.0532723707052813
+              },
+              "pitchErrorRad": 0.0203610851866195,
+              "cameraAimPossible": true,
+              "closeupStatus": "zoom_required_or_manual_closeup",
+              "humanConfirmationRequired": true
+            },
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "camera_info",
+              "odometry"
+            ],
+            "nativeUncroppedRequired": true,
+            "photoCaptured": false,
+            "syntheticProposal": true,
+            "humanConfirmationRequired": true
+          },
+          "imageQuality": {
+            "ready": true,
+            "reason": "settled",
+            "blurPx": 0,
+            "settledMs": 1000
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "WAIT_CAPTURE",
+          "reason": "capture_ack_rejected",
+          "nowMs": 23000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null,
+          "captureAcknowledgment": {
+            "accepted": false,
+            "reason": "simulation_requires_explicit_synthetic_ack"
+          }
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SELECT_INSPECTION",
+          "reason": "target_photo_not_confirmed",
+          "nowMs": 26800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0,
+            "cameraPitchRad": -0.5905039148133805,
+            "cameraPitchIsRequirementOnly": true
+          },
+          "capture": null,
+          "childState": null
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "inspection_budget_exhausted_resume_scout",
+          "nowMs": 27000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": null,
+          "remainingSurveyWaypoints": 1
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "drifted_from_capture_station",
+          "nowMs": 27200,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "orient_before_translation",
+          "nowMs": 27400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.4637681159420284,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 3.141592653589793
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "survey_translation",
+          "nowMs": 35600,
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 3.141592653589793,
+            "speedMps": 0.18115942028985504
+          },
+          "capture": null,
+          "childState": "SURVEY_TRANSIT"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "waiting_for_still_image",
+          "nowMs": 48600,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "settling",
+          "nowMs": 56800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "distant_scout_capture",
+          "nowMs": 57800,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-2",
+            "purpose": "survey",
+            "capturedMs": 57800,
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "SURVEY_CAPTURE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "waiting_for_still_image",
+          "nowMs": 58000,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SCOUT",
+          "reason": "settling",
+          "nowMs": 59400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": null,
+          "childState": "SURVEY_SETTLE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "SELECT_INSPECTION",
+          "reason": "distant_scout_capture",
+          "nowMs": 60400,
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": {
+            "frameId": "sim-3",
+            "purpose": "survey",
+            "capturedMs": 60400,
+            "position": {
+              "x": 0.10869565217391314,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "captureStatus": "proposal_only",
+            "photoCaptured": false,
+            "identification": "unverified"
+          },
+          "childState": "COMPLETE"
+        },
+        {
+          "simulationOnly": true,
+          "actuationEnabled": false,
+          "stage": "COMPLETE",
+          "reason": "exploration_budget_exhausted",
+          "nowMs": 60600,
+          "proposal": null,
+          "capture": null,
+          "childState": null
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "All ranges in this report are measured-distance simulation fixtures, not estimates from synthetic image sizes.",
+    "Unknown range stays unknown; native color is a search cue, never confirmation.",
+    "A 70% native-frame-width close-up remains pending when the aircraft cannot safely obtain it; digital crop is not additional captured detail.",
+    "This is behavior simulation without camera transport, gimbal control, MAVLink or physical flight."
+  ]
+}

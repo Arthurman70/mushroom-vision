@@ -1,0 +1,100 @@
+{
+  "schema": "mushroom-vision.dataset-sources.v1",
+  "checkedAt": "2026-10-29",
+  "project": "Mushroom Vision",
+  "projectStatus": "Unfinished open-source research project; no clinical, edibility, or autonomous woodland validation",
+  "policy": {
+    "sourceLabelsAreHumanVerification": false,
+    "wildlifeEmptyMeansMushroomAbsent": false,
+    "redistributeThirdPartyMediaUnderSoftwareLicense": false,
+    "preserveSourceGroupsAndOfficialHoldouts": true,
+    "maximumInitialNewMediaBytes": 2000000000
+  },
+  "sources": [
+    {
+      "id": "inaturalist-open-data",
+      "name": "iNaturalist Licensed Observation Images",
+      "homepage": "https://registry.opendata.aws/inaturalist-open-data/",
+      "documentation": "https://github.com/inaturalist/inaturalist-open-data",
+      "access": "Public image bucket; monthly metadata exports for large-scale work; bounded official API selection for this pilot",
+      "licensePolicy": "Per-photo CC0, CC BY, or CC BY-SA only for the reusable collection; independently check observation license",
+      "downloadCommand": "python -m vision.acquire_biodiversity --parent data/public-fungi-v3/manifest.json --output data/biodiversity-fungi-v1 --per-genus 32",
+      "localManifest": "data/biodiversity-fungi-v1/manifest.json",
+      "status": "downloaded_subset",
+      "downloadedNewImages": 672,
+      "downloadedNewImageBytes": 398664149,
+      "combinedImagesIncludingParent": 3922,
+      "combinedResearchClassCount": 43,
+      "newPhotoLicenses": {"cc-by": 464, "cc0": 183, "cc-by-sa": 25},
+      "contact": "help@inaturalist.org"
+    },
+    {
+      "id": "lila-caltech-camera-traps",
+      "name": "LILA Caltech Camera Traps",
+      "homepage": "https://lila.science/datasets/caltech-camera-traps",
+      "access": "Public individual images and annotation archives; do not need the 105 GB archive",
+      "licensePolicy": "CDLA-Permissive-1.0 with source attribution and notices retained",
+      "licenseUrl": "https://cdla.io/permissive-1-0/",
+      "downloadCommand": "python adapters/acquire_wildlife_context.py --output data/wildlife-context-v1 --per-category 6",
+      "localManifest": "data/wildlife-context-v1/manifest.json",
+      "status": "downloaded_subset",
+      "downloadedImages": 113,
+      "downloadedImageBytes": 45751020,
+      "role": "Wildlife/context review queue; not mushroom-free ground truth",
+      "contact": "caltechcameratraps@gmail.com"
+    },
+    {
+      "id": "gbif",
+      "name": "Global Biodiversity Information Facility",
+      "homepage": "https://www.gbif.org/",
+      "documentation": "https://techdocs.gbif.org/en/openapi/",
+      "access": "Occurrence search API; registered-account asynchronous downloads for a DOI-backed large export; original media remain at source publishers",
+      "licensePolicy": "Occurrence data license and each media license must be checked separately",
+      "status": "documented_access_route",
+      "role": "Cross-provider discovery; deduplicate iNaturalist/Atlas records before combining",
+      "contact": "helpdesk@gbif.org"
+    },
+    {
+      "id": "mushroom-observer",
+      "name": "Mushroom Observer",
+      "homepage": "https://mushroomobserver.org/",
+      "documentation": "https://github.com/MushroomObserver/mushroom-observer/blob/main/README_API.md",
+      "access": "Nightly CSV exports and Images for Machine Learning route; API explicitly not intended for AI/bulk scraping",
+      "bulkMetadataUrls": ["https://mushroomobserver.org/observations.csv", "https://mushroomobserver.org/images_observations.csv", "https://mushroomobserver.org/images.csv", "https://mushroomobserver.org/names.csv"],
+      "applicationUrl": "https://mushroomobserver.org/articles/20",
+      "contactUrl": "https://mushroomobserver.org/admin/emails/webmaster_questions/new",
+      "licensePolicy": "Per-image license/attribution; don't infer photo rights from the site's code license",
+      "status": "access_request_prepared",
+      "limitation": "Machine-learning article returned 403 during this check; no attempt to bypass the access restriction"
+    },
+    {
+      "id": "danish-fungi-24",
+      "name": "Danish Fungi 2024",
+      "homepage": "https://github.com/BohemianVRA/DanishFungiDataset",
+      "access": "Public dataset download links and observation-grouped 2024 metadata; full 300 px archive about 6.5 GB",
+      "licensePolicy": "Repository explicitly limits training data, metadata and models to noncommercial research; request terms for broader use",
+      "status": "research_only_request_prepared",
+      "contact": "lukaspicek@gmail.com"
+    },
+    {
+      "id": "fungitastic",
+      "name": "FungiTastic",
+      "homepage": "https://bohemianvra.github.io/FungiTastic/",
+      "documentation": "https://github.com/BohemianVRA/FungiTastic/blob/main/dataset/README.md",
+      "access": "Maintainer download script selects subset and resolution; Kaggle is an alternative requiring account credentials",
+      "licensePolicy": "Clarify data/model release terms with maintainers; repository code license is not sufficient evidence of image rights",
+      "role": "Future fine-grained, segmentation, open-set and DNA-backed evaluation experiments; preserve official chronological and DNA holdouts",
+      "status": "access_request_prepared",
+      "contact": "lukaspicek@gmail.com"
+    },
+    {
+      "id": "fungiclef-2025",
+      "name": "FungiCLEF 2025",
+      "homepage": "https://www.imageclef.org/FungiCLEF2025",
+      "access": "Historical competition registration and Kaggle competition rules; 2025 event has ended, contact organizers for current benchmark access",
+      "licensePolicy": "Competition and original data terms must both be satisfied; do not assume unrestricted model redistribution",
+      "status": "access_request_prepared",
+      "contact": "lukaspicek@gmail.com"
+    }
+  ]
+}

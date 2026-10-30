@@ -1,0 +1,1900 @@
+{
+  "schema": "mycoscout.michigan-mushroom-scope.v1",
+  "version": "0.4.0",
+  "retrievedAt": "2026-10-26",
+  "jurisdiction": "Michigan, USA",
+  "title": "Michigan certification curriculum and research coverage",
+  "purpose": "Evidence checklist and training-coverage catalog for human review; no AI food-safety or legal clearance.",
+  "scopeBasis": "All 20 entries in the current MAMI study-guide index, expanded only to taxa explicitly named or separately marked as related/unresolved. The index is not treated as an exhaustive statutory whitelist.",
+  "documentedIndexEntryCount": 20,
+  "groups": [
+    {
+      "id": "morels",
+      "label": "Morels",
+      "kind": "foraging_category",
+      "scopeStatus": "documented_curriculum_group",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    },
+    {
+      "id": "chanterelles_trumpets",
+      "label": "Chanterelles and trumpets",
+      "kind": "foraging_category",
+      "scopeStatus": "documented_curriculum_group",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    },
+    {
+      "id": "gilled",
+      "label": "Other gilled mushrooms",
+      "kind": "foraging_category",
+      "scopeStatus": "mixed_visual_category",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    },
+    {
+      "id": "puffballs",
+      "label": "Puffballs",
+      "kind": "foraging_category",
+      "scopeStatus": "mixed_visual_category",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    },
+    {
+      "id": "tooth_fungi",
+      "label": "Tooth fungi",
+      "kind": "foraging_category",
+      "scopeStatus": "mixed_visual_category",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    },
+    {
+      "id": "polypores",
+      "label": "Shelves, brackets and conks",
+      "kind": "foraging_category",
+      "scopeStatus": "mixed_visual_category",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    },
+    {
+      "id": "crust_parasitized",
+      "label": "Lobster and shrimp forms",
+      "kind": "foraging_category",
+      "scopeStatus": "mixed_visual_category",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    },
+    {
+      "id": "truffles",
+      "label": "Truffles",
+      "kind": "foraging_category",
+      "scopeStatus": "mixed_visual_category",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    },
+    {
+      "id": "boletes",
+      "label": "Boletes",
+      "kind": "foraging_category",
+      "scopeStatus": "research_only_outside_documented_curriculum",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    },
+    {
+      "id": "unknown",
+      "label": "Unknown or other",
+      "kind": "foraging_category",
+      "scopeStatus": "unresolved",
+      "isPhylogeneticClade": false,
+      "impliesEdibility": false,
+      "impliesSaleApproval": false
+    }
+  ],
+  "entries": [
+    {
+      "id": "honey_mushrooms",
+      "label": "Honey mushrooms",
+      "groupId": "gilled",
+      "sourceIndexLabel": "Armillaria",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Armillaria gallica",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Armillaria bulbosa",
+              "kind": "synonym_as_reported_by_source"
+            },
+            {
+              "name": "Armillaria luteans",
+              "kind": "synonym_as_reported_by_source"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Armillaria mellea",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Armillaria tabescens",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Pholiota",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Galerina",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Omphalotus illudens",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [],
+      "researchGaps": [
+        "Legacy Armillaria tabescens naming needs current North American taxon reconciliation; do not silently relabel all ringless honey mushrooms."
+      ],
+      "reviewChecklist": [
+        "Record gills, stem base and ring or ring absence.",
+        "Preserve individual specimens for expert inspection; mixed clusters need individual checks."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-honey_mushrooms"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "giant_puffball",
+      "label": "Giant puffball",
+      "groupId": "puffballs",
+      "sourceIndexLabel": "Calvatia gigantea",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Calvatia gigantea",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Langermannia gigantea",
+              "kind": "alternate_name_in_source_reference"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Scleroderma",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [
+        "Guide concerns giant puffball, not every round white fungus.",
+        "Fresh interior condition requires physical inspection."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record a physical interior section and maturity condition."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-giant_puffball"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "chanterelles",
+      "label": "Chanterelles",
+      "groupId": "chanterelles_trumpets",
+      "sourceIndexLabel": "Cantharellus",
+      "indexEntry": true,
+      "coverageStatus": "documented_group_exact_species_unresolved",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Cantharellus",
+          "status": "curriculum_open_genus",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null,
+          "note": "Guide covers Michigan yellow and red chanterelles; species boundaries are explicitly unsettled."
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Cantharellus cibarius",
+          "status": "taxonomic_context_not_separate_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Cantharellus cinnabarinus",
+          "status": "taxonomic_context_not_separate_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Cantharellus phasmatis",
+          "status": "taxonomic_context_not_separate_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Cantharellus flavus",
+          "status": "taxonomic_context_not_separate_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Cantharellus texensis",
+          "status": "taxonomic_context_not_separate_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Craterellus tubaeformis",
+          "status": "related_edible_discussion_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Craterellus infundibuliformis",
+          "status": "related_edible_discussion_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Craterellus ignicolor",
+          "status": "related_edible_discussion_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Craterellus xanthopus",
+          "status": "related_edible_discussion_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Omphalotus illudens",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [],
+      "researchGaps": [
+        "No closed, current Michigan species enumeration is supplied by this guide.",
+        "Names discussed in taxonomic research are not automatically separate approved targets."
+      ],
+      "reviewChecklist": [
+        "Record underside folds versus true gills, stem interior and substrate."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-chanterelles"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "black_trumpets",
+      "label": "Black trumpets",
+      "groupId": "chanterelles_trumpets",
+      "sourceIndexLabel": "Craterellus",
+      "indexEntry": true,
+      "coverageStatus": "documented_primary_with_related_scope_unresolved",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Craterellus fallax",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Craterellus cinereus",
+          "status": "related_edible_discussion_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Craterellus foetidus",
+          "status": "related_edible_discussion_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Craterellus cornucopioides",
+          "status": "regional_historical_context_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Craterellus calicornucopioides",
+          "status": "existing_research_class_outside_confirmed_scope",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [],
+      "researchGaps": [
+        "C. cinereus and C. foetidus are described as edible lookalikes, not separately enumerated certification authorizations.",
+        "C. cornucopioides is distinguished as European; older captions still use that name.",
+        "Earlier global classifier data includes C. calicornucopioides; this Michigan guide does not establish its certification coverage."
+      ],
+      "reviewChecklist": [
+        "Record trumpet form, outer fertile surface, spore evidence and substrate."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-black_trumpets"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "shaggy_mane",
+      "label": "Shaggy mane",
+      "groupId": "gilled",
+      "sourceIndexLabel": "Coprinus",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Coprinus comatus",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Coprinus quadrifidus",
+          "status": "source_says_do_not_collect",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Coprinopsis atramentaria",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [
+        "The index genus label resolves to C. comatus, not all inkcaps.",
+        "Liquefying mature specimens do not match the guide harvest stage."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record cap surface, maturity and gills before breakdown."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-shaggy_mane"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "aborted_entoloma",
+      "label": "Shrimp of the woods",
+      "groupId": "crust_parasitized",
+      "sourceIndexLabel": "Entoloma abortivum",
+      "indexEntry": true,
+      "coverageStatus": "documented_form_restricted",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Entoloma abortivum",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null,
+          "note": "Coverage is restricted to the aborted form associated with parasitized Armillaria fruiting bodies."
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Entoloma abortivum (unaborted form)",
+          "status": "explicitly_excluded_form",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Entoloma",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Armillaria",
+          "status": "associated_host_not_same_label",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [
+        "Only the aborted form is stated as permitted for Michigan gathering and sale.",
+        "The normal, gilled form is explicitly excluded; an observation-level taxon label does not prove the permitted form."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Human must document aborted versus normal gilled form."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-aborted_entoloma"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "ganoderma",
+      "label": "Reishi and artist conks",
+      "groupId": "polypores",
+      "sourceIndexLabel": "Ganoderma",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Ganoderma applanatum",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Ganoderma sessile",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Ganoderma curtisii",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Ganoderma tsugae",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Ganoderma lucidum",
+          "status": "regional_comparison_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Ganoderma lingzhi",
+          "status": "taxonomic_comparison_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [
+        "Coverage is the four named guide targets, not automatic approval of every Ganoderma.",
+        "Curriculum inclusion does not establish a medicinal benefit or authorize therapeutic claims."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record pore surface, cap finish, substrate and specimen condition."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-ganoderma"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "hen_of_woods",
+      "label": "Hen of the woods",
+      "groupId": "polypores",
+      "sourceIndexLabel": "Grifola frondosa",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Grifola frondosa",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Meripilus giganteus",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null,
+          "note": "Guide also uses the legacy spelling Meripilus sumstine; current names require reconciliation."
+        }
+      ],
+      "constraints": [],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record frond shape, attachment, pore surface and bruising."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-hen_of_woods"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "hericium",
+      "label": "Lion mane and branching tooth fungi",
+      "groupId": "tooth_fungi",
+      "sourceIndexLabel": "Hericium",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Hericium erinaceus",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Hericium coralloides",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Hericium ramosum",
+              "kind": "synonym_as_reported_by_source"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Hericium americanum",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [],
+      "constraints": [],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record branching pattern, tooth arrangement and wood substrate."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-hericium"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "hedgehogs",
+      "label": "Hedgehog mushrooms",
+      "groupId": "tooth_fungi",
+      "sourceIndexLabel": "Hydnum",
+      "indexEntry": true,
+      "coverageStatus": "documented_group_exact_species_unresolved",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Hydnum repandum",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Hydnum rufescens",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Hydnum",
+          "status": "curriculum_open_genus",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null,
+          "note": "The heading includes other Hydnum species without a closed list."
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Hydnum albomagnum",
+          "status": "additional_named_guide_example",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Hydnum umbilicatum",
+          "status": "additional_named_guide_example",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Dentinum",
+          "status": "historical_genus_name",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Sarcodon imbricatus",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Hydnellum compactum",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Hydnellum aurantiacum",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [],
+      "researchGaps": [
+        "Modern species boundaries and all eligible Michigan Hydnum species are not enumerated."
+      ],
+      "reviewChecklist": [
+        "Record underside teeth, flesh texture and terrestrial substrate."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-hedgehogs"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "lobster_mushroom",
+      "label": "Lobster mushroom",
+      "groupId": "crust_parasitized",
+      "sourceIndexLabel": "Hypomyces lactifluorum",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Hypomyces lactifluorum",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Lactarius piperatus",
+          "status": "host_name_as_reported_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Russula brevipes",
+          "status": "host_name_as_reported_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [
+        "The visible subject is a fungus-parasitized host; ordinary host mushrooms are not equivalent training or inspection labels."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record parasite surface, underside and specimen integrity."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-lobster_mushroom"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "chaga",
+      "label": "Chaga",
+      "groupId": "polypores",
+      "sourceIndexLabel": "Inonotus obliquus",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Inonotus obliquus",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [],
+      "constraints": [
+        "Guide restricts collection to birch hosts and advises against dead-tree specimens.",
+        "A dark tree growth alone cannot confirm chaga; no medicinal benefit is inferred."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record birch identification, tree condition and physical interior."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-chaga"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "chicken_of_woods",
+      "label": "Chicken of the woods",
+      "groupId": "polypores",
+      "sourceIndexLabel": "Laetiporus",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Laetiporus sulphureus",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Laetiporus cincinnatus",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Laetiporus conifericola",
+          "status": "source_avoidance_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Omphalotus olearius",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [
+        "Guide advises avoiding conifer-associated Laetiporus; two named hardwood-associated targets are recorded."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record host, pore color, attachment and condition."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-chicken_of_woods"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "true_morels",
+      "label": "True morels",
+      "groupId": "morels",
+      "sourceIndexLabel": "Morchella",
+      "indexEntry": true,
+      "coverageStatus": "documented_six_primary_species_with_related_scope_unresolved",
+      "certificationScopeIds": [
+        "full_wild_mushroom",
+        "morel_only"
+      ],
+      "taxa": [
+        {
+          "name": "Morchella americana",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Morchella esculentoides",
+              "kind": "synonym_as_reported_by_source"
+            },
+            {
+              "name": "Morchella esculenta",
+              "kind": "historical_application_not_current_equivalence"
+            },
+            {
+              "name": "Morchella crassipes",
+              "kind": "historical_application_not_current_equivalence"
+            },
+            {
+              "name": "Morchella deliciosa",
+              "kind": "historical_application_not_current_equivalence"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Morchella angusticeps",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Morchella elata",
+              "kind": "historical_application_not_current_equivalence"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Morchella diminutiva",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Morchella exuberans",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Morchella capitata",
+              "kind": "synonym_as_reported_by_source"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Morchella importuna",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Morchella punctipes",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Morchella semilibera",
+              "kind": "historical_application_not_current_equivalence"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Morchella prava",
+          "status": "related_edible_discussion_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Morchella cryptica",
+          "status": "related_edible_discussion_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Morchella septentrionales",
+          "status": "related_edible_discussion_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Verpa bohemica",
+          "status": "explicitly_excluded_by_source",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Verpa conica",
+          "status": "explicitly_excluded_by_source",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Gyromitra esculenta",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Gyromitra brunnea",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Gyromitra korfii",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [],
+      "researchGaps": [
+        "Guide additionally discusses M. prava, M. cryptica and M. septentrionales; these mentions are not a separate enumerated certificate scope.",
+        "The guide notes M. americana versus M. cryptica may require DNA; camera certainty is unsupported."
+      ],
+      "reviewChecklist": [
+        "Record cap attachment, pits or folds and a longitudinal section."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-true_morels",
+        "mami-morel-lookalikes"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "oysters",
+      "label": "Oyster mushrooms",
+      "groupId": "gilled",
+      "sourceIndexLabel": "Pleurotus",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Pleurotus ostreatus",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Pleurotus populinus",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Pleurotus pulmonarius",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Pleurocybella porrigens",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Hypsizygus tessulatus",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [
+            {
+              "name": "Hypsizygus tesselatus",
+              "kind": "spelling_in_source"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Lentinus",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Lentinellus",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Crepidotus applanatus",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [
+        "The three named species are recorded; other Pleurotus species are not automatically covered."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record gills, stem, host tree and spore evidence."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-oysters"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "dryads_saddle",
+      "label": "Dryad saddle",
+      "groupId": "polypores",
+      "sourceIndexLabel": "Cerioporus squamosus",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Cerioporus squamosus",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Polyporus squamosus",
+              "kind": "guide_page_heading_for_index_taxon"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [],
+      "constraints": [],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record pore surface, cap scales and maturity."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-dryads_saddle"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "umbrella_polypore",
+      "label": "Umbrella polypore",
+      "groupId": "polypores",
+      "sourceIndexLabel": "Polyporus umbellatus",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Polyporus umbellatus",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Grifola frondosa",
+          "status": "lookalike_also_separate_curriculum_target",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Meripilus giganteus",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Bondarzewia berkeleyi",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record branched central stalk and central cap attachments."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-umbrella_polypore"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "wine_cap",
+      "label": "Wine cap",
+      "groupId": "gilled",
+      "sourceIndexLabel": "Stropharia rugoso-annulata",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Stropharia rugosoannulata",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Stropharia rugoso-annulata",
+              "kind": "alternate_spelling_in_source"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [],
+      "constraints": [],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record gill maturity, ring, cap and substrate."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-wine_cap"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "turkey_tail",
+      "label": "Turkey tail",
+      "groupId": "polypores",
+      "sourceIndexLabel": "Trametes versicolor",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Trametes versicolor",
+          "status": "curriculum_primary_named",
+          "aliases": [
+            {
+              "name": "Coriolus versicolor",
+              "kind": "synonym_as_reported_by_source"
+            },
+            {
+              "name": "Polyporus versicolor",
+              "kind": "synonym_as_reported_by_source"
+            }
+          ],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Trametes hirsute",
+          "status": "lookalike_name_as_written_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Trametes velutina",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        },
+        {
+          "name": "Stereum ostrea",
+          "status": "lookalike_not_scope_confirmation",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [
+        "Curriculum inclusion does not establish a medicinal benefit or cover all similar bracket fungi."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record underside pores, cap bands and specimen thickness."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-turkey_tail"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "michigan_truffle",
+      "label": "Michigan truffle",
+      "groupId": "truffles",
+      "sourceIndexLabel": "Tuber canaliculatum",
+      "indexEntry": true,
+      "coverageStatus": "documented_named_targets",
+      "certificationScopeIds": [
+        "full_wild_mushroom"
+      ],
+      "taxa": [
+        {
+          "name": "Tuber canaliculatum",
+          "status": "curriculum_primary_named",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [
+        {
+          "name": "Scleroderma",
+          "status": "hazard_lookalike",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "constraints": [
+        "Subterranean fruiting bodies are not directly discoverable through opaque soil by an ordinary drone camera."
+      ],
+      "researchGaps": [],
+      "reviewChecklist": [
+        "Record physical cross-section, surface and supporting microscopy where needed."
+      ],
+      "sourceIds": [
+        "mami-index",
+        "mami-michigan_truffle"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    },
+    {
+      "id": "bolete_research",
+      "label": "Boletes research coverage",
+      "groupId": "boletes",
+      "indexEntry": false,
+      "sourceIndexLabel": null,
+      "coverageStatus": "research_only_outside_documented_curriculum",
+      "certificationScopeIds": [],
+      "taxa": [
+        {
+          "name": "Bolete-form fungi",
+          "status": "research_visual_group_not_taxon",
+          "aliases": [],
+          "taxonomicAuthority": "name as used by cited MAMI guide; current database resolution is separate",
+          "inatTaxonId": null
+        }
+      ],
+      "relatedTaxa": [],
+      "constraints": [
+        "No bolete entry appears among the 20 current MAMI index entries. This absence does not prove a universal legal ban.",
+        "Any sale-scope question remains unresolved outside documented curriculum."
+      ],
+      "researchGaps": [
+        "Species inventory, Michigan certification coverage and visual classifier evidence need separate review."
+      ],
+      "reviewChecklist": [
+        "Record underside pores, stem surface, bruising and habitat for human review."
+      ],
+      "sourceIds": [
+        "mami-index"
+      ],
+      "impliesSaleApproval": false,
+      "speciesFromCameraOnlySupported": false
+    }
+  ],
+  "statusDefinitions": {
+    "documented_named_targets": "Primary names on a current MAMI guide linked from its curriculum index; human scope and individual specimen inspection remain required.",
+    "documented_group_exact_species_unresolved": "Curriculum group is explicit but an exhaustive modern species list is absent.",
+    "research_only_outside_documented_curriculum": "Useful research category; no certification coverage established from reviewed index.",
+    "related_taxa": "Discussion, comparison or lookalike evidence only; never promoted automatically to covered targets."
+  },
+  "certificationScopes": [
+    {
+      "id": "full_wild_mushroom",
+      "label": "Full wild-mushroom certification",
+      "issuer": "MDARD",
+      "trainingProvider": "MAMI or comparable MDARD-approved course",
+      "validityYears": 5,
+      "examMinimumPercent": 80,
+      "scopeBasis": "20 indexed study-guide entries, with named targets, form restrictions and unresolved group boundaries recorded here.",
+      "doesNotAuthorizeWholeGenera": true,
+      "sourceIds": [
+        "mami-workshops",
+        "mdard-2026",
+        "mami-index"
+      ]
+    },
+    {
+      "id": "morel_only",
+      "label": "Morel-only certification",
+      "issuer": "MDARD",
+      "trainingProvider": "MAMI",
+      "validityYears": 5,
+      "examMinimumPercent": 80,
+      "mode": "virtual workshop and proctored exam",
+      "entryIds": [
+        "true_morels"
+      ],
+      "scopeBasis": "Morels only; does not extend to other curriculum groups.",
+      "sourceIds": [
+        "mami-home",
+        "mami-workshops"
+      ]
+    }
+  ],
+  "salesRules": [
+    {
+      "id": "individual_inspection",
+      "summary": "Each wild mushroom offered for sale requires inspection and a safety determination by a currently approved/certified mushroom identification expert within their actual scope.",
+      "sourceIds": [
+        "mdard-overview",
+        "mdard-2026"
+      ],
+      "automaticClearance": false
+    },
+    {
+      "id": "seller_or_inspector",
+      "summary": "A seller may be certified or arrange inspection by a certified expert. Stores and restaurants must obtain mushrooms through an approved source.",
+      "sourceIds": [
+        "mdard-2026"
+      ]
+    },
+    {
+      "id": "proof_of_certification",
+      "summary": "The inspecting expert must be able to show current certification; scope and expiry need human verification.",
+      "sourceIds": [
+        "mdard-2026",
+        "mdard-regulations"
+      ]
+    },
+    {
+      "id": "code_exceptions",
+      "summary": "Section 3-201.16(B) names regulated cultivation operations and packaged products of regulated processing plants as exceptions to that section. These are not generic exemptions for a forager or an AI result.",
+      "sourceIds": [
+        "mdard-code"
+      ]
+    },
+    {
+      "id": "bulk_labels",
+      "summary": "Retail bulk containers need scientific and common names. Wholesale bulk labeling has specific packaged-label or written-agreement provisions.",
+      "sourceIds": [
+        "mdard-regulations"
+      ]
+    },
+    {
+      "id": "packaged_labels",
+      "summary": "Packaged product labels require the common name and applicable ingredient, net-weight, producer/address and allergen information; cottage-food labels have additional requirements.",
+      "sourceIds": [
+        "mdard-regulations"
+      ]
+    },
+    {
+      "id": "records",
+      "summary": "Keep sale records for at least two years and make them available to MDARD.",
+      "requiredRecordFields": [
+        "quantityBySpecies",
+        "scientificName",
+        "commonName",
+        "buyerName",
+        "buyerContact",
+        "certifiedIdentifierNameAndContactIfNotSeller",
+        "identifierQualification",
+        "freshStateIdentificationStatement"
+      ],
+      "sourceIds": [
+        "mdard-regulations",
+        "mami-sales"
+      ],
+      "privacy": "Collect transaction information only from the user; do not import public certification-register personal records."
+    },
+    {
+      "id": "whole_raw_license",
+      "summary": "Whole raw produce sales may not require a food-establishment license; processing, warehousing and sales activities can change applicable requirements.",
+      "sourceIds": [
+        "mdard-overview",
+        "mdard-regulations"
+      ]
+    },
+    {
+      "id": "cottage_dehydration",
+      "summary": "Current MDARD guidance permits qualifying raw or dried mushrooms under cottage-food rules with proof of expert identification. Dehydration must satisfy the applicable home-kitchen, active-drying, labeling and direct-consumer conditions.",
+      "sourceIds": [
+        "mdard-cottage",
+        "mdard-regulations"
+      ]
+    },
+    {
+      "id": "harvest_permission",
+      "summary": "Michigan DNR states food foraged on state lands is for personal use, not resale; private-land foraging requires owner permission. Site-specific authority still applies.",
+      "sourceIds": [
+        "dnr-foraging"
+      ]
+    },
+    {
+      "id": "human_review_role",
+      "summary": "A user-confirmed group or species label is research annotation. It is not automatically certified expert inspection, a safe-to-eat determination, or legal sales clearance.",
+      "sourceIds": [
+        "mdard-overview",
+        "mami-identify"
+      ],
+      "implementationPolicy": true
+    }
+  ],
+  "reviewEvidenceChecklist": [
+    "Whole specimen and multiple views, including underside and base",
+    "Substrate and associated tree recorded when relevant",
+    "Physical interior or spore evidence when required by the expert",
+    "Specimen condition, contamination and maturity",
+    "Human identification, confidence, unresolved alternatives and reviewer role recorded separately from model guesses"
+  ],
+  "sourceConflicts": [
+    {
+      "id": "processing_guidance",
+      "sources": [
+        "mami-sales",
+        "mdard-cottage",
+        "mdard-regulations"
+      ],
+      "issue": "Older MAMI sales text states all slicing/drying needs a licensed kitchen; current MDARD guidance describes a conditional cottage-food route.",
+      "resolution": "Use current regulator guidance for processing conditions; do not implement the older blanket prohibition."
+    },
+    {
+      "id": "taxonomy_age",
+      "sources": [
+        "mami-index"
+      ],
+      "issue": "Current accessible curriculum pages retain older species names, spellings and open taxonomic questions.",
+      "resolution": "Preserve source names and typed aliases; current taxon-database mappings need separate provenance and cannot widen certification scope."
+    }
+  ],
+  "researchGaps": [
+    "No separate closed regulator-issued modern species whitelist was located in the reviewed primary materials.",
+    "MAMI does not publish an exhaustive current species list for every genus-level guide.",
+    "Taxonomic aliases, legacy names and Michigan occurrence require independent resolution before species-level model labels.",
+    "Observation-level photos cannot certify aborted form, full specimen identity, freshness or sales inspection.",
+    "Broad foraging groups are visual review categories, not evolutionary clades or edibility labels.",
+    "All model species outputs remain hypotheses until human review; certification eligibility remains a separate record."
+  ],
+  "automationLimits": {
+    "aiCanApproveSale": false,
+    "aiCanConfirmEdibility": false,
+    "humanResearchReviewEqualsCertifiedInspection": false,
+    "genusMembershipEqualsScopeApproval": false,
+    "registryPersonalDataCollected": false
+  },
+  "sources": [
+    {
+      "id": "mdard-overview",
+      "title": "Wild Foraged Mushroom Information",
+      "url": "https://www.michigan.gov/mdard/food-dairy/retail-industry-resources/wild-foraged-mushroom-information",
+      "publisher": "MDARD",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mdard-2026",
+      "title": "Safety and sales guidelines, May 5, 2026",
+      "url": "https://www.michigan.gov/mdard/about/media/pressreleases/2026/05/05/mdard-provides-safety-and-sales-guidelines-for-wild-foraged-mushroom-season",
+      "publisher": "MDARD",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": "2026-05-05"
+    },
+    {
+      "id": "mdard-regulations",
+      "title": "Michigan Wild-Foraged Mushroom Regulations",
+      "url": "https://www.michigan.gov/mdard/-/media/Project/Websites/mdard/documents/food-dairy/mushroom/Michigan-Wild-Foraged-Mushroom-Regulations.pdf",
+      "publisher": "MDARD",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null,
+      "locator": "PDF pages 5-6, 10-11, 13-19 (one-based)"
+    },
+    {
+      "id": "mdard-code",
+      "title": "Michigan Modified 2009 Food Code",
+      "url": "https://www.michigan.gov/mdard/-/media/Project/Websites/mdard/documents/food-dairy/laws/mi_modified_2009_food_code.pdf?hash=A3B937356FF22A06673F7AEBE0E9CFC3&rev=3dea24829f1a4f1c932f9bf1dec2a1e3",
+      "publisher": "MDARD",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null,
+      "locator": "Section 3-201.16; currently linked from MDARD Food and Dairy Laws; effective October 1, 2012"
+    },
+    {
+      "id": "mdard-cottage",
+      "title": "What Can I Make?",
+      "url": "https://www.michigan.gov/mdard/food-dairy/cottage-food/what-can-i-make",
+      "publisher": "MDARD",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null,
+      "locator": "Vegetables section"
+    },
+    {
+      "id": "dnr-foraging",
+      "title": "Foraging for Wild Foods",
+      "url": "https://www.michigan.gov/dnr/things-to-do/foraging",
+      "publisher": "Michigan DNR",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null,
+      "locator": "Sales, rules and safety"
+    },
+    {
+      "id": "mami-home",
+      "title": "Certification and morel-only program",
+      "url": "https://midwestmycology.org/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-workshops",
+      "title": "Workshops",
+      "url": "https://midwestmycology.org/workshops/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-sales",
+      "title": "Selling Mushrooms",
+      "url": "https://midwestmycology.org/selling-mushrooms/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-index",
+      "title": "Mushroom Study Guides",
+      "url": "https://midwestmycology.org/mushroom-study-guides/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-identify",
+      "title": "Identification evidence",
+      "url": "https://midwestmycology.org/identify/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-morel-lookalikes",
+      "title": "Morchella look-alikes",
+      "url": "https://midwestmycology.org/morchella-americana/morchella-look-alikes/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-honey_mushrooms",
+      "title": "Armillaria",
+      "url": "https://midwestmycology.org/armillaria-mellea/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-giant_puffball",
+      "title": "Calvatia gigantea",
+      "url": "https://midwestmycology.org/calvatia-gigantea/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-chanterelles",
+      "title": "Cantharellus",
+      "url": "https://midwestmycology.org/cantharellus-species/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-black_trumpets",
+      "title": "Craterellus",
+      "url": "https://midwestmycology.org/craterellus-cornucopiodes/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-shaggy_mane",
+      "title": "Coprinus",
+      "url": "https://midwestmycology.org/coprinus-comatus/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-aborted_entoloma",
+      "title": "Entoloma abortivum",
+      "url": "https://midwestmycology.org/entoloma-abortivum/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-ganoderma",
+      "title": "Ganoderma",
+      "url": "https://midwestmycology.org/ganoderma-applanatum/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-hen_of_woods",
+      "title": "Grifola frondosa",
+      "url": "https://midwestmycology.org/grifola-frondosa/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-hericium",
+      "title": "Hericium",
+      "url": "https://midwestmycology.org/hericium-erinaceus/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-hedgehogs",
+      "title": "Hydnum",
+      "url": "https://midwestmycology.org/hydnum-repandum/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-lobster_mushroom",
+      "title": "Hypomyces lactifluorum",
+      "url": "https://midwestmycology.org/hypomyces-lactifluorum/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-chaga",
+      "title": "Inonotus obliquus",
+      "url": "https://midwestmycology.org/inonotus-obliquus/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-chicken_of_woods",
+      "title": "Laetiporus",
+      "url": "https://midwestmycology.org/laetiporus-sulphureus/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-true_morels",
+      "title": "Morchella",
+      "url": "https://midwestmycology.org/morchella-americana/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-oysters",
+      "title": "Pleurotus",
+      "url": "https://midwestmycology.org/pleurotus-ostreatus/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-dryads_saddle",
+      "title": "Cerioporus squamosus",
+      "url": "https://midwestmycology.org/polyporus-squamosus/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-umbrella_polypore",
+      "title": "Polyporus umbellatus",
+      "url": "https://midwestmycology.org/polyporus-umbellatus/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-wine_cap",
+      "title": "Stropharia rugoso-annulata",
+      "url": "https://midwestmycology.org/stropharia-rugoso-annulata/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-turkey_tail",
+      "title": "Trametes versicolor",
+      "url": "https://midwestmycology.org/trametes-versicolor/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    },
+    {
+      "id": "mami-michigan_truffle",
+      "title": "Tuber canaliculatum",
+      "url": "https://midwestmycology.org/tuber-canaliculatum/",
+      "publisher": "MAMI",
+      "retrievedAt": "2026-10-26",
+      "pinMethod": "retrieval date and primary-source URL; source can change after retrieval",
+      "publishedAt": null
+    }
+  ]
+}

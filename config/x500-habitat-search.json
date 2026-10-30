@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "simulationOnly": true,
+  "target": "black-trumpet-like fungi / Craterellus complex; identification unverified",
+  "weightsAreHeuristic": true,
+  "liveHabitatClassifierImplemented": false,
+  "targetGeometry": { "smallDiameterM": 0.01, "exampleDiameterM": 0.03, "measured": false, "note": "Illustrative 1 cm and 3 cm targets expose how little detail distant black trumpets may occupy; no calibrated detector working range is known." },
+  "weights": { "hardwood": 0.3, "moss": 0.14, "leaf_litter": 0.08, "damp_ground": 0.07, "shaded_ground": 0.06, "known_patch": 0.2, "forest_context": 0.1, "vegetation_ground": 0.03, "exposed_ground": 0.02, "season": 0.05, "visual": 0.65, "nearbyHabitat": 0.35 },
+  "queue": { "maxLeads": 100, "dedupeRadiusM": 0.8, "habitatContextRadiusM": 2, "leadExpiryMs": 120000, "maxActionEvidenceAgeMs": 2000, "maxFutureSkewMs": 20, "maxPositionVarianceM2": 0.0144, "maxVisitsPerLead": 2, "revisitMs": 30000, "unsafeRevisitMs": 60000 },
+  "budget": { "maxInspections": 3, "maxPlannedTravelM": 12, "maxInspectionTimeMs": 150000 },
+  "limits": { "maxSeenFrames": 4096, "maxObservationIdsPerLead": 32, "maxRejectedHistory": 128, "maxMissionHistory": 2048, "maxScheduleHistory": 256, "maxInputObservations": 128, "maxStringLength": 256, "maxHabitatLog": 256, "maxPhotoHistory": 128 },
+  "inspection": { "desiredRangeM": 2, "minStandoffM": 1, "maxSingleApproachM": 2, "minimumRangeImprovementM": 0.15, "allowAltitudeChange": false, "distantHabitatThresholdM": 50, "targetFrameFillFraction": 0.7, "pitchToleranceRad": 0.06, "maxApproachSegments": 6, "captureAckTimeoutMs": 4000 },
+  "notes": ["Habitat priority is not mushroom probability, species identification or ground safety.", "Moisture, shade and leaf litter are weak inspection heuristics; RGB does not directly measure substrate moisture.", "Moss is a visibility/inspection cue, not a required biological association.", "No absence penalty for conifers or months outside July-October.", "A low-confidence visual candidate may request a viewpoint inspection; it cannot authorize entry into unknown volume."]
+}

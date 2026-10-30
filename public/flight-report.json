@@ -1,0 +1,2347 @@
+{
+  "schemaVersion": 1,
+  "simulationOnly": true,
+  "actuationEnabled": false,
+  "generatedAt": "2026-10-26T14:49:36.883Z",
+  "hardwareTarget": "Holybro X500 v2 / Pixhawk / OAK-D S2 / Jetson Orin Nano 8GB",
+  "summary": {
+    "scenarios": 12,
+    "passed": 12,
+    "failed": 0,
+    "captures": 19,
+    "physicalFlights": 0,
+    "realDetectorInvocations": 0,
+    "transport": "none"
+  },
+  "cameraGeometry": {
+    "calibrationStatus": "illustrative-unmeasured",
+    "detectorPerformanceMeasured": false,
+    "validatedDetectorMinPixels": null,
+    "designTargetPixels": 32,
+    "designRangeM": 2.15625,
+    "rows": [
+      {
+        "rangeM": 0.5,
+        "targetDiameterM": 0.05,
+        "targetPixels": 138,
+        "blurLimitedSpeedMps": 0.09057971014492752
+      },
+      {
+        "rangeM": 1,
+        "targetDiameterM": 0.05,
+        "targetPixels": 69,
+        "blurLimitedSpeedMps": 0.18115942028985504
+      },
+      {
+        "rangeM": 2,
+        "targetDiameterM": 0.05,
+        "targetPixels": 34.5,
+        "blurLimitedSpeedMps": 0.3623188405797101
+      },
+      {
+        "rangeM": 4,
+        "targetDiameterM": 0.05,
+        "targetPixels": 17.25,
+        "blurLimitedSpeedMps": 0.7246376811594202
+      },
+      {
+        "rangeM": 8,
+        "targetDiameterM": 0.05,
+        "targetPixels": 8.625,
+        "blurLimitedSpeedMps": 1.4492753623188404
+      }
+    ],
+    "notes": [
+      "Pinhole fronto-parallel target geometry, not a recall guarantee. Slant, occlusion and motion reduce useful detail.",
+      "Speed formula assumes transverse image motion at the specified range; rotation consumes the same blur budget.",
+      "RGB rolling-shutter distortion, vibration and focus require separate measured tests."
+    ]
+  },
+  "exposureComparison": [
+    {
+      "exposureMs": 8,
+      "blurLimitedSpeedMps": 0.18115942028985504
+    },
+    {
+      "exposureMs": 40,
+      "blurLimitedSpeedMps": 0.036231884057971016
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "stop-and-look",
+      "title": "Two stations with three settled image captures each",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "COMPLETE",
+      "finalState": "COMPLETE",
+      "durationMs": 33000,
+      "captures": 6,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 1600,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 2600,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 2600,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": -0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 2800,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 4200,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 5200,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-2",
+            "purpose": "survey",
+            "capturedMs": 5200,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 5400,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 6800,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 7800,
+          "state": "SURVEY_TRANSIT",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": {
+            "frameId": "sim-3",
+            "purpose": "survey",
+            "capturedMs": 7800,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 8000,
+          "state": "SURVEY_TRANSIT",
+          "reason": "orient_before_translation",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 9400,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985502
+          }
+        },
+        {
+          "nowMs": 25400,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 26800,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 27800,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": {
+            "frameId": "sim-4",
+            "purpose": "survey",
+            "capturedMs": 27800,
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": -0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 28000,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 29400,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 30400,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-5",
+            "purpose": "survey",
+            "capturedMs": 30400,
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 30600,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 32000,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 33000,
+          "state": "COMPLETE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": {
+            "frameId": "sim-6",
+            "purpose": "survey",
+            "capturedMs": 33000,
+            "position": {
+              "x": 2.8985507246376825,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        }
+      ],
+      "route": [
+        {
+          "x": 0,
+          "y": 0,
+          "z": 2
+        },
+        {
+          "x": 3,
+          "y": 0,
+          "z": 2
+        }
+      ],
+      "emulator": "Ideal kinematics with bounded translation and yaw; no aerodynamic, wind, motor, estimator or PX4 simulation."
+    },
+    {
+      "id": "trunk-detour",
+      "title": "Observed 3D corridor detours around a trunk",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "COMPLETE",
+      "finalState": "COMPLETE",
+      "durationMs": 81800,
+      "captures": 12,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 1600,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 2600,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "survey",
+            "capturedMs": 2600,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": -0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 2800,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 4200,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 5200,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-2",
+            "purpose": "survey",
+            "capturedMs": 5200,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 5400,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 6800,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 7800,
+          "state": "SURVEY_TRANSIT",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": {
+            "frameId": "sim-3",
+            "purpose": "survey",
+            "capturedMs": 7800,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 8000,
+          "state": "SURVEY_TRANSIT",
+          "reason": "orient_before_translation",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 1.3258176636680326
+          }
+        },
+        {
+          "nowMs": 10600,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.5,
+              "y": 2,
+              "z": 2
+            },
+            "yawRad": 1.3258176636680326,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 21400,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 26000,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 27000,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": {
+            "frameId": "sim-4",
+            "purpose": "survey",
+            "capturedMs": 27000,
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "yawRad": -0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 27200,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 28600,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 29600,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-5",
+            "purpose": "survey",
+            "capturedMs": 29600,
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 29800,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 31200,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 32200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": {
+            "frameId": "sim-6",
+            "purpose": "survey",
+            "capturedMs": 32200,
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "yawRad": 0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 32400,
+          "state": "SURVEY_TRANSIT",
+          "reason": "orient_before_translation",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.4745262228971728,
+              "y": 1.8981048915886911,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.03366633337023556
+          }
+        },
+        {
+          "nowMs": 33600,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.5,
+              "y": 2,
+              "z": 2
+            },
+            "yawRad": 0.03366633337023556,
+            "speedMps": 0.16783108714103323
+          }
+        },
+        {
+          "nowMs": 49800,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 51200,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 52200,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": {
+            "frameId": "sim-7",
+            "purpose": "survey",
+            "capturedMs": 52200,
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "yawRad": -0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 52400,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 53800,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 54800,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-8",
+            "purpose": "survey",
+            "capturedMs": 54800,
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 55000,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 56400,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 57400,
+          "state": "SURVEY_TRANSIT",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": {
+            "frameId": "sim-9",
+            "purpose": "survey",
+            "capturedMs": 57400,
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "yawRad": 0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 57600,
+          "state": "SURVEY_TRANSIT",
+          "reason": "orient_before_translation",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.4049816589760775,
+              "y": 1.9967998717315056,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -1.2811882915586872
+          }
+        },
+        {
+          "nowMs": 62200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 4,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": -1.2811882915586872,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 73200,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 75600,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          }
+        },
+        {
+          "nowMs": 76600,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": -0.436332
+          },
+          "capture": {
+            "frameId": "sim-10",
+            "purpose": "survey",
+            "capturedMs": 76600,
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "yawRad": -0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 76800,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 78200,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          }
+        },
+        {
+          "nowMs": 79200,
+          "state": "SURVEY_CAPTURE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0
+          },
+          "capture": {
+            "frameId": "sim-11",
+            "purpose": "survey",
+            "capturedMs": 79200,
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 79400,
+          "state": "SURVEY_SETTLE",
+          "reason": "waiting_for_still_image",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 80800,
+          "state": "SURVEY_SETTLE",
+          "reason": "settling",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          }
+        },
+        {
+          "nowMs": 81800,
+          "state": "COMPLETE",
+          "reason": "stop_and_look_capture",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "speedMps": 0,
+            "yawRad": 0.436332
+          },
+          "capture": {
+            "frameId": "sim-12",
+            "purpose": "survey",
+            "capturedMs": 81800,
+            "position": {
+              "x": 3.974065473912997,
+              "y": 0.08703270940325675,
+              "z": 2
+            },
+            "yawRad": 0.436332,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          }
+        }
+      ],
+      "route": [
+        {
+          "x": 0,
+          "y": 0,
+          "z": 2
+        },
+        {
+          "x": 0.5,
+          "y": 2,
+          "z": 2
+        },
+        {
+          "x": 3.5,
+          "y": 2,
+          "z": 2
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "z": 2
+        }
+      ],
+      "emulator": "Ideal kinematics with bounded translation and yaw; no aerodynamic, wind, motor, estimator or PX4 simulation.",
+      "planner": {
+        "status": "ready",
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "z": 2
+          },
+          {
+            "x": 0.5,
+            "y": 2,
+            "z": 2
+          },
+          {
+            "x": 3.5,
+            "y": 2,
+            "z": 2
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "z": 2
+          }
+        ],
+        "expanded": 31,
+        "simulationOnly": true,
+        "planningRadiusM": 1.0853712455366518
+      }
+    },
+    {
+      "id": "overhead-branch",
+      "title": "Branch intersects rotor envelope despite clear endpoints",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "HOLD",
+      "finalState": "HOLD",
+      "durationMs": 300,
+      "captures": 0,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "HOLD",
+          "reason": "occupied_voxel",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "clearance": {
+            "clear": false,
+            "reason": "occupied_voxel",
+            "voxel": {
+              "x": 6,
+              "y": 5,
+              "z": 7
+            },
+            "checked": 135
+          }
+        }
+      ],
+      "expectedReason": "occupied_voxel"
+    },
+    {
+      "id": "unknown-space",
+      "title": "Missing depth behind foliage blocks the corridor",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "HOLD",
+      "finalState": "HOLD",
+      "durationMs": 300,
+      "captures": 0,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "HOLD",
+          "reason": "unknown_voxel",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "clearance": {
+            "clear": false,
+            "reason": "unknown_voxel",
+            "voxel": {
+              "x": 6,
+              "y": 5,
+              "z": 5
+            },
+            "checked": 55
+          }
+        }
+      ],
+      "expectedReason": "unknown_voxel"
+    },
+    {
+      "id": "depth-dropout",
+      "title": "Depth stream becomes stale",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "HOLD",
+      "finalState": "HOLD",
+      "durationMs": 300,
+      "captures": 0,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "HOLD",
+          "reason": "depth_unavailable",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          }
+        }
+      ],
+      "expectedReason": "depth_unavailable"
+    },
+    {
+      "id": "localization-loss",
+      "title": "Loss of localization requests takeover without a position proposal",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "HOLD",
+      "finalState": "HOLD",
+      "durationMs": 300,
+      "captures": 0,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "HOLD",
+          "reason": "localization_unreliable"
+        }
+      ],
+      "expectedReason": "localization_unreliable"
+    },
+    {
+      "id": "stale-free-space",
+      "title": "Fresh map header cannot hide expired voxel evidence",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "HOLD",
+      "finalState": "HOLD",
+      "durationMs": 300,
+      "captures": 0,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "HOLD",
+          "reason": "stale_voxel",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "clearance": {
+            "clear": false,
+            "reason": "stale_voxel",
+            "voxel": {
+              "x": 2,
+              "y": 4,
+              "z": 4
+            },
+            "checked": 1
+          }
+        }
+      ],
+      "expectedReason": "stale_voxel"
+    },
+    {
+      "id": "candidate-verification",
+      "title": "Hover, gather distinct observations, approach through a known same-height corridor",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "CANDIDATE_VERIFY",
+      "finalState": "CANDIDATE_VERIFY",
+      "durationMs": 6500,
+      "captures": 1,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "CANDIDATE_VERIFY",
+          "reason": "repeated_candidate_evidence",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "evidence": {
+            "valid": true,
+            "reason": "repeated_candidate_evidence",
+            "distinctFrames": 3,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 1300,
+          "state": "CANDIDATE_VERIFY",
+          "reason": "repeated_candidate_evidence",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "capture": {
+            "frameId": "sim-1",
+            "purpose": "candidate_verification",
+            "capturedMs": 1300,
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "fixedCameraPitchRad": -0.610865,
+            "exposureS": 0.008,
+            "requiredStreams": [
+              "rgb",
+              "aligned_depth",
+              "left_rectified",
+              "right_rectified",
+              "camera_info",
+              "odometry",
+              "imu"
+            ],
+            "synthetic": true,
+            "identification": "unverified"
+          },
+          "evidence": {
+            "valid": true,
+            "reason": "repeated_candidate_evidence",
+            "distinctFrames": 3,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 1500,
+          "state": "APPROACH_TRANSIT",
+          "reason": "verified_corridor_approach",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 1,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 6500,
+          "state": "CANDIDATE_VERIFY",
+          "reason": "verification_viewpoint_reached",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0.9057971014492747,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          }
+        }
+      ],
+      "candidate": {
+        "id": "synthetic-mushroom-1",
+        "frame": "map_enu",
+        "position": {
+          "x": 2.5,
+          "y": 1,
+          "z": 0.3
+        },
+        "approachViewpoint": {
+          "x": 1,
+          "y": 0,
+          "z": 2
+        },
+        "synthetic": true,
+        "observations": [
+          {
+            "frameId": "camera-0-0",
+            "capturedMs": 0,
+            "capturePose": {
+              "frame": "map_enu",
+              "position": {
+                "x": 0,
+                "y": 0,
+                "z": 2
+              },
+              "yawRad": 0,
+              "capturedMs": 0
+            },
+            "depthKnown": true,
+            "qualityAccepted": true,
+            "rangeM": 3.2
+          },
+          {
+            "frameId": "camera-0-1",
+            "capturedMs": -20,
+            "capturePose": {
+              "frame": "map_enu",
+              "position": {
+                "x": 0,
+                "y": 0,
+                "z": 2
+              },
+              "yawRad": 0,
+              "capturedMs": -20
+            },
+            "depthKnown": true,
+            "qualityAccepted": true,
+            "rangeM": 3.2
+          },
+          {
+            "frameId": "camera-0-2",
+            "capturedMs": -40,
+            "capturePose": {
+              "frame": "map_enu",
+              "position": {
+                "x": 0,
+                "y": 0,
+                "z": 2
+              },
+              "yawRad": 0,
+              "capturedMs": -40
+            },
+            "depthKnown": true,
+            "qualityAccepted": true,
+            "rangeM": 3.2
+          }
+        ]
+      },
+      "viewpointReached": true
+    },
+    {
+      "id": "delayed-semantic-result",
+      "title": "Old semantic detections cannot authorize approach while live depth stays healthy",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "CANDIDATE_VERIFY",
+      "finalState": "CANDIDATE_VERIFY",
+      "durationMs": 400,
+      "captures": 0,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "CANDIDATE_VERIFY",
+          "reason": "candidate_needs_more_frames",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "evidence": {
+            "valid": false,
+            "reason": "candidate_needs_more_frames",
+            "distinctFrames": 0,
+            "identification": "unverified"
+          }
+        }
+      ],
+      "injectedSemanticLatencyMs": 6620,
+      "observationAgeLimitMs": 2000,
+      "depthCurrent": true
+    },
+    {
+      "id": "no-blind-descent",
+      "title": "Ground mushroom never causes a descent command",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "CANDIDATE_VERIFY",
+      "finalState": "CANDIDATE_VERIFY",
+      "durationMs": 400,
+      "captures": 0,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "CANDIDATE_VERIFY",
+          "reason": "repeated_candidate_evidence",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          },
+          "evidence": {
+            "valid": true,
+            "reason": "repeated_candidate_evidence",
+            "distinctFrames": 3,
+            "identification": "unverified"
+          }
+        },
+        {
+          "nowMs": 400,
+          "state": "CANDIDATE_VERIFY",
+          "reason": "approach_altitude_change_blocked",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "manual",
+      "title": "Manual takeover remains latched",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "MANUAL",
+      "finalState": "MANUAL",
+      "durationMs": 400,
+      "captures": 0,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "MANUAL",
+          "reason": "manual_takeover"
+        },
+        {
+          "nowMs": 400,
+          "state": "MANUAL",
+          "reason": "terminal_state"
+        }
+      ]
+    },
+    {
+      "id": "abort",
+      "title": "Abort does not invent a return path",
+      "simulationOnly": true,
+      "passed": true,
+      "expectedFinalState": "ABORTED",
+      "finalState": "ABORTED",
+      "durationMs": 400,
+      "captures": 0,
+      "events": [
+        {
+          "nowMs": 0,
+          "state": "PREFLIGHT",
+          "reason": "preflight_requested"
+        },
+        {
+          "nowMs": 100,
+          "state": "READY",
+          "reason": "simulation_preflight_passed"
+        },
+        {
+          "nowMs": 200,
+          "state": "SURVEY_TRANSIT",
+          "reason": "survey_translation",
+          "proposal": {
+            "type": "position",
+            "frame": "map_enu",
+            "position": {
+              "x": 3,
+              "y": 0,
+              "z": 2
+            },
+            "yawRad": 0,
+            "speedMps": 0.18115942028985504
+          }
+        },
+        {
+          "nowMs": 300,
+          "state": "ABORTED",
+          "reason": "operator_abort",
+          "proposal": {
+            "type": "position_hold",
+            "frame": "map_enu",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 2
+            },
+            "speedMps": 0
+          }
+        },
+        {
+          "nowMs": 400,
+          "state": "ABORTED",
+          "reason": "terminal_state"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Synthetic free-space maps and synthetic candidate evidence, not observed woodland or detector measurements.",
+    "Ideal kinematics only; PX4 SITL, ROS 2, OAK-D and Jetson integration have not been executed.",
+    "No sockets, serial ports, arm commands or flight commands are sent.",
+    "A forward camera alone does not establish coverage behind, above, below or beside the aircraft.",
+    "Declared-free voxels in the fixture are ground truth supplied by the simulator. Real mapping must explicitly raycast freespace and preserve unknown cells."
+  ]
+}

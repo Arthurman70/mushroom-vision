@@ -1,0 +1,45 @@
+services:
+  mushroom-lab:
+    image: gleaner-mushroom-lab:${RELEASE_ID:?Set RELEASE_ID}
+    container_name: gleaner-mushroom-lab
+    restart: unless-stopped
+    init: true
+    user: "1000:1000"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 256m
+    cpus: 0.75
+    pids_limit: 64
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m,uid=1000,gid=1000
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: "8791"
+      BASE_PATH: /mushroom-lab/
+      PUBLIC_ORIGIN: https://thegreatlakesgleaner.press
+      DATA_DIR: /data
+      COLLECTION_DIR: /collection
+      TRUST_PROXY: "1"
+    volumes:
+      - /root/gleaner-mushroom-lab/data:/data
+      - ./collection:/collection:ro
+    networks:
+      - edge
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:8791/mushroom-lab/api/health').then(async r=>{const j=await r.json();if(!r.ok||!j.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"
+
+networks:
+  edge:
+    external: true
+    name: tradechaser_default

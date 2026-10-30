@@ -1,0 +1,39 @@
+# Local recorded-video preview only. No camera/drone or public network access.
+logLevel: info
+logDestinations: [stdout]
+api: false
+metrics: false
+pprof: false
+playback: false
+rtsp: true
+rtspAddress: 127.0.0.1:8554
+rtspTransports: [tcp]
+rtmp: false
+hls: false
+srt: false
+moq: false
+webrtc: true
+webrtcAddress: 127.0.0.1:8889
+webrtcLocalUDPAddress: 127.0.0.1:8189
+webrtcLocalTCPAddress: ""
+webrtcIPsFromInterfaces: false
+webrtcAdditionalHosts: [127.0.0.1]
+webrtcICEServers2: []
+webrtcAllowOrigins:
+  - http://127.0.0.1:8787
+  - http://localhost:8787
+  - http://127.0.0.1:8788
+  - http://localhost:8788
+authMethod: internal
+authInternalUsers:
+  - user: any
+    pass:
+    ips: [127.0.0.1]
+    permissions:
+      - action: publish
+        path: mushrooms
+      - action: read
+        path: mushrooms
+paths:
+  mushrooms:
+    source: publisher

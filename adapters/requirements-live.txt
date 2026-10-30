@@ -1,0 +1,4 @@
+# Optional local video/USB capture layer; install after the existing vision stack.
+# ROS 2 dependencies come from the companion OS/ROS distribution, not pip here.
+-r requirements-vision.txt
+opencv-python-headless==4.10.0.84

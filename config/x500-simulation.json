@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "simulationOnly": true,
+  "hardwareTarget": "Holybro X500 v2 / Pixhawk / OAK-D S2 / Jetson Orin Nano 8GB",
+  "frame": "map_enu",
+  "assumptions": "All dimensions, covariance gates, speeds and camera intrinsics below are development assumptions, not measured flight or detector performance. Replace with measured calibration before any future hardware implementation.",
+  "vehicle": { "radiusM": 0.55, "clearanceM": 0.2, "maxPoseSigmaM": 0.12 },
+  "safety": { "maxPoseAgeMs": 200, "maxDepthAgeMs": 250, "maxMapAgeMs": 500, "maxVoxelAgeMs": 1000, "minBatteryFraction": 0.3, "maxPoseVarianceM2": 0.0144, "maxInputGapMs": 500, "maxClockSkewMs": 20 },
+  "survey": { "maxSpeedMps": 0.3, "arrivalToleranceM": 0.12, "settleMs": 1000, "maxCaptureSpeedMps": 0.03, "maxCaptureYawRateRadS": 0.015, "captureYawOffsetsRad": [-0.436332, 0, 0.436332], "yawToleranceRad": 0.06, "maxDecelerationMps2": 0.4, "reactionTimeS": 0.3 },
+  "camera": { "calibrationStatus": "illustrative-unmeasured", "widthPx": 1920, "heightPx": 1080, "fxPx": 1380, "fyPx": 1380, "fixedMountPitchRad": -0.610865, "exposureS": 0.008, "maxBlurPx": 2, "minTargetDiameterM": 0.05, "nearestSurveyRangeM": 1, "designTargetPixels": 32, "validatedDetectorMinPixels": null },
+  "candidate": { "requiredDistinctFrames": 3, "maxObservationAgeMs": 2000, "minStandoffM": 1, "maxApproachDistanceM": 2 }
+}

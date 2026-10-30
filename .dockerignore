@@ -1,0 +1,12 @@
+vendor-build
+dist
+data
+android
+.git
+deploy/.env
+**/__pycache__
+
+runtime-vision
+models
+vision/runs
+experiments/results

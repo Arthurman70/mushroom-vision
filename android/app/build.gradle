@@ -1,0 +1,30 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'org.mycoscout.companion'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'org.mycoscout.companion'
+        minSdk 26
+        targetSdk 36
+        versionCode 8
+        versionName '0.8.0'
+    }
+    buildTypes {
+        debug { debuggable true }
+        release { minifyEnabled false }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    sourceSets.main.assets.srcDir(layout.buildDirectory.dir('generated/companion-assets'))
+}
+tasks.register('stageCompanionAssets', Sync) {
+    from rootProject.file('../public')
+    into layout.buildDirectory.dir('generated/companion-assets/www')
+    doFirst {
+        if (!rootProject.file('../public/index.html').isFile())
+            throw new GradleException('Create shared public/index.html before packaging the companion.')
+    }
+}
+tasks.named('preBuild').configure { dependsOn 'stageCompanionAssets' }

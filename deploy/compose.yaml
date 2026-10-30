@@ -1,0 +1,30 @@
+services:
+  station:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    environment:
+      MYCOSCOUT_HOST: 0.0.0.0
+      MYCOSCOUT_TOKEN: ${MYCOSCOUT_TOKEN:?Set a random token of at least 24 characters}
+      MYCOSCOUT_ALLOWED_ORIGIN: https://${MYCOSCOUT_DOMAIN:?Set your HTTPS domain}
+    volumes:
+      - survey-data:/app/data
+    restart: unless-stopped
+  https:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      MYCOSCOUT_DOMAIN: ${MYCOSCOUT_DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - station
+    restart: unless-stopped
+volumes:
+  survey-data:
+  caddy-data:
+  caddy-config:

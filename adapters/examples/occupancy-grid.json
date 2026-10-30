@@ -1,0 +1,35 @@
+{
+  "header": {
+    "frame_id": "map",
+    "stamp": {
+      "sec": 1700000000,
+      "nanosec": 0
+    }
+  },
+  "info": {
+    "width": 3,
+    "height": 2,
+    "resolution": 0.5,
+    "origin": {
+      "position": {
+        "x": -2,
+        "y": 3,
+        "z": 0
+      },
+      "orientation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      }
+    }
+  },
+  "data": [
+    -1,
+    0,
+    1,
+    64,
+    65,
+    100
+  ]
+}

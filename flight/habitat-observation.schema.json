@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MycoScout habitat or distant visual observation",
+  "description": "An inspection lead, never a species ID or freespace observation. Unknown capture time is allowed for screen-only historic photos. Runtime gates in habitat-search.mjs additionally enforce synchronized timestamps, uncertainty, freshness and geometry.",
+  "type": "object",
+  "required": ["id", "kind", "frameId", "confidence"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "kind": { "enum": ["habitat", "fungus"] },
+    "cueType": { "enum": ["detector", "color_salience", "habitat"], "description": "Color contrast alone always routes to unconfirmed habitat follow-up; never species or confirmed mushroom presence." },
+    "measuredRange": { "type": "object", "required": ["valueM", "uncertaintyM", "method", "capturedMs", "sourceId", "calibrationId"], "properties": { "valueM": { "type": "number", "exclusiveMinimum": 0 }, "uncertaintyM": { "type": "number", "minimum": 0 }, "method": { "enum": ["laser_rangefinder", "surveyed", "stereo_depth"] }, "capturedMs": { "type": "number" }, "sourceId": { "type": "string", "minLength": 1, "maxLength": 256 }, "calibrationId": { "type": "string", "minLength": 1, "maxLength": 256 } }, "additionalProperties": false, "description": "Physical camera-to-target range with explicit provenance, synchronized to the original image. Range alone creates no navigation position. Synthetic pixel-distance planning assumptions are forbidden here." },
+    "targetExtent": { "type": "object", "required": ["measured", "diameterM", "capturedMs", "sourceId"], "properties": { "measured": { "const": true }, "diameterM": { "type": "number", "exclusiveMinimum": 0 }, "capturedMs": { "type": "number" }, "sourceId": { "type": "string", "minLength": 1, "maxLength": 256 } }, "additionalProperties": false },
+    "frameId": { "type": "string", "minLength": 1 },
+    "capturedMs": { "type": ["number", "null"], "description": "Original capture timestamp in the shared monotonic clock. Null when unknown. Never substitute model completion time." },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1, "description": "Input model/reviewer confidence; not calibrated probability of mushroom presence." },
+    "source": { "type": "string" },
+    "month": { "type": "integer", "minimum": 1, "maximum": 12 },
+    "signals": { "type": "object", "description": "Strengths in [0,1]. Generic scene labels cannot populate hardwood, moss or damp_ground without separate supporting evidence.", "properties": { "hardwood": { "$ref": "#/$defs/unit" }, "moss": { "$ref": "#/$defs/unit" }, "leaf_litter": { "$ref": "#/$defs/unit" }, "damp_ground": { "$ref": "#/$defs/unit" }, "shaded_ground": { "$ref": "#/$defs/unit" }, "known_patch": { "$ref": "#/$defs/unit" }, "forest_context": { "$ref": "#/$defs/unit" }, "vegetation_ground": { "$ref": "#/$defs/unit" }, "exposed_ground": { "$ref": "#/$defs/unit" } }, "additionalProperties": false },
+    "semanticFractions": { "type": "object", "description": "Optional image fractions for display/context only; never occupancy or traversability.", "properties": { "tree": { "$ref": "#/$defs/unit" }, "plant": { "$ref": "#/$defs/unit" }, "grass": { "$ref": "#/$defs/unit" }, "earth": { "$ref": "#/$defs/unit" }, "water": { "$ref": "#/$defs/unit" }, "rock": { "$ref": "#/$defs/unit" }, "path": { "$ref": "#/$defs/unit" } }, "additionalProperties": false },
+    "bbox": { "type": "object", "description": "Image-space proposal only. Coordinates alone never provide metric range." },
+    "capturePose": { "type": "object", "required": ["frame", "position", "yawRad", "capturedMs"], "properties": { "frame": { "const": "map_enu" }, "position": { "$ref": "#/$defs/point" }, "yawRad": { "type": "number" }, "capturedMs": { "type": "number" }, "calibrationId": { "type": "string", "minLength": 1, "maxLength": 256 } }, "description": "Simulation pose contract. Actual projection additionally requires calibrated full 6-DoF camera transforms and covariance. Matching calibrationId on metric and capturePose is necessary for non-synthetic range routing." },
+    "metric": { "type": "object", "required": ["frame", "position", "depthKnown", "depthCapturedMs", "positionVarianceM2"], "properties": { "frame": { "const": "map_enu" }, "position": { "$ref": "#/$defs/point" }, "depthKnown": { "const": true }, "depthCapturedMs": { "type": "number" }, "positionVarianceM2": { "type": "number", "minimum": 0 }, "calibrationId": { "type": "string", "minLength": 1, "maxLength": 256 } } }
+  },
+  "$defs": { "unit": { "type": "number", "minimum": 0, "maximum": 1 }, "point": { "type": "object", "required": ["x", "y", "z"], "properties": { "x": { "type": "number" }, "y": { "type": "number" }, "z": { "type": "number" } } } }
+}

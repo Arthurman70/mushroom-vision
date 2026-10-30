@@ -1,0 +1,236 @@
+{
+  "retrievedAt": "2026-10-30T00:23:46.933642+00:00",
+  "queries": [
+    {
+      "classId": "amanita_research",
+      "groupId": "gilled",
+      "label": "Amanita research group",
+      "name": "Amanita",
+      "requestedName": "Amanita",
+      "taxon_id": 48419,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Amanita&per_page=30",
+      "researchTaxonId": "amanita"
+    },
+    {
+      "classId": "russula_research",
+      "groupId": "gilled",
+      "label": "Russula research group",
+      "name": "Russula",
+      "requestedName": "Russula",
+      "taxon_id": 48339,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Russula&per_page=30",
+      "researchTaxonId": "russula"
+    },
+    {
+      "classId": "lactarius_research",
+      "groupId": "gilled",
+      "label": "Lactarius research group",
+      "name": "Lactarius",
+      "requestedName": "Lactarius",
+      "taxon_id": 54597,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Lactarius&per_page=30",
+      "researchTaxonId": "lactarius"
+    },
+    {
+      "classId": "lactifluus_research",
+      "groupId": "gilled",
+      "label": "Lactifluus research group",
+      "name": "Lactifluus",
+      "requestedName": "Lactifluus",
+      "taxon_id": 353211,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Lactifluus&per_page=30",
+      "researchTaxonId": "lactifluus"
+    },
+    {
+      "classId": "cortinarius_research",
+      "groupId": "gilled",
+      "label": "Cortinarius research group",
+      "name": "Cortinarius",
+      "requestedName": "Cortinarius",
+      "taxon_id": 48704,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Cortinarius&per_page=30",
+      "researchTaxonId": "cortinarius"
+    },
+    {
+      "classId": "galerina_research",
+      "groupId": "gilled",
+      "label": "Galerina research group",
+      "name": "Galerina",
+      "requestedName": "Galerina",
+      "taxon_id": 118297,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Galerina&per_page=30",
+      "researchTaxonId": "galerina"
+    },
+    {
+      "classId": "inocybe_research",
+      "groupId": "gilled",
+      "label": "Inocybe research group",
+      "name": "Inocybe",
+      "requestedName": "Inocybe",
+      "taxon_id": 58679,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Inocybe&per_page=30",
+      "researchTaxonId": "inocybe"
+    },
+    {
+      "classId": "hypholoma_research",
+      "groupId": "gilled",
+      "label": "Hypholoma research group",
+      "name": "Hypholoma",
+      "requestedName": "Hypholoma",
+      "taxon_id": 48769,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Hypholoma&per_page=30",
+      "researchTaxonId": "hypholoma"
+    },
+    {
+      "classId": "gymnopilus_research",
+      "groupId": "gilled",
+      "label": "Gymnopilus research group",
+      "name": "Gymnopilus",
+      "requestedName": "Gymnopilus",
+      "taxon_id": 83198,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Gymnopilus&per_page=30",
+      "researchTaxonId": "gymnopilus"
+    },
+    {
+      "classId": "psilocybe_research",
+      "groupId": "gilled",
+      "label": "Psilocybe research group",
+      "name": "Psilocybe",
+      "requestedName": "Psilocybe",
+      "taxon_id": 54026,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Psilocybe&per_page=30",
+      "researchTaxonId": "psilocybe"
+    },
+    {
+      "classId": "agaricus_research",
+      "groupId": "gilled",
+      "label": "Agaricus research group",
+      "name": "Agaricus",
+      "requestedName": "Agaricus",
+      "taxon_id": 49548,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Agaricus&per_page=30",
+      "researchTaxonId": "agaricus"
+    },
+    {
+      "classId": "mycena_research",
+      "groupId": "gilled",
+      "label": "Mycena research group",
+      "name": "Mycena",
+      "requestedName": "Mycena",
+      "taxon_id": 55922,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Mycena&per_page=30",
+      "researchTaxonId": "mycena"
+    },
+    {
+      "classId": "lepiota_research",
+      "groupId": "gilled",
+      "label": "Lepiota research group",
+      "name": "Lepiota",
+      "requestedName": "Lepiota",
+      "taxon_id": 58695,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Lepiota&per_page=30",
+      "researchTaxonId": "lepiota"
+    },
+    {
+      "classId": "chlorophyllum_research",
+      "groupId": "gilled",
+      "label": "Chlorophyllum research group",
+      "name": "Chlorophyllum",
+      "requestedName": "Chlorophyllum",
+      "taxon_id": 56536,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Chlorophyllum&per_page=30",
+      "researchTaxonId": "chlorophyllum"
+    },
+    {
+      "classId": "gyromitra_research",
+      "groupId": "ascomycetes",
+      "label": "Gyromitra research group",
+      "name": "Gyromitra",
+      "requestedName": "Gyromitra",
+      "taxon_id": 85118,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Gyromitra&per_page=30",
+      "researchTaxonId": "gyromitra"
+    },
+    {
+      "classId": "verpa_research",
+      "groupId": "ascomycetes",
+      "label": "Verpa research group",
+      "name": "Verpa",
+      "requestedName": "Verpa",
+      "taxon_id": 118001,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Verpa&per_page=30",
+      "researchTaxonId": "verpa"
+    },
+    {
+      "classId": "helvella_research",
+      "groupId": "ascomycetes",
+      "label": "Helvella research group",
+      "name": "Helvella",
+      "requestedName": "Helvella",
+      "taxon_id": 49206,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Helvella&per_page=30",
+      "researchTaxonId": "helvella"
+    },
+    {
+      "classId": "auricularia_research",
+      "groupId": "jelly_fungi",
+      "label": "Auricularia research group",
+      "name": "Auricularia",
+      "requestedName": "Auricularia",
+      "taxon_id": 50817,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Auricularia&per_page=30",
+      "researchTaxonId": "auricularia"
+    },
+    {
+      "classId": "tremella_research",
+      "groupId": "jelly_fungi",
+      "label": "Tremella research group",
+      "name": "Tremella",
+      "requestedName": "Tremella",
+      "taxon_id": 48532,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Tremella&per_page=30",
+      "researchTaxonId": "tremella"
+    },
+    {
+      "classId": "ramaria_research",
+      "groupId": "coral_fungi",
+      "label": "Ramaria research group",
+      "name": "Ramaria",
+      "requestedName": "Ramaria",
+      "taxon_id": 48707,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Ramaria&per_page=30",
+      "researchTaxonId": "ramaria"
+    },
+    {
+      "classId": "phallus_research",
+      "groupId": "stinkhorns",
+      "label": "Phallus research group",
+      "name": "Phallus",
+      "requestedName": "Phallus",
+      "taxon_id": 54593,
+      "rank": "genus",
+      "resolutionUrl": "https://api.inaturalist.org/v1/taxa/autocomplete?q=Phallus&per_page=30",
+      "researchTaxonId": "phallus"
+    }
+  ]
+}

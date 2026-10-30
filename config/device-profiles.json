@@ -1,0 +1,14 @@
+{
+  "schema": "mycoscout.device-profiles.v1",
+  "profiles": [
+    {"id":"this-pc","name":"This computer","runtime":"Python 3.10+ or modern browser","implementedTasks":["image-quality-v1","fungi-candidates-v1"],"physicalTest":"local benchmark available separately","role":"Optional candidate detection, training and map review. Detection needs local GroundingDINO weights and its Python dependencies."},
+    {"id":"nothing-phone-3a","name":"Nothing Phone (3a)","runtime":"Modern Android browser","implementedTasks":["image-quality-v1"],"physicalTest":"not tested on this device","role":"Frame sharpness, color statistics and human review; foreground browser worker. No mobile detector is bundled."},
+    {"id":"quest-3","name":"Meta Quest 3","runtime":"Quest browser","implementedTasks":["image-quality-v1"],"physicalTest":"not tested on this device","role":"Review dashboard and optional foreground frame quality scoring. Headset rendering should retain priority."},
+    {"id":"raspberry-pi","name":"Raspberry Pi / Linux ARM","runtime":"Python 3.10+ with Pillow and NumPy","implementedTasks":["image-quality-v1"],"physicalTest":"not tested on this device","role":"Low-rate frame quality and color scoring. Candidate detection is optional only where compatible dependencies and weights are installed; no ARM performance claim."},
+    {"id":"other-browser","name":"Another phone, tablet or computer","runtime":"Browser with Canvas, fetch and Web Crypto","implementedTasks":["image-quality-v1"],"physicalTest":"capability checked at runtime; hardware untested","role":"Portable light analysis and review. Connect intentionally to a trusted HTTPS station."},
+    {"id":"other-python","name":"Other Python device","runtime":"Python 3.10+ with Pillow and NumPy","implementedTasks":["image-quality-v1","fungi-candidates-v1"],"physicalTest":"not tested on this device","role":"Reference outbound-only worker; detector capability is announced only after its local model loads."}
+  ],
+  "alwaysOnboard": ["Flight stabilization", "Collision avoidance and local obstacle depth", "Vehicle failsafes", "Immediate flight control"],
+  "optionalRemote": ["Image quality and color statistics", "Unverified mushroom candidates", "Human classification and review", "Training and offline evaluation"],
+  "limitations": ["Profiles are compatibility targets, not measured device performance.", "Transport is implemented; no drone-camera auto-dispatch is enabled.", "No shared device may command the aircraft through this module."]
+}

@@ -1,0 +1,211 @@
+{
+  "schema": "mycoscout.far-lab.v1",
+  "status": "completed",
+  "generatedAt": "2026-10-26T20:56:48.176642+00:00",
+  "summary": "48 actual model passes on 24 synthetic images from 4 source scenes. Original RGB and color-enhanced RGB use the same fixed detection rules. Results below count the focal target in each scene.",
+  "rows": [
+    {
+      "label": "10 m illustration",
+      "targetPixels": 6.9,
+      "illustrativeDistanceM": 10,
+      "raw": {
+        "hits": 0,
+        "targets": 4,
+        "recall": 0.0,
+        "falseDetections": 6
+      },
+      "color": {
+        "hits": 0,
+        "targets": 4,
+        "recall": 0.0,
+        "falseDetections": 6
+      },
+      "colorOnly": {
+        "focalCueHits": 1,
+        "targets": 4,
+        "cues": 48,
+        "offTargetCues": 46
+      }
+    },
+    {
+      "label": "20 m illustration",
+      "targetPixels": 3.45,
+      "illustrativeDistanceM": 20,
+      "raw": {
+        "hits": 0,
+        "targets": 4,
+        "recall": 0.0,
+        "falseDetections": 8
+      },
+      "color": {
+        "hits": 0,
+        "targets": 4,
+        "recall": 0.0,
+        "falseDetections": 8
+      },
+      "colorOnly": {
+        "focalCueHits": 0,
+        "targets": 4,
+        "cues": 48,
+        "offTargetCues": 48
+      }
+    },
+    {
+      "label": "50 m illustration",
+      "targetPixels": 1.38,
+      "illustrativeDistanceM": 50,
+      "raw": {
+        "hits": 0,
+        "targets": 4,
+        "recall": 0.0,
+        "falseDetections": 7
+      },
+      "color": {
+        "hits": 0,
+        "targets": 4,
+        "recall": 0.0,
+        "falseDetections": 7
+      },
+      "colorOnly": {
+        "focalCueHits": 0,
+        "targets": 4,
+        "cues": 48,
+        "offTargetCues": 48
+      }
+    },
+    {
+      "label": "100 m illustration",
+      "targetPixels": 0.69,
+      "illustrativeDistanceM": 100,
+      "raw": {
+        "hits": 0,
+        "targets": 4,
+        "recall": 0.0,
+        "falseDetections": 7
+      },
+      "color": {
+        "hits": 0,
+        "targets": 4,
+        "recall": 0.0,
+        "falseDetections": 8
+      },
+      "colorOnly": {
+        "focalCueHits": 0,
+        "targets": 4,
+        "cues": 48,
+        "offTargetCues": 48
+      }
+    },
+    {
+      "label": "32 px positive control",
+      "targetPixels": 32,
+      "illustrativeDistanceM": null,
+      "raw": {
+        "hits": 2,
+        "targets": 4,
+        "recall": 0.5,
+        "falseDetections": 4
+      },
+      "color": {
+        "hits": 2,
+        "targets": 4,
+        "recall": 0.5,
+        "falseDetections": 5
+      },
+      "colorOnly": {
+        "focalCueHits": 1,
+        "targets": 4,
+        "cues": 48,
+        "offTargetCues": 43
+      }
+    }
+  ],
+  "protocolSha256": "d058a85f1a5e26955af0cfd0b2ada6405adeca80ca45842b3f460a47130de2f4",
+  "inputManifestSha256": "614533ea26bdd39abe2cae9382f371281735477094fa33ca26c945924d340d32",
+  "frameDimensions": [
+    "1024x768",
+    "768x1024"
+  ],
+  "negativeControls": {
+    "raw": {
+      "frames": 4,
+      "falseDetections": 7,
+      "framesWithFalseAlerts": 4
+    },
+    "color": {
+      "frames": 4,
+      "falseDetections": 8,
+      "framesWithFalseAlerts": 4
+    },
+    "colorOnly": {
+      "frames": 4,
+      "cues": 48,
+      "framesWithCues": 4
+    }
+  },
+  "controlsNote": "On 4 background-only controls: original RGB produced 7 false detections; color enhancement produced 8. The separate color-cue finder produced 48 alerts. Controls are selected background crops, not flight footage.",
+  "colorNote": "The separate color-contrast finder placed a cue near 1/16 tiny focal targets. This is proximity within two pixels, not a mushroom detection or ID. Color clues remain habitat follow-ups, with the original image preserved.",
+  "limitations": [
+    "Not a camera-distance simulator: no calibrated optics, atmosphere, motion, occlusion or sensor model.",
+    "Fractional target widths apply to an existing whole-body annotation, not a measured 5 cm cap.",
+    "Synthetic scene-island edges, resampling and enlarged background texture can create artificial contrast.",
+    "Four source scenes/observers; 24 derivatives are not 24 independent source scenes.",
+    "Negative controls are selected source crops, not representative mushroom-free flight footage.",
+    "A color anomaly is not evidence of mushroom presence or a species identification."
+  ],
+  "behaviorChecks": [
+    {
+      "title": "10 m and 20 m prioritize confirmation; 50 m and 100 m enter habitat log",
+      "passed": true,
+      "result": "Measured-range simulation fixtures only; no physical-distance detection accuracy is implied."
+    },
+    {
+      "title": "Uncertainty crossing 50 m remains habitat",
+      "passed": true,
+      "result": "49.9 \u00b10.2 m is retained as an unconfirmed habitat follow-up."
+    },
+    {
+      "title": "Unknown-range color cue cannot become a mushroom marker",
+      "passed": true,
+      "result": "Color contrast creates an unlocated habitat cue, never a species guess or flight target."
+    },
+    {
+      "title": "Nearby target pauses then resumes the scout route",
+      "passed": true,
+      "result": "Inspection begins at a settled scout capture; remaining scout work resumes with current clearance checks."
+    },
+    {
+      "title": "Approach segments replan fresh geometry before next movement",
+      "passed": true,
+      "result": "2 m maximum approach segments preserve altitude, fresh target evidence, map clearance and travel/time budgets."
+    },
+    {
+      "title": "One final target photo requires explicit synthetic acknowledgment",
+      "passed": true,
+      "result": "Intermediate route captures are proposals only; real photographs captured: zero."
+    },
+    {
+      "title": "No photo acknowledgment means no completed visit",
+      "passed": true,
+      "result": "The close-up request remains pending/manual after timeout."
+    },
+    {
+      "title": "Fabricated external acknowledgment cannot claim a physical photo",
+      "passed": true,
+      "result": "Simulation accepts only explicitly synthetic capture acknowledgments."
+    },
+    {
+      "title": "Close-photo framing geometry reports a zoom/manual closeup requirement",
+      "passed": true,
+      "result": "Illustrative 5 cm cap needs approximately 5.1 cm range to fill 70% native width; the 1 m minimum standoff is preserved."
+    },
+    {
+      "title": "Stale evidence cannot continue an approach",
+      "passed": true,
+      "result": "Range thresholds and priority never bypass synchronized fresh depth/pose and corridor gates."
+    }
+  ],
+  "framingNote": "The close-photo goal is 70% of the original frame width. With the illustrative 1080p camera, a 5 cm cap would require about 5 cm range, inside the 1 m minimum standoff. The request remains pending for optical zoom or a manual close-up; a digital crop does not complete it.",
+  "hardwareTested": false,
+  "physicalFlights": 0
+}

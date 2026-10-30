@@ -1,0 +1,191 @@
+{
+  "schema": "mycoscout.public-research-report.v1",
+  "generatedAt": "2026-10-26T14:50:06Z",
+  "summary": {
+    "imageCount": 17,
+    "sourceGroupCount": 14,
+    "annotatedCount": 17,
+    "fullyAnnotatedCount": 5,
+    "trainCount": 10,
+    "validationCount": 4,
+    "testCount": 3,
+    "status": "Pilot measured",
+    "verifierStatus": "The crop filter was trained, but remains experimental and is not enabled for flight or automatic rejection."
+  },
+  "runs": [
+    {
+      "model": "GroundingDINO Tiny",
+      "stage": "Original photos",
+      "measured": true,
+      "synthetic": false,
+      "metrics": {
+        "images": 5,
+        "negativeImages": 1,
+        "groundTruth": 14,
+        "predictions": 10,
+        "truePositive": 8,
+        "falsePositive": 2,
+        "falseNegative": 6,
+        "precision": 0.8,
+        "recall": 0.5714285714285714,
+        "f1": 0.6666666666666666,
+        "falsePositivesPerImage": 0.4
+      },
+      "notes": [
+        "5 fully annotated photos: 8 of 14 labeled mushrooms found; 2 false-positive boxes. Approximate visual labels, pending human review.",
+        "12 partially annotated colony photos are excluded from whole-image detection metrics.",
+        "All 17 photos were processed locally. Mean inference: 6.62 seconds on this Windows CPU. Jetson speed is unmeasured.",
+        "The background-only landscape produced a false positive. No real distant mushroom-positive calibration was collected."
+      ]
+    },
+    {
+      "model": "Trained crop filter",
+      "stage": "Held-out crops",
+      "measured": true,
+      "synthetic": false,
+      "metrics": {
+        "samples": 9,
+        "truePositive": 3,
+        "falsePositive": 3,
+        "trueNegative": 2,
+        "falseNegative": 1,
+        "precision": 0.5,
+        "recall": 0.75,
+        "f1": 0.6,
+        "accuracy": 0.5555555555555556
+      },
+      "notes": [
+        "Actual training: 1,000 iterations on 34 labeled crops from 8 uploader groups. Validation: 27 crops / 3 groups. Test: 9 crops / 3 groups.",
+        "Held-out crop accuracy: 55.6% (5/9). This is weak evidence and is not an end-to-end detector score.",
+        "GroundingDINO weights were not fine-tuned. The fitted model is a small mushroom/background candidate filter; it cannot identify species."
+      ]
+    },
+    {
+      "model": "GroundingDINO Tiny",
+      "stage": "Synthetic size progression",
+      "measured": true,
+      "synthetic": true,
+      "sizeBins": [
+        {
+          "label": "100% scene",
+          "recall": 0.5,
+          "groundTruth": 12
+        },
+        {
+          "label": "50% scene",
+          "recall": 0.3333333333333333,
+          "groundTruth": 12
+        },
+        {
+          "label": "25% scene",
+          "recall": 0.25,
+          "groundTruth": 12
+        },
+        {
+          "label": "12.5% scene",
+          "recall": 0.16666666666666666,
+          "groundTruth": 12
+        },
+        {
+          "label": "6.25% scene",
+          "recall": 0.16666666666666666,
+          "groundTruth": 12
+        }
+      ],
+      "notes": [
+        "The same 2 original photos were scaled into a fixed-size canvas at 100%, 50%, 25%, 12.5% and 6.25%. Blur, JPEG and gray padding are artificial.",
+        "Recall fell from 6/12 to 2/12 labeled targets. Repeated variants are not independent mushrooms or measured camera distances."
+      ]
+    }
+  ],
+  "notes": [
+    "Precision is the share of proposed boxes that matched a labeled mushroom. Recall is the share of labeled mushrooms found.",
+    "Sources: Michigan Fungus Hunters Facebook group, 17 photos from 14 uploaders. Uploader groups stay in one split. Source authenticity and capture locations are unverified.",
+    "Tiled inspection took about 41\u201343 seconds per photo on this computer. More boxes on dense colonies do not prove better accuracy.",
+    "No species, edibility, metric mushroom coordinates, real flight tests or calibrated detection range are established. Private photos and trained research checkpoint remain local."
+  ],
+  "model": {
+    "model": "IDEA-Research/grounding-dino-tiny",
+    "resolvedRevision": "a2bb814dd30d776dcf7e30523b00659f4f141c71",
+    "prompt": "a mushroom. a fungus.",
+    "device": "cpu",
+    "boxThreshold": 0.25,
+    "textThreshold": 0.25,
+    "tileSize": 0,
+    "tileOverlap": 0.25,
+    "postprocessing": {
+      "method": "class-agnostic-nms",
+      "iouThreshold": 0.5,
+      "rawCandidatesPreserved": true
+    },
+    "scoreMeaning": "Uncalibrated phrase matching score; not accuracy or species probability"
+  },
+  "sourceManifestSha256": "a26c00004ff77ecf1f1a76a8f09b6d346df9f8191059050ac1bfc37dfa9ed23a",
+  "scaleEvidence": {
+    "1.0": {
+      "images": 2,
+      "negativeImages": 0,
+      "groundTruth": 12,
+      "predictions": 7,
+      "truePositive": 6,
+      "falsePositive": 1,
+      "falseNegative": 6,
+      "precision": 0.8571428571428571,
+      "recall": 0.5,
+      "f1": 0.631578947368421,
+      "falsePositivesPerImage": 0.5
+    },
+    "0.5": {
+      "images": 2,
+      "negativeImages": 0,
+      "groundTruth": 12,
+      "predictions": 5,
+      "truePositive": 4,
+      "falsePositive": 1,
+      "falseNegative": 8,
+      "precision": 0.8,
+      "recall": 0.3333333333333333,
+      "f1": 0.47058823529411764,
+      "falsePositivesPerImage": 0.5
+    },
+    "0.25": {
+      "images": 2,
+      "negativeImages": 0,
+      "groundTruth": 12,
+      "predictions": 3,
+      "truePositive": 3,
+      "falsePositive": 0,
+      "falseNegative": 9,
+      "precision": 1.0,
+      "recall": 0.25,
+      "f1": 0.4,
+      "falsePositivesPerImage": 0.0
+    },
+    "0.125": {
+      "images": 2,
+      "negativeImages": 0,
+      "groundTruth": 12,
+      "predictions": 3,
+      "truePositive": 2,
+      "falsePositive": 1,
+      "falseNegative": 10,
+      "precision": 0.6666666666666666,
+      "recall": 0.16666666666666666,
+      "f1": 0.26666666666666666,
+      "falsePositivesPerImage": 0.5
+    },
+    "0.0625": {
+      "images": 2,
+      "negativeImages": 0,
+      "groundTruth": 12,
+      "predictions": 4,
+      "truePositive": 2,
+      "falsePositive": 2,
+      "falseNegative": 10,
+      "precision": 0.5,
+      "recall": 0.16666666666666666,
+      "f1": 0.25,
+      "falsePositivesPerImage": 1.0
+    }
+  }
+}

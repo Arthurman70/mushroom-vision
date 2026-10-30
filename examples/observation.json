@@ -1,0 +1,12 @@
+{
+  "x": 5.5,
+  "y": 5.5,
+  "z": 0,
+  "label": "Unidentified fungus — manual example only",
+  "confidence": 0,
+  "source": "manual-qualified-point",
+  "reviewed": false,
+  "poseKnown": true,
+  "depthKnown": true,
+  "frameId": "map"
+}
