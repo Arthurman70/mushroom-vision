@@ -287,3 +287,56 @@ Its fast control and obstacle loops must run independently of semantic
 inference, streaming and headset polling. A separately validated hardware
 transport and tested aircraft/body/camera transforms are still required;
 connecting this desktop reference directly to motors would bypass those checks.
+
+## Combining full-frame and periodic detail scans
+
+Use full-frame observations for broad search, with periodic or requested tiled
+detail scans for inspection. Preserve full-frame coverage for fungi on logs,
+stumps and tree bases outside the selected ground rectangle. The rectangle is
+an image-space selection, not a measured ground surface. Color contrast and wood
+context are habitat cues; they do not confirm a mushroom or identify a species.
+Keep those cues separate from mushroom detections unless their cue type survives
+the entire mapping and routing path. The current mapper labels its detection
+inputs as mushroom candidates, so adding plain log/color boxes to that list
+would misrepresent them.
+
+Each result must retain the original sensor capture timestamp, synchronized pose
+and depth. Record inference duration and completion time separately. A tiled
+scan that takes 30 seconds is still a 30-second-old observation when it finishes;
+changing its timestamp to completion would invalidate its geometry and freshness.
+The live queue can retain that result for review, but the default target
+reacquisition limit is 10 seconds, so it cannot dispatch an approach from that
+stale target evidence. Obtain a fresh target observation and fresh navigation
+before retrying a blocked inspection. Newly arriving navigation alone does not
+refresh an old mushroom observation or automatically retry a blocked task.
+
+Semantic packets are accepted in capture-time order. A sequential hybrid scanner
+preserves this order. A future parallel scanner must coordinate result ordering
+or use a separate delayed-review channel for an older tile result that finishes
+after a newer full-frame result; it must not invent a newer capture time or pose.
+Independent navigation packets continue to use their own capture clock, and an
+older semantic frame cannot replace a newer body pose or observed free-space map.
+The hybrid search does not change the obstacle-sensing backend or its freshness
+requirements.
+
+Allowing for processing time matters even at a seemingly low speed: **0.2 m/s
+for 30 seconds covers 6 metres**. This is an illustration of observation delay,
+not a recommended flight speed. Display actual processing and capture age when
+considering a survey pace; speed alone cannot establish safe clearance or ensure
+that a small target stays visible. The existing blur model additionally depends
+on measured exposure, focal length, range and angular motion.
+
+There is no above-ground-height measurement in the current mission contract.
+Map-ENU altitude is not height above local terrain, and a lower image region is
+not an altitude sensor. No fixed low-altitude command or automatic descent is
+created by the hybrid search. The reference executor preserves its current
+observed altitude and standoff; future terrain-following needs calibrated ground
+geometry and independent clearance validation.
+
+Routing remains unchanged: calibrated candidates whose range uncertainty reaches
+50 metres or more stay habitat follow-ups; candidates entirely below that
+boundary may receive an immediate investigation task. Unknown range remains
+unlocated, regardless of box size, vivid color or detector confidence. A queued
+task is a proposal awaiting fresh evidence, not a confirmed mushroom or a flight
+command. These behaviors are checked in `tests/hybrid-mission.test.mjs` using
+synthetic sensor fixtures against the real live mission store.

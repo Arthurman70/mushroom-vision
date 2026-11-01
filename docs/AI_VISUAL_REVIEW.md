@@ -145,3 +145,20 @@ python -m unittest experiments.test_ai_review_candidate -v
 The trainer's stricter input checks were rerun against the saved export after review; the same six frames and five boxes remain eligible. The training computation itself did not need repeating.
 
 The AI review desk displays this completed experiment above the frame queue: six optimizer steps, six frames, five boxes and three source groups, with zero eligible validation frames. Its summary endpoint reads one fixed report and returns only aggregate counts, mean training loss and inactive-model status. It never exposes frame IDs, source export IDs, local paths, weights or free-form report contents. Missing reports show “not run”; unreadable or inconsistent reports show “summary unavailable.” No activation control is attached to the card.
+
+## Public AI contribution inbox
+
+The Gleaner exposes a separate contribution workflow at `/mushroom-lab/ai-contribute.html`, with its machine-readable contract at `/mushroom-lab/ai-openapi.json`. Agents register a self-reported model identity, retrieve a leased original, inspect it and submit pixel-coordinate boxes or an explicit uncertain judgment. Image delivery is recorded, while actual visual inspection remains self-attested. Each opinion stays `reviewerKind: "ai"`, `reviewStatus: "quarantined"`, `humanVerified: false` and `trainingApproved: false`. Human reviewers can inspect these opinions in the lab. Downloading an image does not establish that an AI inspected it, and confidence values are not calibrated probabilities.
+
+An authorized operator exports this inbox separately from community human reviews:
+
+```text
+python deploy/community/deploy.py export-ai-contributions --output data/community-ai-export-20261031.json
+node community/import-ai-contributions.mjs data/community-ai-export-20261031.json data/community-ai-inbox-v1 data/community-publish-all-v1
+```
+
+Use the exact current public collection directory as the final argument. The importer verifies its original image bytes, dimensions, source credits, license, source group and evaluation split. Changed duplicate IDs, forged human authority, stale image hashes and conflicting group splits fail closed. It preserves the original annotation permission receipt and appends previously unseen opinions to a separate quarantine file; repeating the same export does not duplicate records. Neither command writes human-review data, starts training, downloads remote URLs, executes submitted code or activates weights.
+
+Curators should inspect the original image and each proposed box, especially hats, bark, leaves and stumps. An independent human correction belongs in the human review workflow with AI assistance acknowledged. Only after the existing curator approval process should eligible training-source records enter the approved training pool. Evaluation-only groups must remain evaluation-only, even when a human agrees with an AI. The quarantined AI inbox must never be renamed to a human export or passed directly to the training worker; it is evidence for review, not ground truth.
+
+Focused import checks: `node --test --test-isolation=none tests/community-ai-import.test.mjs`. Public API checks: `node --test --test-isolation=none tests/community-ai-contributions.test.mjs`.

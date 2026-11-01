@@ -2,6 +2,9 @@ import hashlib
 import importlib.util
 import io
 import unittest
+import uuid
+import shutil
+import json
 from pathlib import Path
 from PIL import Image
 spec=importlib.util.spec_from_file_location('bulk_package',Path(__file__).with_name('package-bulk.py'))
@@ -22,5 +25,18 @@ class BulkPublicationTests(unittest.TestCase):
     def test_malformed_jpeg_does_not_pass(self):
         for raw in (b'private text',b'\xff\xd8\xff\xe1\x00\x20short'):
             with self.assertRaises(ValueError):bulk.strip_jpeg_metadata(raw)
+    def test_old_inventory_cannot_remove_later_published_images(self):
+        parent=(Path(__file__).resolve().parent/'test-runtime').resolve();parent.mkdir(exist_ok=True)
+        root=parent/uuid.uuid4().hex;root.mkdir()
+        try:
+            output=root/'public';output.mkdir()
+            inventory=root/'inventory.json';inventory.write_text(json.dumps({'schema':'mycoscout.bulk-ai-inventory.v1','records':[]}))
+            manifest=output/'manifest.json';original=json.dumps({'frames':[{'id':'new-public-photo'}]}).encode();manifest.write_bytes(original)
+            with self.assertRaisesRegex(ValueError,'later publication batches'):
+                bulk.build(inventory,None,output,root=root)
+            self.assertEqual(manifest.read_bytes(),original)
+        finally:
+            if root.resolve().parent!=parent:raise ValueError('Unexpected test cleanup path')
+            shutil.rmtree(root)
 
 if __name__=='__main__':unittest.main()

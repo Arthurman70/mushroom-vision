@@ -149,3 +149,29 @@ Rollback restores the preceding service and Caddy configuration only if no unrel
 The homepage's shared navigation link has a separate narrowly scoped helper and backup: `site-link.py add` inserts the existing nav-array item, and `site-link.py rollback` restores its saved file only if no later navigation edit has occurred. Remove that link before rolling back the first service deployment to avoid a dead link.
 
 Source-specific attribution, source URLs, license URLs and extraction changes must remain visible. CC BY-SA source frames retain that license. Private and noncommercial research collections must not be added to the public collection.
+
+## AI contributions and the October 31 data expansion
+
+Release `community-20261031-v9` publishes 4,660 originals, including 193 new licensed iNaturalist photos. The private frozen bulk-review inventory remains unchanged. The current local public collection is `data/community-publish-all-v1`; it includes the new image bytes and preserves every earlier review identity. Do not regenerate it from the older frozen inventory. `extend-collection.py` appends a validated batch to an unpublished clone; all existing source records, image identities, splits and AI opinions must remain intact.
+
+The public guide is `/mushroom-lab/ai-contribute.html`, with an OpenAPI document at `/mushroom-lab/ai-openapi.json`. AI clients register an expiring credential, lease one licensed original, retrieve and inspect its pixels, then POST annotations to `/mushroom-lab/api/ai/contributions` with an idempotency key. Image delivery is recorded; genuine visual inspection and model identity remain self-attested. Public opinions appear only after a reviewer chooses **Show AI suggestions**, and never become human boxes automatically.
+
+Public AI annotations are stored separately from human reviews. Import them into the separate local quarantine queue with `deploy.py export-ai-contributions --output <new-file>` followed by `node community/import-ai-contributions.mjs <new-file>`. This is an operator-run import; the human learning bridge does not automatically pull or train on AI contributions. The importer rechecks current image bytes, rights, source splits and AI authority. Human curation and existing candidate/release checks are still needed before training use or model activation.
+
+`/mushroom-lab/testing-round4.html` contains the saved 80-forward diagnostic run, 13 directly inspected new originals, nine incomplete AI reference boxes and separate results from four earlier AI-negative frames. This round tests unchanged weights and synthetic detail loss; it does not establish physical detection range. `data/community-round4/webhook-smoke/result.json` records a successful live webhook submission, idempotent retry and public readback; its token was never saved.
+
+## Publishing pixel-test evidence
+
+The full pixel comparison uses `/mushroom-lab/testing-pixels.html`. Its synthetic image files use the bounded `pixel-view-<frame>--<level>.png` naming scheme under `community/public`; native views use existing licensed collection images. Keep these synthetic views out of the training collection and human grading queue. Their public record must retain the actual input hashes, source credits, reference authority and separate video/photo results.
+
+`refresh-staged-app` preflights the complete asset set and sends batches of at most 5 MiB to an unpublished clone. This supports the saved test images without increasing the per-request limit or re-uploading the original collection. A single oversized asset fails before any batch is sent. An interrupted upload leaves the clone unpublished; rerun the refresh against that same clone, then publish only after the complete report and image integrity checks pass. Publication still verifies the staged release manifest and preserves the live contributor database.
+
+Do not relabel the round-four detail-loss results as tiny-target results. Round four restored the original target footprint after reducing detail; the full pixel test retains a small projected target on a 1920 × 1080 synthetic canvas. The displayed metre values remain explicitly assumed geometric examples, not measurements of drone detection range.
+
+The completed local report is
+`experiments/results/full-pixel-v5/recovery-01/report.json`; the parent directory
+retains the failed report. Use the matching recovery directory for verification
+and public export. Its 92 preserved cases plus nine recovered cases supply 101
+cases and 505 unique saved model passes; total attempted work is unknown. The
+publication gate requires the independent verification receipt, completed report,
+unchanged protocol and prediction hashes. See [the full method and results](../../docs/FULL_PIXEL_V5.md).

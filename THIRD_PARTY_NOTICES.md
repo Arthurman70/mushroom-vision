@@ -26,3 +26,15 @@ The review screenshots contain a public CC BY photograph attributed to Annika Li
 installer verifies the official v1.21.3 release checksum and retains its license
 in the separate runtime folder. Its executable and video recordings are excluded
 from the source bundle. FFmpeg is supplied separately; its build license applies.
+
+## Public review and pixel-test evidence
+
+The October 31 acquisition added 193 iNaturalist photographs under their
+individual CC0, CC BY or CC BY-SA terms. The public Gleaner lab retains original
+credits, source links and license links. Saved pixel-test images are modified
+presentations of those photographs and licensed video frames, with the
+transformation and source shown in the inspector. These images are excluded
+from the GitHub source package; public result JSON contains metadata and boxes,
+not image bytes. Neither the project's MIT license nor a contributor annotation
+changes the source image license. See [source records](docs/DATA_SOURCES.md) and
+[pixel-test scope](docs/FULL_PIXEL_V5.md).

@@ -1,0 +1,597 @@
+{
+  "schema": "mushroom-vision.public-testing-round4.v1",
+  "title": "Mushroom Vision: new photo testing round",
+  "completedAt": "2026-11-01T02:20:17.322111+00:00",
+  "summary": {
+    "positiveReferences": 9,
+    "negativeReferences": 4,
+    "referenceAuthority": "ai-incomplete",
+    "weightsChanged": false
+  },
+  "protocol": {
+    "detectorName": "GroundingDINO local model",
+    "iouThreshold": 0.5,
+    "scoreThreshold": 0.25,
+    "notes": "Thirteen new original photographs were inspected by AI; nine have one approximate selected target, and four remain cropped or uncertain qualitative checks. Four older AI absence references were tested only at native resolution and are summarized separately. The entire image was downsampled until the selected target was approximately 32 or 16 pixels wide, then upsampled back to its original size with LANCZOS. No crop or paste creates the synthetic views; tiled inference uses four overlapping tiles plus whole-image context. These tests measure no actual distance or flight range. At synthetic 32 px, tiled scanning matched eight of nine selected targets versus seven for whole-frame scanning, but produced 49 unmatched alerts versus 11. The incomplete AI references cannot establish that these extra alerts are false positives. Model weights were unchanged; this selected photo test is not a field accuracy estimate."
+  },
+  "conditions": [
+    {
+      "id": "native",
+      "label": "Whole original image",
+      "selectedTargetHits": 9,
+      "selectedTargetCount": 9,
+      "negativeFramesWithAlerts": 4,
+      "negativeFrameCount": 4,
+      "negativeAlertCount": 8,
+      "meanSecondsPerFrame": 6.426022976472535,
+      "measurementFrames": 17
+    },
+    {
+      "id": "32px",
+      "label": "Synthetic 32 px, whole frame",
+      "selectedTargetHits": 7,
+      "selectedTargetCount": 9,
+      "negativeFramesWithAlerts": null,
+      "negativeFrameCount": null,
+      "negativeAlertCount": null,
+      "meanSecondsPerFrame": 6.10309803346172,
+      "measurementFrames": 9
+    },
+    {
+      "id": "16px",
+      "label": "Synthetic 16 px, whole frame",
+      "selectedTargetHits": 7,
+      "selectedTargetCount": 9,
+      "negativeFramesWithAlerts": null,
+      "negativeFrameCount": null,
+      "negativeAlertCount": null,
+      "meanSecondsPerFrame": 6.138246589029829,
+      "measurementFrames": 9
+    },
+    {
+      "id": "32px-tiled",
+      "label": "Synthetic 32 px, tiles plus context",
+      "selectedTargetHits": 8,
+      "selectedTargetCount": 9,
+      "negativeFramesWithAlerts": null,
+      "negativeFrameCount": null,
+      "negativeAlertCount": null,
+      "meanSecondsPerFrame": 30.630138877520544,
+      "measurementFrames": 9
+    }
+  ],
+  "frames": [
+    {
+      "frameId": "inat-photo-657199339",
+      "imageSha256": "fd70db4a0da3c7948bf466fb05d0a237afc0523875dffa4a3e35d016e1f37ae7",
+      "width": 1524,
+      "height": 2048,
+      "status": "visible",
+      "note": "Three pitted pale caps rise through grass and pine needles; reference is the foreground left cap and visible base. Stems are partly hidden. Other two caps are not exhaustively boxed.",
+      "groupHint": "true_morels",
+      "selectedTargetPixelsXYXY": [
+        143,
+        1072,
+        584,
+        1770
+      ],
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": true,
+          "alertCount": 3,
+          "elapsedSeconds": 6.354364600032568
+        },
+        {
+          "conditionId": "32px",
+          "selectedTargetHit": true,
+          "alertCount": 3,
+          "elapsedSeconds": 5.998120900243521
+        },
+        {
+          "conditionId": "16px",
+          "selectedTargetHit": true,
+          "alertCount": 3,
+          "elapsedSeconds": 6.014773700386286
+        },
+        {
+          "conditionId": "32px-tiled",
+          "selectedTargetHit": true,
+          "alertCount": 5,
+          "elapsedSeconds": 30.154870399739593
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) Nancy Overholtz, some rights reserved (CC BY-SA)",
+        "license": "CC-BY-SA",
+        "sourceUrl": "https://www.inaturalist.org/observations/360169655",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-650499352",
+      "imageSha256": "d7a7a5bf395e5b61b510a9a89ab1564727f4071167cac56c0c772c5f0e5f0f58",
+      "width": 1536,
+      "height": 2048,
+      "status": "visible",
+      "note": "One strongly pitted cap with pale stem stands beside a hand. Reference encloses the mushroom; the hand, ring, bricks and green leaves are not fungi.",
+      "groupHint": "true_morels",
+      "selectedTargetPixelsXYXY": [
+        628,
+        842,
+        974,
+        1550
+      ],
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": true,
+          "alertCount": 1,
+          "elapsedSeconds": 5.902416899800301
+        },
+        {
+          "conditionId": "32px",
+          "selectedTargetHit": true,
+          "alertCount": 1,
+          "elapsedSeconds": 5.980767200235277
+        },
+        {
+          "conditionId": "16px",
+          "selectedTargetHit": true,
+          "alertCount": 1,
+          "elapsedSeconds": 6.088622800074518
+        },
+        {
+          "conditionId": "32px-tiled",
+          "selectedTargetHit": true,
+          "alertCount": 5,
+          "elapsedSeconds": 29.698849700391293
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) LKJ, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/356696153",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-757326298",
+      "imageSha256": "a54aaf2fadbacb4afea625bf6a9bf5f35c6a2c164217861a9f48b7428a30b21c",
+      "width": 2048,
+      "height": 1542,
+      "status": "uncertain",
+      "note": "Extreme yellow pore-surface close-up with no full organism outline or environmental context. Consistent with a pore-bearing fungus but inadequate for a bounded mushroom target or independent group confirmation.",
+      "groupHint": "chicken_of_woods",
+      "selectedTargetPixelsXYXY": null,
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": null,
+          "alertCount": 1,
+          "elapsedSeconds": 5.919024799950421
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) The Inkiest of Caps, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/411641393",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-756550667",
+      "imageSha256": "42de213476284bbe9f04aa418fb249ee8525e68f8290065981c24aa061699a24",
+      "width": 2048,
+      "height": 1542,
+      "status": "visible",
+      "note": "Dry, cracked orange-tan bracket tissue and pale broken interior fill the frame. Fungal tissue appears visible, but the object is cropped and not a suitable bounded target for pixel-width comparison.",
+      "groupHint": "chicken_of_woods",
+      "selectedTargetPixelsXYXY": null,
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": null,
+          "alertCount": 2,
+          "elapsedSeconds": 6.086053799837828
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) Millie Basden, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/411268986",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-757471312",
+      "imageSha256": "e5d59f2fdb340c6dd839d5ec5b7f3c98c2b29e2d18547d9a9818e937f1175eb3",
+      "width": 1600,
+      "height": 1200,
+      "status": "visible",
+      "note": "Pale caps with visible gill-like undersides emerge from dark fissured bark. Reference is the large central mushroom; smaller left-edge and right mushrooms remain unboxed.",
+      "groupHint": "oysters",
+      "selectedTargetPixelsXYXY": [
+        328,
+        189,
+        995,
+        780
+      ],
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": true,
+          "alertCount": 2,
+          "elapsedSeconds": 5.8971298998221755
+        },
+        {
+          "conditionId": "32px",
+          "selectedTargetHit": true,
+          "alertCount": 2,
+          "elapsedSeconds": 5.912940199952573
+        },
+        {
+          "conditionId": "16px",
+          "selectedTargetHit": true,
+          "alertCount": 2,
+          "elapsedSeconds": 6.069038399960846
+        },
+        {
+          "conditionId": "32px-tiled",
+          "selectedTargetHit": true,
+          "alertCount": 7,
+          "elapsedSeconds": 29.736055299639702
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) Matthew Rose, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/411724844",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-756371216",
+      "imageSha256": "244d92954b8b6cf4bbbe2b653653b2f1d3efc9f994384e1e0a10ccbbad29f3f3",
+      "width": 2048,
+      "height": 1536,
+      "status": "visible",
+      "note": "Pale overlapping fan-shaped fruiting bodies stand out on a fallen log among brown leaves. Reference is the near central cluster; upper-right and lower mushrooms remain unboxed.",
+      "groupHint": "oysters",
+      "selectedTargetPixelsXYXY": [
+        623,
+        768,
+        1087,
+        1223
+      ],
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": true,
+          "alertCount": 2,
+          "elapsedSeconds": 6.01019879989326
+        },
+        {
+          "conditionId": "32px",
+          "selectedTargetHit": true,
+          "alertCount": 3,
+          "elapsedSeconds": 5.942597900051624
+        },
+        {
+          "conditionId": "16px",
+          "selectedTargetHit": true,
+          "alertCount": 3,
+          "elapsedSeconds": 5.94636380020529
+        },
+        {
+          "conditionId": "32px-tiled",
+          "selectedTargetHit": true,
+          "alertCount": 7,
+          "elapsedSeconds": 30.78168709948659
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) Giovanny Vargas, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/411179701",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-508962095",
+      "imageSha256": "fdc6d7858bdb079a9c05f3968d67e3e954107a2bc2803a39cc660e9531595ba3",
+      "width": 1536,
+      "height": 2048,
+      "status": "visible",
+      "note": "Dark grey-brown hollow funnels closely match the surrounding dead leaves. Reference encloses the upper central funnel; lower and edge funnels remain unboxed. Brown leaf veins and twigs are confounders.",
+      "groupHint": "black_trumpets",
+      "selectedTargetPixelsXYXY": [
+        192,
+        398,
+        765,
+        1018
+      ],
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": true,
+          "alertCount": 2,
+          "elapsedSeconds": 5.940093799959868
+        },
+        {
+          "conditionId": "32px",
+          "selectedTargetHit": true,
+          "alertCount": 1,
+          "elapsedSeconds": 6.005210199858993
+        },
+        {
+          "conditionId": "16px",
+          "selectedTargetHit": true,
+          "alertCount": 2,
+          "elapsedSeconds": 5.941977700218558
+        },
+        {
+          "conditionId": "32px-tiled",
+          "selectedTargetHit": true,
+          "alertCount": 6,
+          "elapsedSeconds": 29.8010198995471
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) odobenine, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/283260814",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-340813928",
+      "imageSha256": "e73ee8e754fbf81a73a502015cc7b3e4db49850b8eba09513b790c872b3f4d47",
+      "width": 2048,
+      "height": 1536,
+      "status": "visible",
+      "note": "Several narrow dark hollow trumpets grow among pine needles; rear mushrooms are blurred. Reference is the isolated left foreground trumpet; the central and right clusters remain unboxed.",
+      "groupHint": "black_trumpets",
+      "selectedTargetPixelsXYXY": [
+        40,
+        579,
+        586,
+        1189
+      ],
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": true,
+          "alertCount": 3,
+          "elapsedSeconds": 5.8954480001702905
+        },
+        {
+          "conditionId": "32px",
+          "selectedTargetHit": true,
+          "alertCount": 5,
+          "elapsedSeconds": 5.91629710001871
+        },
+        {
+          "conditionId": "16px",
+          "selectedTargetHit": true,
+          "alertCount": 5,
+          "elapsedSeconds": 5.94458490004763
+        },
+        {
+          "conditionId": "32px-tiled",
+          "selectedTargetHit": true,
+          "alertCount": 11,
+          "elapsedSeconds": 29.840399200096726
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) zm77, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/193959740",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-753536713",
+      "imageSha256": "0069539478012318ae393a8164221c423e2d19a1d9567c0d956fbde6e99c7029",
+      "width": 1536,
+      "height": 2048,
+      "status": "visible",
+      "note": "Bright orange and yellow layered brackets grow on rough tree bark. Reference is the isolated upper cluster; the large lower flush and small middle-right patch remain unboxed.",
+      "groupHint": "chicken_of_woods",
+      "selectedTargetPixelsXYXY": [
+        880,
+        350,
+        1185,
+        665
+      ],
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": true,
+          "alertCount": 5,
+          "elapsedSeconds": 5.90612079994753
+        },
+        {
+          "conditionId": "32px",
+          "selectedTargetHit": false,
+          "alertCount": 1,
+          "elapsedSeconds": 5.9535347004421055
+        },
+        {
+          "conditionId": "16px",
+          "selectedTargetHit": false,
+          "alertCount": 1,
+          "elapsedSeconds": 5.935928100254387
+        },
+        {
+          "conditionId": "32px-tiled",
+          "selectedTargetHit": true,
+          "alertCount": 7,
+          "elapsedSeconds": 29.702561399433762
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "no rights reserved",
+        "license": "CC0",
+        "sourceUrl": "https://www.inaturalist.org/observations/407628020",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-749209292",
+      "imageSha256": "35af2899dbffbc6a797d2b43c58dcd04c8cce4042ea7f5c7abb4c4fc7228cc97",
+      "width": 1536,
+      "height": 2048,
+      "status": "visible",
+      "note": "Yellow pore-bearing bracket tissue held in a hand extends beyond the left edge. Useful underside example but cropped; omitted from bounded-target scaling.",
+      "groupHint": "chicken_of_woods",
+      "selectedTargetPixelsXYXY": null,
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": null,
+          "alertCount": 1,
+          "elapsedSeconds": 5.975907100364566
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) greatlakes25, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/407627614",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-745021054",
+      "imageSha256": "234082a8a5d1f5d3ae53a783008ecde8028fa3aefb2abdbc48873beb66e2da37",
+      "width": 1536,
+      "height": 2048,
+      "status": "visible",
+      "note": "Several small vivid orange lobed fruiting bodies contrast with brown leaf litter. Reference is the upper central cluster; smaller lower caps remain unboxed. Group identity needs closer underside examination.",
+      "groupHint": "chanterelles",
+      "selectedTargetPixelsXYXY": [
+        590,
+        715,
+        883,
+        952
+      ],
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": true,
+          "alertCount": 2,
+          "elapsedSeconds": 5.894798499997705
+        },
+        {
+          "conditionId": "32px",
+          "selectedTargetHit": false,
+          "alertCount": 1,
+          "elapsedSeconds": 5.94652510015294
+        },
+        {
+          "conditionId": "16px",
+          "selectedTargetHit": false,
+          "alertCount": 1,
+          "elapsedSeconds": 5.969576300121844
+        },
+        {
+          "conditionId": "32px-tiled",
+          "selectedTargetHit": false,
+          "alertCount": 5,
+          "elapsedSeconds": 29.662093699909747
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) Luis Ángel Niño Barreat, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/405595223",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-757801581",
+      "imageSha256": "284f9cbfa546cbc495262e7b800af6f5a79ff9621e12b2aa51fae45b2b437f4a",
+      "width": 1365,
+      "height": 2048,
+      "status": "visible",
+      "note": "Backlit brown thin brackets and pale rims emerge from wood; substantial blur and shadow obscure boundaries. Fungal presence likely, exact group and complete box inventory uncertain.",
+      "groupHint": "turkey_tail",
+      "selectedTargetPixelsXYXY": null,
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": null,
+          "alertCount": 1,
+          "elapsedSeconds": 7.092401499859989
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) Matthew Neswold, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/411891510",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "frameId": "inat-photo-757986677",
+      "imageSha256": "ab3c5bd17126e93f65ec168f1f15c50a4b12f737be2fe8ee10c359143359b887",
+      "width": 1152,
+      "height": 2048,
+      "status": "visible",
+      "note": "A dense grey-brown rosette of overlapping fan-shaped caps with pale margins rests against tree bark. Reference encloses the complete main cluster; attached leaves are excluded where practical.",
+      "groupHint": "hen_of_woods",
+      "selectedTargetPixelsXYXY": [
+        125,
+        677,
+        947,
+        1426
+      ],
+      "results": [
+        {
+          "conditionId": "native",
+          "selectedTargetHit": true,
+          "alertCount": 1,
+          "elapsedSeconds": 7.307054799981415
+        },
+        {
+          "conditionId": "32px",
+          "selectedTargetHit": true,
+          "alertCount": 1,
+          "elapsedSeconds": 7.271889000199735
+        },
+        {
+          "conditionId": "16px",
+          "selectedTargetHit": true,
+          "alertCount": 1,
+          "elapsedSeconds": 7.3333535999991
+        },
+        {
+          "conditionId": "32px-tiled",
+          "selectedTargetHit": true,
+          "alertCount": 6,
+          "elapsedSeconds": 36.29371319944039
+        }
+      ],
+      "source": {
+        "title": "Licensed research photo",
+        "attribution": "(c) caher001, some rights reserved (CC BY)",
+        "license": "CC-BY",
+        "sourceUrl": "https://www.inaturalist.org/observations/411984804",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ]
+}

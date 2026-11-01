@@ -36,11 +36,11 @@ def build(collection, output):
             return
         entries[name] = path
 
-    for name in ("server.mjs", "store.mjs", "export-reviews.mjs"):
+    for name in ("server.mjs", "store.mjs", "export-reviews.mjs", "ai-store.mjs", "export-ai-contributions.mjs", "ai-openapi.json"):
         add(ROOT / "community" / name, "community/" + name)
     for path in (ROOT / "community" / "public").rglob("*"):
         if path.is_file():
-            if path.suffix.lower() not in {".html", ".js", ".css", ".svg", ".png", ".jpg", ".ico", ".webp"}:
+            if path.suffix.lower() not in {".html", ".js", ".css", ".svg", ".png", ".jpg", ".ico", ".webp", ".json", ".txt", ".xml"}:
                 raise ValueError(f"Unexpected public asset: {path.name}")
             add(path, "community/public/" + path.relative_to(ROOT / "community" / "public").as_posix())
     if "community/public/index.html" not in entries:

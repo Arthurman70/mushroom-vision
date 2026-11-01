@@ -39,6 +39,28 @@ The camera model uses the pinhole relation `target_pixels = fx_pixels × target_
 
 Use existing close photographs to establish whether the model finds mushrooms at all. Split by original photograph/observation before creating derivatives so the same source does not appear in both training and testing. Test progressively smaller target-pixel bins and save negative scenes of leaves, bark, rocks and litter. Synthetic downscaling measures scale sensitivity; it cannot recreate actual distant depth, lighting, lens behavior, undergrowth or camera angle. It must not be reported as a measured flight distance.
 
+### Reading the pixel and range tests
+
+The illustrative range calculation uses the **width of the annotated target**, which may be one cap, an entire fruiting body or a cluster. These are different target units. For example, with the same assumed `fx = 1380` pixels:
+
+| Assumed target width | At 10 m | At 20 m | At 50 m | At 100 m |
+| --- | ---: | ---: | ---: | ---: |
+| 5 cm | 6.9 px | 3.45 px | 1.38 px | 0.69 px |
+| 30 cm | 41.4 px | 20.7 px | 8.28 px | 4.14 px |
+| 50 cm | 69 px | 34.5 px | 13.8 px | 6.9 px |
+
+These widths are examples, not measurements of the photographed fungi or typical sizes assigned to species. The range is camera-to-target range. A large chicken-of-the-woods or oyster cluster can occupy more pixels than a small cap at the same range; its photograph still needs a measured physical width and calibrated camera before the pixel test can support a distance claim.
+
+The earlier round-four photo test reduced image information and then enlarged the image back to its original dimensions. Its “32px” and “16px” conditions describe detail retained during reduction; the detector still received a large target outline. Those results must remain separate from tests that shrink a target onto a fixed canvas and score its small projected box.
+
+For the latter test, record requested and realized target width **and height**, each resampling scale, canvas placement and tile coverage. A target below one pixel in width can still exceed one pixel in height. Fractional boxes must not be rounded up to a full pixel. Reusing a 16× supersampled compositing routine gives finer placement and coverage precision, but does not supply fungal detail absent from the final image. The supersampling memory budget and placement policy must be fixed before inference; large scene patches can otherwise produce enormous intermediate images.
+
+The local detector's saved processor scales inputs toward an 800-pixel short edge with a 1,333-pixel long-edge limit. Consequently, target pixels on differently sized source canvases are not automatically equal to target pixels inside the model. A common 1920×1080 synthetic canvas standardizes this additional resize across synthetic conditions. Native photographs retain their original geometry and should be shown separately. Whole-frame context plus overlapping tiles uses five model passes when the raw context result is shared, and the tile method's elapsed time includes that shared pass.
+
+Centering every tiny scene places it within the overlap of all four tiles and favors that particular placement. Prespecified positions with recorded coverage make this limitation visible. Neither artificial grey padding nor resampled scene boundaries represent the clutter distribution of a woodland camera feed.
+
+Count localization matches against the frozen reference boxes. Complete human-labelled frames support false-positive counts; a photo with only one selected AI reference supports selected-target hits and unmatched-alert counts, because other mushrooms may remain unboxed. Keep these authorities separate. Reusing the same photos or video frames after earlier evaluations provides a regression test, even if the new protocol is frozen before running; it does not make those sources independent validation evidence.
+
 Then collect measured-distance scenes with the exact OAK camera at 0.5, 1, 2, 4 and 8 m where visibility permits, with the aircraft stationary and unpowered. Record cap diameter, occlusion, camera angle, bounding boxes, illumination, focus, gain/exposure and hard negatives. Nearby handheld photographs are useful labels, but their detail does not prove the drone can see the same fungus above leaf litter. Fit the maximum working range only from held-out recall/false-positive curves by size and conditions. Update survey station spacing and revisit decisions from those results.
 
 The motion approximation is `blur_pixels = fx × exposure_seconds × (transverse_speed / range + abs(angular_rate))`. With the example camera, 8 ms exposure and a 2 px budget, transverse speed is limited to 0.181 m/s at 1 m. At 40 ms it becomes 0.036 m/s. This is why the first behavior stops to look, and why dim woodland sharply reduces scanning efficiency. The equation excludes rolling-shutter distortion, focus changes and vibration; each needs measurement. The current simulation has one configured exposure value: a future hardware adapter must supply actual per-frame exposure and gate predictions against it.

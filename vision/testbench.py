@@ -17,6 +17,8 @@ MAX_IMAGE_PIXELS = 20_000_000
 MAX_CANDIDATES = 100
 MAX_PASS_CANDIDATES = 1000
 METHOD_ORDER = ("original", "color", "tiles")
+FULL_TILE_REGION = (0., 0., 1., 1.)
+GROUND_TILE_REGION = (0., .35, 1., 1.)
 
 
 class RequestError(ValueError):
@@ -26,7 +28,7 @@ class RequestError(ValueError):
 def settings_for(value):
     if not isinstance(value, dict):
         raise RequestError("Settings must be an object.")
-    if set(value) - {"methods", "tileGrid", "scale", "boxThreshold"}:
+    if set(value) - {"methods", "tileGrid", "scale", "boxThreshold", "tileRegion"}:
         raise RequestError("Unsupported test settings.")
     methods = value.get("methods", ["original"])
     if (not isinstance(methods, list) or not 1 <= len(methods) <= 3 or
@@ -41,8 +43,41 @@ def settings_for(value):
         raise RequestError("Scale must be 1, 0.5, 0.25 or 0.125.")
     if type(threshold) not in (int, float) or not math.isfinite(threshold) or not .1 <= threshold <= .8:
         raise RequestError("Detection threshold must be between 0.1 and 0.8.")
-    return {"methods": [m for m in METHOD_ORDER if m in methods], "tileGrid": grid,
-            "scale": float(scale), "boxThreshold": float(threshold)}
+    result = {"methods": [m for m in METHOD_ORDER if m in methods], "tileGrid": grid,
+              "scale": float(scale), "boxThreshold": float(threshold)}
+    if "tileRegion" in value:
+        if "tiles" not in methods:
+            raise RequestError("A tile region requires the tiles method.")
+        result["tileRegion"] = normalized_tile_region(value["tileRegion"])
+    return result
+
+
+def normalized_tile_region(value):
+    if (not isinstance(value, (list, tuple)) or len(value) != 4 or
+            any(type(v) not in (int, float) or not math.isfinite(v) or not 0 <= v <= 1 for v in value) or
+            value[0] >= value[2] or value[1] >= value[3]):
+        raise RequestError("Tile region must be normalized [left, top, right, bottom] within 0..1 with positive area.")
+    return [float(v) for v in value]
+
+
+def tile_region_bounds(width, height, region=None):
+    """Selected image rectangle, not inferred ground; include boundary pixels."""
+    if type(width) is not int or type(height) is not int or min(width, height) < 1:
+        raise ValueError("Invalid region dimensions")
+    left, top, right, bottom = normalized_tile_region(FULL_TILE_REGION if region is None else region)
+    return (math.floor(left * width), math.floor(top * height),
+            math.ceil(right * width), math.ceil(bottom * height))
+
+
+def region_tile_boxes(width, height, grid, region=None):
+    left, top, right, bottom = tile_region_bounds(width, height, region)
+    return [(x1 + left, y1 + top, x2 + left, y2 + top)
+            for x1, y1, x2, y2 in tile_boxes(right - left, bottom - top, grid)]
+
+
+def original_bounds(bounds, original_size, working_size):
+    sx, sy = original_size[0] / working_size[0], original_size[1] / working_size[1]
+    return [bounds[0] * sx, bounds[1] * sy, bounds[2] * sx, bounds[3] * sy]
 
 
 def decode_image(encoded, mime_type):
@@ -129,7 +164,7 @@ def pass_count(size, settings):
     methods = settings["methods"]
     working = work_dimensions(size, settings["scale"])
     return (int("original" in methods or "tiles" in methods) + int("color" in methods) +
-            (len(tile_boxes(*working, settings["tileGrid"])) if "tiles" in methods else 0))
+            (len(region_tile_boxes(*working, settings["tileGrid"], settings.get("tileRegion"))) if "tiles" in methods else 0))
 
 
 def compare(image, source_sha256, settings, detector, progress=None):
@@ -187,17 +222,24 @@ def compare(image, source_sha256, settings, detector, progress=None):
         warnings.append("Color enhancement is experimental and can increase false positives. Original pixels remain the review evidence.")
     if "tiles" in methods:
         candidates, additional_seconds = list(full), 0
-        boxes = tile_boxes(*working_size, settings["tileGrid"])
+        boxes = region_tile_boxes(*working_size, settings["tileGrid"], settings.get("tileRegion"))
+        timings = [{"kind": "context", "bboxPixelsXYXY": list((0, 0, *original_size)), "seconds": full_seconds}]
         for index, bounds in enumerate(boxes):
             extra, seconds = forward(working.crop(bounds), bounds, f"tile_{index + 1}")
             candidates.extend(extra)
             additional_seconds += seconds
+            timings.append({"kind": "tile", "bboxPixelsXYXY": original_bounds(bounds, original_size, working_size), "seconds": seconds})
         by_method["tiles"] = {"id": "tiles", "label": "Overlapping detail tiles", "candidates": bounded_nms(candidates, "tiles"),
                               "seconds": full_seconds + additional_seconds, "additionalSeconds": additional_seconds,
                               "passes": 1 + len(boxes), "reusedPasses": int("original" in methods),
                               "preNmsCandidateCount": len(candidates),
-                              "tileBoundsWorkingPixelsXYXY": [list(b) for b in boxes], "overlapFraction": .2}
+                              "tileBoundsWorkingPixelsXYXY": [list(b) for b in boxes], "overlapFraction": .2,
+                              "tileBoundsPixelsXYXY": [original_bounds(b, original_size, working_size) for b in boxes],
+                              "tileRegion": list(settings.get("tileRegion", FULL_TILE_REGION)), "fullFrameContext": True,
+                              "passTimings": timings}
         warnings.append("Tiles preserve the working image pixels and include the original full-frame pass; they do not create new optical detail.")
+        if "tileRegion" in settings:
+            warnings.append("The tile region is a selected image rectangle, not detected ground or evidence of safe terrain. The context pass still covers the entire frame.")
     cue_results = []
     if "color" in methods:
         notify("color_cues")

@@ -38,11 +38,26 @@ export function priorityFrameIndex(frames,currentId=null,reviewedIds=new Set()) 
     .sort((a,b)=>Number(reviewedIds.has(a.item.id))-Number(reviewedIds.has(b.item.id))||b.item.reviewPriority-a.item.reviewPriority||a.index-b.index)[0]?.index??-1;
 }
 
+/** External opinions remain separate from editable human labels and exact-image bound. */
+export function selectExternalReviews(payload, current) {
+  let hash;
+  try { hash = new URL(current?.imageUrl, 'https://example.invalid/').searchParams.get('v'); } catch { return []; }
+  if (!hash || payload?.frameId !== current?.id || payload.imageSha256 !== hash || !Array.isArray(payload.reviews)) return [];
+  const validBox = value => Array.isArray(value) && value.length === 4 && value.every(Number.isFinite) && value[0] >= 0 && value[1] >= 0 && value[2] > value[0] && value[3] > value[1] && value[2] <= current.width && value[3] <= current.height;
+  return payload.reviews.slice(0, 20).filter(row => row?.frameId === current.id && row.imageSha256 === hash && row.humanVerified === false && row.trainingApproved === false && row.reviewStatus === 'quarantined' && ['visible', 'absent', 'uncertain'].includes(row.status) && typeof row.id === 'string').map(row => ({
+    id: row.id, status: row.status, complete: row.complete === true,
+    model: [row.model?.provider, row.model?.name, row.model?.version].filter(value => typeof value === 'string').map(value => value.slice(0, 160)).join(' · '),
+    note: typeof row.observation?.note === 'string' ? row.observation.note.slice(0, 2000) : '',
+    boxes: (Array.isArray(row.boxes) ? row.boxes : []).slice(0, 64).filter(box => validBox(box?.bbox)).map(box => ({ bbox: [...box.bbox], group: validGroup(box.group) })),
+    confounders: (Array.isArray(row.confounders) ? row.confounders : []).slice(0, 64).filter(box => validBox(box?.bbox) && validConfounder(box.kind)).map(box => ({ bbox: [...box.bbox], kind: box.kind })),
+  }));
+}
+
 if (typeof document !== 'undefined') {
   const $ = id => document.getElementById(id);
   const state = { collection: null, frames: [], index: -1, source: '', csrf: null, drafts: new Map(), selectedBox: null,
     imageReady: false, reviewReady: false, loading: false, saving: false, sequence: 0, abort: null, retry: null,
-    zoom: 1, zoomMode: 'fit', tool: 'draw', gesture: null, aiRefresh: false, terms:null, boxType:'mushroom', catalogPage:0 };
+    zoom: 1, zoomMode: 'fit', tool: 'draw', gesture: null, aiRefresh: false, terms:null, boxType:'mushroom', catalogPage:0, externalReviews:new Map(), externalLoading:new Set() };
   const frame = () => state.frames[state.index] ?? null;
   const draft = () => frame() ? state.drafts.get(frame().id) : null;
   const editable = () => !state.loading && !state.saving && state.imageReady && state.reviewReady && Boolean(draft());
@@ -255,7 +270,7 @@ if (typeof document !== 'undefined') {
     if (shown) {
       const found = proposals(), objects=negativeProposals(), info = frame()?.ai;
       const status = String(info?.status ?? 'not run');
-      $('ai-summary').textContent = found.length||objects.length ? `${found.length} mushroom candidate${found.length===1?'':'s'} and ${objects.length} non-mushroom object guess${objects.length===1?'':'es'}. Dashed boxes are unaccepted AI guesses; pink marks non-mushroom guesses. Accept only what you can see.` : `No box suggestions available for this image. AI status: ${status}. No suggestion does not mean no mushroom.`;
+      $('ai-summary').textContent = found.length||objects.length ? `${found.length} station mushroom candidate${found.length===1?'':'s'} and ${objects.length} non-mushroom object guess${objects.length===1?'':'es'}. Dashed boxes are unaccepted AI guesses; pink marks non-mushroom guesses. Accept only what you can see.` : `No station box suggestions available for this image. AI status: ${status}. Contributed observations are listed separately below. No suggestion does not mean no mushroom.`;
       $('visual-ai-review').replaceChildren();const audit=info?.audit;
       $('visual-ai-review').append(create('strong','',auditScope(audit)));
       if(audit){
@@ -284,7 +299,36 @@ if (typeof document !== 'undefined') {
         row.append(description,button);$('ai-list').append(row);
       }
     }
-    updateControls(); renderOverlay();
+    renderExternalAI(); updateControls(); renderOverlay();
+  }
+
+  function renderExternalAI() {
+    const container = $('external-ai-reviews'); if (!container) return;
+    container.replaceChildren(); if (!draft()?.showAI || !frame()) return;
+    container.append(create('h3', '', 'Contributed AI observations'), create('p', 'field-help', 'Unverified opinions from other AI tools. Model names and actual image viewing are self-reported; the service records image delivery. These are not human labels or training approval.'));
+    const value = state.externalReviews.get(frame().id);
+    if (!value) { container.append(create('p', '', 'Loading contributed observations…')); return; }
+    if (value.error) { const retry = create('button', 'secondary-button', 'Retry contributed observations'); retry.type = 'button'; retry.addEventListener('click', () => loadExternalAI(true)); container.append(create('p', '', 'Contributed observations could not be loaded.'), retry); return; }
+    if (!value.rows.length) container.append(create('p', '', 'No contributed AI observations for this image yet.'));
+    for (const row of value.rows) {
+      const card = create('section', 'external-ai-card');
+      card.append(create('h4', '', row.model || 'Contributor-reported AI model'), create('p', '', `${row.status} · ${row.boxes.length} mushroom region${row.boxes.length === 1 ? '' : 's'} · ${row.confounders.length} confusing object${row.confounders.length === 1 ? '' : 's'}`), create('p', '', row.note), create('p', 'external-ai-id', `Contribution ${row.id} · saved for review`));
+      if (row.boxes.length || row.confounders.length) {
+        const button = create('button', 'secondary-button', draft().externalReviewSelected === row.id ? 'Hide these outlines' : 'Inspect these outlines'); button.type = 'button';
+        button.addEventListener('click', () => { if (!draft()?.showAI) return; draft().externalReviewSelected = draft().externalReviewSelected === row.id ? null : row.id; renderExternalAI(); renderOverlay(); }); card.append(button);
+        if (draft().externalReviewSelected === row.id) card.append(create('p', 'field-help', 'Dashed outlines show this contribution. They have not been copied into your review. Mark and correct your own boxes after inspecting the image.'));
+      }
+      container.append(card);
+    }
+  }
+
+  async function loadExternalAI(force = false) {
+    const current = frame(), token = state.sequence; if (!current || !draft()?.showAI || state.externalLoading.has(current.id)) return;
+    if (!force && state.externalReviews.has(current.id)) { renderExternalAI(); return; }
+    state.externalLoading.add(current.id); state.externalReviews.delete(current.id); renderExternalAI();
+    try { const payload = await api(`ai/reviews?frameId=${encodeURIComponent(current.id)}`); state.externalReviews.set(current.id, { rows: selectExternalReviews(payload, current) }); }
+    catch { state.externalReviews.set(current.id, { error: true, rows: [] }); }
+    finally { state.externalLoading.delete(current.id); if (token === state.sequence) { renderExternalAI(); renderOverlay(); } }
   }
 
   function drawRect(box, index, { proposal = false, preview = false, negative = false } = {}) {
@@ -304,8 +348,13 @@ if (typeof document !== 'undefined') {
   function renderOverlay() {
     $('box-overlay').replaceChildren(); const current = frame(), value = draft(); if (!current || !value || !state.imageReady) return;
     $('box-overlay').setAttribute('viewBox', `0 0 ${current.width} ${current.height}`);
-    if (value.showAI) for (const proposal of proposals()) if (!value.accepted.includes(proposal.key)) drawRect(proposal.bbox, -1, { proposal: true });
-    if (value.showAI) for (const proposal of negativeProposals()) if (!value.accepted.includes(proposal.key)) drawRect(proposal.bbox,-1,{proposal:true,negative:true});
+    if (value.showAI && !value.externalReviewSelected) for (const proposal of proposals()) if (!value.accepted.includes(proposal.key)) drawRect(proposal.bbox, -1, { proposal: true });
+    if (value.showAI && !value.externalReviewSelected) for (const proposal of negativeProposals()) if (!value.accepted.includes(proposal.key)) drawRect(proposal.bbox,-1,{proposal:true,negative:true});
+    if (value.showAI && value.externalReviewSelected) {
+      const selected = state.externalReviews.get(current.id)?.rows?.find(row => row.id === value.externalReviewSelected);
+      for (const box of selected?.boxes ?? []) drawRect(box.bbox, -1, { proposal: true });
+      for (const box of selected?.confounders ?? []) drawRect(box.bbox, -1, { proposal: true, negative: true });
+    }
     value.boxes.forEach((box, index) => {drawRect(box.bbox, index);if(validConfounder(box.kind))$('box-overlay').querySelector(`rect[data-box="${index}"]`)?.classList.add('negative');});
     if (state.gesture?.type === 'draw' && state.gesture.preview) drawRect(state.gesture.preview, -1, { preview: true });
   }
@@ -409,7 +458,7 @@ if (typeof document !== 'undefined') {
       const fresh = await api('collection'), byId = new Map(fresh.frames.map(item => [item.id, item]));
       for (const item of state.collection.frames) if (byId.has(item.id)) item.ai = byId.get(item.id).ai;
       state.collection.aiRun = fresh.aiRun; state.collection.summary = fresh.summary; renderCounts();
-      if (token === state.sequence) { renderAI(); announce('AI suggestions refreshed. Your own boxes have not changed.'); }
+      if (token === state.sequence) { renderAI(); await loadExternalAI(true); announce('AI suggestions refreshed. Your own boxes have not changed.'); }
     } catch (error) { if (token === state.sequence) reviewError(error.message, refreshAI, 'Retry suggestions'); }
     finally { state.aiRefresh = false; updateControls(); }
   }
@@ -485,7 +534,7 @@ if (typeof document !== 'undefined') {
   $('image-retry').addEventListener('click', () => { if (frame()) startImage(frame(), state.sequence); });
   $('review-complete').addEventListener('change', () => { draft().complete = $('review-complete').checked; markDirty(); });
   $('withdraw-permission').addEventListener('click',withdrawPermission);
-  $('show-ai').addEventListener('click', () => { if (!editable() || !draft().status) return; const value = draft(); value.showAI = !value.showAI; if (value.showAI) { value.aiAssisted = true; markDirty('You viewed AI suggestions. This review will be marked AI-assisted.'); } renderAI(); });
+  $('show-ai').addEventListener('click', () => { if (!editable() || !draft().status) return; const value = draft(); value.showAI = !value.showAI; if (value.showAI) { value.aiAssisted = true; markDirty('You viewed AI suggestions. This review will be marked AI-assisted.'); } renderAI(); if (value.showAI) loadExternalAI(); });
   $('refresh-ai').addEventListener('click', refreshAI);
   $('review-form').addEventListener('submit', event => { event.preventDefault(); saveReview(true); });
   $('save-stay').addEventListener('click', () => saveReview(false));

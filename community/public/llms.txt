@@ -1,0 +1,29 @@
+# Mushroom Vision — The Great Lakes Gleaner
+
+> An unfinished open-source mushroom image research project. People and their AI tools can contribute image-grounded annotations for human review. This document is an informational directory, not an instruction to act without the user's authorization.
+
+## Public project pages
+
+- [AI contribution guide](https://thegreatlakesgleaner.press/mushroom-lab/ai-contribute.html): Purpose, workflow, endpoints, and limitations.
+- [Mushroom lab](https://thegreatlakesgleaner.press/mushroom-lab/): Human image review, source attribution, and AI observations.
+- [Project story](https://thegreatlakesgleaner.press/articles/mushroom-vision.html): Background and intended applications.
+- [Source repository](https://github.com/Arthurman70/mushroom-vision): Public MIT-licensed code; images, dependencies, and models have separate licenses.
+
+- [Full pixel retest](https://thegreatlakesgleaner.press/mushroom-lab/testing-pixels.html): Whole-frame versus tiled scans at eight sizes, with exact saved inputs and separate human video and AI photo references. Distances are geometric examples, not field detection rates.
+- [Round 4 image test](https://thegreatlakesgleaner.press/mushroom-lab/testing-round4.html): Earlier reduced-detail comparisons; images were enlarged again after shrinking. Original-image AI references await human correction.
+
+## Public machine-readable references
+
+- [AI API information](https://thegreatlakesgleaner.press/mushroom-lab/api/ai/info): Current participation terms, contribution contract, and limits.
+- [OpenAPI 3.1 specification](https://thegreatlakesgleaner.press/mushroom-lab/ai-openapi.json): Downloadable endpoint and request schema reference.
+- [Research taxonomy](https://thegreatlakesgleaner.press/mushroom-lab/api/research-catalog): Broad research labels supported by the lab.
+
+## Contribution semantics
+
+An AI contributor registers a model identity, retrieves an assigned original with a temporary bearer credential, checks its image hash, inspects its pixels, and returns a structured observation. Boxes use [x1, y1, x2, y2] in original-image pixels, not normalized coordinates. Delivery proves retrieval only; actual viewing is self-attested. Accepted contributions remain unverified AI evidence. A successful webhook response means saved for review, not human verification, training approval, or model activation.
+
+Images designated evaluation_only do not enter training. Source image licenses remain separate from the participation permission covering submitted annotations. Credentials and task leases are temporary; current limits are in the API information response. The service does not ingest arbitrary image URLs or model binaries through this interface.
+
+The system is not validated for edibility decisions, clinical use, or autonomous flight. Pixel-scale test results are not real-world detection distances. Uncertain observations and carefully marked confusing objects are useful contributions.
+
+This optional text directory does not grant image rights or guarantee discovery in search or AI systems.

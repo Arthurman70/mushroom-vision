@@ -7,8 +7,8 @@ import { validateImage } from './finds-images.mjs';
 
 // This station accepts observations and high-level tasks. It has no aircraft transport.
 export class LiveStation {
-  constructor(root,directory,mission,{python,collectionDir,testbenchDb,learningDir}={}) {
-    Object.assign(this,{root:resolve(root),directory:resolve(directory),mission,python,collectionDir,testbenchDb,learningDir});
+  constructor(root,directory,mission,{python,collectionDir,testbenchDb,learningDir,spawnProcess=spawn}={}) {
+    Object.assign(this,{root:resolve(root),directory:resolve(directory),mission,python,collectionDir,testbenchDb,learningDir,spawnProcess});
     this.replay=null;this.child=null;this.pending=Promise.resolve();this.replayFinished=null;this.closed=false;
   }
   async initialize(){this.imageDir=join(this.directory,'images');await mkdir(this.imageDir,{recursive:true});return this;}
@@ -42,14 +42,15 @@ export class LiveStation {
     for(const [extension,mimeType]of [['jpg','image/jpeg'],['png','image/png']])try{return {bytes:await readFile(join(this.imageDir,hash+'.'+extension)),mimeType};}catch(e){if(e.code!=='ENOENT')throw e;}
     throw new ApiError('This preview has expired. Original captures stay on the recording computer.',404,'IMAGE_EXPIRED');
   }
-  async startReplay({source='collection',interval=0.8,colorSensitive=false}={}){
+  async startReplay({source='collection',interval=0.8,colorSensitive=false,visionProfile='hybrid'}={}){
     if(this.closed)throw new ApiError('Live station is stopping.',503,'LIVE_STOPPED');
     if(this.child)throw new ApiError('A replay is already running.',409,'REPLAY_ACTIVE');
     if(!['collection','fixture','fresh'].includes(source)||typeof colorSensitive!=='boolean'||!Number.isFinite(interval)||interval<0.1||interval>10)throw new ApiError('Choose a replay source and an interval from 0.1 to 10 seconds.');
+    if(!['hybrid','ground-tiles','full-tiles','fast'].includes(visionProfile))throw new ApiError('Choose hybrid search, ground tiles, whole-view tiles or a fast full-frame search.');
     const sessionId='replay-'+randomUUID();
     this.mission.startSession({sessionId,mode:'replay'});
     const args=source==='fresh'?['-u','-m','adapters.live_capture','--input',join(this.root,'data','archive-video-v1','originals','Freestonew-theHugeMushroom948.flv'),
-      '--emit','--session-id',sessionId,'--sample-every','20','--max-frames','12','--classify-groups',...(colorSensitive?['--color-sensitive']:[])]:
+      '--emit','--session-id',sessionId,'--sample-every','20','--max-frames','15','--classify-groups','--vision-profile',visionProfile,...(colorSensitive?['--color-sensitive']:[])]:
       ['-u','-m','adapters.live_replay','--emit','--session-id',sessionId,'--interval',String(interval)];
     if(source==='fixture')args.push('--fixture',join(this.root,'examples','live-session-synthetic.json'));
     else if(source==='collection')args.push('--classify-groups','--collection',this.collectionDir??join(this.root,'data','video-discovery-v1'),'--testbench-db',this.testbenchDb??join(this.root,'data','testbench','testbench.sqlite'));
@@ -57,8 +58,10 @@ export class LiveStation {
       const pointer=join(this.learningDir??join(this.root,'data','learning'),'active-model.json');
       try{await stat(pointer);args.push('--active-model',pointer);}catch(error){if(error.code!=='ENOENT')throw error;}
     }
-    const child=spawn(this.python??join(this.root,'runtime-vision',process.platform==='win32'?'Scripts':'bin',process.platform==='win32'?'python.exe':'python'),args,{cwd:this.root,windowsHide:true,stdio:['ignore','pipe','pipe']});
-    this.child=child;this.replay={sessionId,source,status:'running',frames:0,startedAt:new Date().toISOString(),error:null};
+    const child=this.spawnProcess(this.python??join(this.root,'runtime-vision',process.platform==='win32'?'Scripts':'bin',process.platform==='win32'?'python.exe':'python'),args,{cwd:this.root,windowsHide:true,stdio:['ignore','pipe','pipe']});
+    this.child=child;this.replay={sessionId,source,status:'running',frames:0,startedAt:new Date().toISOString(),error:null,
+      ...(source==='fresh'?{visionProfile,tileRegion:visionProfile==='ground-tiles'?[0,.35,1,1]:visionProfile==='full-tiles'?[0,0,1,1]:null,
+        ...(visionProfile==='hybrid'?{cadence:{detailIntervalSeconds:5,minimumFastFrames:2,fullDetailEvery:3,clock:'source_capture',backlog:false}}:{}),groundRegionVerified:false}: {})};
     let buffer='',diagnostics='',failure=null;const job=this.replay;
     const consume=async line=>{if(!line.trim())return;const packet=JSON.parse(line);
       if(packet.sessionId!==sessionId&&!packet.sessionId?.startsWith(sessionId+'-'))throw new Error('Replay emitted an unrelated session.');

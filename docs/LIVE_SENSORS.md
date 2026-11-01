@@ -48,8 +48,23 @@ requirements. No camera is opened automatically by the station.
 
 `--output` creates a new directory containing native-size JPEG snapshots and packet
 JSONL. Limits bound run duration and frame count. `--no-detector` sends a genuine
-view/map feed without detections. `--color-sensitive` adds a second color-enhanced
-detector pass and suppresses overlapping proposals; it is experimental and slower.
+view/map feed without detections. Fresh detection defaults to `--vision-profile
+ground-tiles`: one whole-frame context pass and four overlapping detail tiles in
+the lower 65% of the image. This is a selected image region, not a measured or
+semantically verified ground mask. Use `--vision-profile full-tiles` for a downward
+camera whose whole view should receive detail passes, or `--vision-profile fast`
+for the single whole-frame baseline. Tiled profiles accept `--tile-region x1 y1
+x2 y2` in normalized 0..1 coordinates to choose a different region.
+
+Tile boxes are mapped back into original image coordinates before duplicate
+suppression, tracking, depth sampling and classification. The entire original
+RGB/depth view remains available to the mapper; search regions do not crop
+navigation evidence. Each packet records the chosen search profile, region,
+tile bounds and measured pass timings. Tiling can produce more false alerts and
+is sampled analysis, not a real-time guarantee.
+
+`--color-sensitive` adds a whole-frame color-enhanced detector pass and suppresses
+overlapping proposals; it is experimental and slower.
 The original pixels are retained. `--active-model data/learning/active-model.json`
 uses an explicitly activated reviewed detector after validating its checkpoint
 hash; the baseline is used otherwise.

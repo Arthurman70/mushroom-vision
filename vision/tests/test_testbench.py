@@ -6,7 +6,8 @@ from unittest.mock import patch
 
 from PIL import Image
 from vision.testbench import (RequestError, MAX_CANDIDATES, bounded_nms, compare, decode_image,
-                              pass_count, projected_candidates, settings_for, tile_boxes)
+                              pass_count, projected_candidates, settings_for, tile_boxes,
+                              region_tile_boxes, tile_region_bounds)
 from vision.testbench_worker import serve
 
 
@@ -57,6 +58,59 @@ class TestbenchTests(unittest.TestCase):
         boxes = tile_boxes(2, 2, 3)
         self.assertEqual(len(boxes), 4)
         self.assertEqual(len(set(boxes)), 4)
+
+    def test_optional_region_preserves_legacy_settings_and_full_grid(self):
+        settings = settings_for({"methods": ["tiles"]})
+        self.assertNotIn("tileRegion", settings)
+        self.assertEqual(region_tile_boxes(101, 79, 2), tile_boxes(101, 79, 2))
+        self.assertEqual(region_tile_boxes(101, 79, 2, [0, 0, 1, 1]), tile_boxes(101, 79, 2))
+
+    def test_region_rounding_and_odd_grid_coverage(self):
+        region = [.1, .35, .9, .95]
+        self.assertEqual(tile_region_bounds(101, 79, region), (10, 27, 91, 76))
+        boxes = region_tile_boxes(101, 79, 2, region)
+        self.assertEqual(len(boxes), 4)
+        for y in range(27, 76):
+            for x in range(10, 91):
+                self.assertTrue(any(x1 <= x < x2 and y1 <= y < y2 for x1, y1, x2, y2 in boxes))
+        self.assertTrue(all(10 <= x1 < x2 <= 91 and 27 <= y1 < y2 <= 76 for x1, y1, x2, y2 in boxes))
+
+    def test_region_keeps_context_and_projects_boundary_duplicates_once(self):
+        image = Image.new("RGB", (100, 80))
+        region = [0, .35, 1, 1]
+        boxes = region_tile_boxes(100, 80, 2, region)
+        truth = [45, 48, 52, 55]  # Visible in all four overlapping tiles.
+        outside = {"bboxPixelsXYXY": [4, 4, 12, 12], "confidence": .7}
+        responses = [[outside, {"bboxPixelsXYXY": truth, "confidence": .6}]]
+        for left, top, _, _ in boxes:
+            responses.append([{"bboxPixelsXYXY": [truth[0]-left, truth[1]-top, truth[2]-left, truth[3]-top], "confidence": .8}])
+        detector = FakeDetector(responses)
+        progress = []
+        result = compare(image, SHA, {"methods": ["tiles"], "tileRegion": region}, detector, progress.append)
+        method = result["methods"][0]
+        self.assertEqual(result["modelPasses"], 5)
+        self.assertEqual(detector.calls[0]["size"], image.size)
+        self.assertEqual([call["size"] for call in detector.calls[1:]], [(b[2]-b[0], b[3]-b[1]) for b in boxes])
+        self.assertEqual(sorted(row["bboxPixelsXYXY"] for row in method["candidates"]), sorted([truth, outside["bboxPixelsXYXY"]]))
+        self.assertEqual(method["preNmsCandidateCount"], 6)
+        self.assertTrue(method["fullFrameContext"])
+        self.assertEqual(method["tileRegion"], region)
+        self.assertEqual(method["tileBoundsPixelsXYXY"], [list(b) for b in boxes])
+        self.assertEqual([row["kind"] for row in method["passTimings"]], ["context", "tile", "tile", "tile", "tile"])
+        self.assertAlmostEqual(sum(row["seconds"] for row in method["passTimings"]), method["seconds"])
+        self.assertEqual(progress[-1], {"stage": "complete", "completed": 5, "total": 5})
+
+    def test_scaled_region_projects_to_original_and_does_not_crop_context(self):
+        detector = FakeDetector(responses=[[], [{"bboxPixelsXYXY": [0, 0, 2, 3], "confidence": .7}], [], [], []])
+        result = compare(Image.new("RGB", (101, 79)), SHA,
+                         {"methods": ["tiles"], "tileRegion": [0, .35, 1, 1], "scale": .5}, detector)
+        method = result["methods"][0]
+        self.assertEqual(detector.calls[0]["size"], (50, 40))
+        box = method["candidates"][0]["bboxPixelsXYXY"]
+        for actual, expected in zip(box, [0, 14*79/40, 2*101/50, 17*79/40]):
+            self.assertAlmostEqual(actual, expected)
+        self.assertEqual(method["passTimings"][0]["bboxPixelsXYXY"], [0, 0, 101, 79])
+        self.assertAlmostEqual(method["tileBoundsPixelsXYXY"][0][1], 14*79/40)
 
     def test_tile_translation_and_actual_scaled_dimensions(self):
         rows = projected_candidates([{"bboxPixelsXYXY": [1, 2, 10, 15], "confidence": .7}],
@@ -149,6 +203,15 @@ class TestbenchTests(unittest.TestCase):
                       {"boxThreshold": float("nan")}, {"boxThreshold": .9}, {"model": "remote"}):
             with self.subTest(value=value), self.assertRaises(RequestError):
                 settings_for(value)
+
+    def test_bad_regions_rejected(self):
+        for region in (None, "0,0,1,1", [], [0, 0, 1], [0, 0, 1, 1, 1],
+                       [-.01, 0, 1, 1], [0, 0, 1.01, 1], [1, 0, 0, 1], [0, .5, 1, .5],
+                       [0, 0, True, 1], [0, float("nan"), 1, 1], [0, 0, float("inf"), 1]):
+            with self.subTest(region=region), self.assertRaises(RequestError):
+                settings_for({"methods": ["tiles"], "tileRegion": region})
+        with self.assertRaises(RequestError):
+            settings_for({"methods": ["original"], "tileRegion": [0, 0, 1, 1]})
 
     def test_decode_applies_exif_and_checks_still_mime(self):
         exif = Image.Exif(); exif[274] = 6

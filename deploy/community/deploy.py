@@ -168,11 +168,14 @@ release=base/'releases'/name
 state=json.loads((base/'current.json').read_text()) if (base/'current.json').exists() else {}
 if state.get('release')==str(release):raise ValueError('Cannot refresh the published release')
 if (release/'UPLOAD-INCOMPLETE').exists():raise ValueError('Upload is incomplete')
-payload=json.loads(sys.stdin.buffer.read(5*1024*1024+1))
+raw=sys.stdin.buffer.read(5*1024*1024+1)
+if len(raw)>5*1024*1024:raise ValueError('App refresh batch exceeds 5 MiB')
+payload=json.loads(raw)
+if not isinstance(payload,dict) or not 1<=len(payload)<=1000:raise ValueError('Invalid app refresh batch')
 integrity_path=release/'release-manifest.json'
 integrity=json.loads(integrity_path.read_text())
 for name,encoded in payload.items():
- allowed=name in {'community/server.mjs','community/store.mjs','community/export-reviews.mjs','Dockerfile','compose.yaml','caddy-route.txt','deploy-server.py'} or re.fullmatch(r'community/public/[A-Za-z0-9_./-]+\.(html|js|css|svg|png|jpg|ico|webp)',name)
+ allowed=name in {'community/server.mjs','community/store.mjs','community/export-reviews.mjs','community/ai-store.mjs','community/export-ai-contributions.mjs','community/ai-openapi.json','Dockerfile','compose.yaml','caddy-route.txt','deploy-server.py'} or re.fullmatch(r'community/public/[A-Za-z0-9_./-]+\.(html|js|css|svg|png|jpg|ico|webp|json|txt|xml)',name)
  if not allowed or '..' in pathlib.PurePosixPath(name).parts:raise ValueError('Unexpected staged app file')
  data=base64.b64decode(encoded,validate=True)
  target=release/name
@@ -222,18 +225,41 @@ integrity_path.write_text(json.dumps(integrity,indent=2))
 print(json.dumps({'refreshedRestrictedReviewStatus':len(candidate.get('restrictedRecords',[])),'imagesCopied':0,'published':False}))
 '''
 
+def app_refresh_batches(paths, maximum_bytes=5*1024*1024):
+    """Preflight all public assets, then send bounded batches to a staged clone."""
+    batches, pending = [], {}
+    names = set()
+    def encode(items):
+        return json.dumps(items, separators=(',', ':')).encode()
+    for path, name in paths:
+        if name in names:
+            raise ValueError('Duplicate public app path')
+        names.add(name)
+        if path.is_symlink():
+            raise ValueError('Symlink cannot enter public app release')
+        item = {name: base64.b64encode(path.read_bytes()).decode()}
+        if len(encode(item)) > maximum_bytes:
+            raise ValueError('One app asset exceeds the refresh batch limit')
+        candidate = {**pending, **item}
+        if len(encode(candidate)) > maximum_bytes:
+            batches.append(encode(pending))
+            pending = item
+        else:
+            pending = candidate
+    if pending:
+        batches.append(encode(pending))
+    return batches
+
+
 def refresh_staged_app(release):
     here = Path(__file__).resolve().parent
     root = here.parents[1]
-    paths = [(root / 'community' / name, 'community/' + name) for name in ('server.mjs', 'store.mjs', 'export-reviews.mjs')]
+    paths = [(root / 'community' / name, 'community/' + name) for name in ('server.mjs', 'store.mjs', 'export-reviews.mjs', 'ai-store.mjs', 'export-ai-contributions.mjs', 'ai-openapi.json')]
     paths += [(path, 'community/public/' + path.relative_to(root / 'community/public').as_posix()) for path in (root / 'community/public').rglob('*') if path.is_file()]
     paths += [(here / name, name) for name in ('Dockerfile', 'compose.yaml', 'caddy-route.txt', 'deploy-server.py')]
-    if any(path.is_symlink() for path, _ in paths):
-        raise ValueError('Symlink cannot enter public app release')
-    payload = json.dumps({name: base64.b64encode(path.read_bytes()).decode() for path, name in paths}).encode()
-    if len(payload) > 5 * 1024 * 1024:
-        raise ValueError('App refresh exceeds 5 MiB')
-    ssh_command(['python3', '-c', REFRESH_STAGED_APP, release_name(release)], input=payload)
+    batches = app_refresh_batches(paths)
+    for payload in batches:
+        ssh_command(['python3', '-c', REFRESH_STAGED_APP, release_name(release)], input=payload)
 
 
 def export_reviews(output):
@@ -249,6 +275,25 @@ def export_reviews(output):
         with output.open("xb") as stream:
             stream.write(raw)
         print(json.dumps({"file": str(output), "reviews": len(payload["reviews"]), "sha256": hashlib.sha256(raw).hexdigest(), "trainingApproved": False}))
+    finally:
+        ssh_command(["docker", "exec", SERVICE, "node", "-e", "require('node:fs').rmSync(" + json.dumps(remote) + ",{force:true})"], capture=True)
+
+
+def export_ai_contributions(output):
+    remote = "/tmp/ai-contributions-" + uuid.uuid4().hex + ".json"
+    try:
+        ssh_command(["docker", "exec", SERVICE, "node", "/app/export-ai-contributions.mjs", "/data", remote], capture=True)
+        raw = ssh_command(["docker", "exec", SERVICE, "cat", remote], capture=True)
+        if len(raw) > 64 * 1024 * 1024:
+            raise ValueError("AI contribution export exceeds 64 MiB; archive a bounded batch first")
+        payload = json.loads(raw)
+        if payload.get("schema") != "mushroom-vision.ai-contribution-export.v1" or payload.get("reviewerKind") != "ai" or payload.get("trainingApproved") is not False or payload.get("humanVerified") is not False or not isinstance(payload.get("contributions"), list):
+            raise ValueError("Unexpected AI contribution export; human-review exports use a different command")
+        output = Path(output).resolve()
+        output.parent.mkdir(parents=True, exist_ok=True)
+        with output.open("xb") as stream:
+            stream.write(raw)
+        print(json.dumps({"file": str(output), "contributions": len(payload["contributions"]), "sha256": hashlib.sha256(raw).hexdigest(), "trainingApproved": False, "humanVerified": False}))
     finally:
         ssh_command(["docker", "exec", SERVICE, "node", "-e", "require('node:fs').rmSync(" + json.dumps(remote) + ",{force:true})"], capture=True)
 
@@ -338,6 +383,8 @@ if __name__ == "__main__":
     ai.add_argument("--release", help="Update an unpublished staged release instead of the current release")
     export = sub.add_parser("export-reviews")
     export.add_argument("--output", required=True, type=Path)
+    export_ai = sub.add_parser("export-ai-contributions")
+    export_ai.add_argument("--output", required=True, type=Path)
     training_status = sub.add_parser("update-training-status")
     training_status.add_argument("--file", required=True, type=Path)
     rollback = sub.add_parser("rollback")
@@ -364,6 +411,8 @@ if __name__ == "__main__":
         ssh_command(command, input=args.file.read_bytes())
     elif args.action == "export-reviews":
         export_reviews(args.output)
+    elif args.action == "export-ai-contributions":
+        export_ai_contributions(args.output)
     elif args.action == "update-training-status":
         update_training_status(args.file)
     elif args.action == "inventory":

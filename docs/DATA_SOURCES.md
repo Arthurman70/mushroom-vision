@@ -74,3 +74,50 @@ Please let us know whether any additional permission is needed for training, sha
 ## Larger acquisitions
 
 The initial new-media budget is two gigabytes. Expand by explicit versioned batches after checking class balance, source independence, review workload and available storage. A large archive without usable annotations, license evidence and a protected test set is less useful than a smaller well-documented collection. The two implemented downloaders are bounded and refuse to overwrite frozen manifests.
+
+## New public review cohort, 31 October 2026
+
+`data/public-fungi-v4/manifest.json` adds **193 newly downloaded photographs from 193 observations and 193 photographers**, totaling **421,576,390 bytes**. This is a new-only cohort, not another copy of the 3,922-photo collection. It contains 40 morel, 40 chicken-of-the-woods, 40 oyster, 23 black-trumpet, 20 chanterelle, 15 turkey-tail and 15 hen-of-the-woods source labels. These are broad observation labels, not verified detector annotations or species diagnoses. The source licenses are 129 CC BY, 55 CC0 and 9 CC BY-SA; individual attribution, source links and license links remain attached to every image.
+
+The downloader uses the documented [iNaturalist public API](https://api.inaturalist.org/v1/docs/) for a bounded metadata query (17 requests, at least 1.2 seconds apart), then downloads original-resolution files directly from the [Licensed Observation Images open-data bucket](https://registry.opendata.aws/inaturalist-open-data/). Originals in this batch have a minimum short side of 918 pixels and a maximum side of 2,048 pixels. For larger-scale expansion, use the monthly metadata exports described by the [official open-data documentation](https://github.com/inaturalist/inaturalist-open-data) and [research-download guidance](https://help.inaturalist.org/en/support/solutions/articles/151000223300-how-i-download-inaturalist-photos-to-use-for-research-).
+
+Six existing local manifests were indexed before acquisition. Previously seen photo IDs, observation IDs and **all previously seen photographer accounts** were excluded, along with checks for exact file hashes, normalized pixel hashes and conservative perceptual aliases. One new image per photographer was retained. This avoids importing a new photograph from an existing held-out photographer into training. There were only three eligible new photographers for the California black-trumpet query, so the run retained 193 of its 200-photo budget instead of relaxing the independence requirement. Existing corpus partitions and bytes were not modified.
+
+The new cohort was frozen into **124 training, 29 validation and 40 test images** by photographer before any model testing. These partition names do not authorize training: every acquired row starts with `trainingEligible: false`, `humanVerified: false`, empty `annotations`, unknown mushroom visibility and `distanceM: null`. Review-derived annotations belong in a separate ledger, with AI versus human authority preserved. Source labels and model guesses must not be presented as ground truth.
+
+The sampling heuristic takes the last licensed photo in an observation, including 101 observations with multiple photos. This may supply context or alternative views, but it can also select gills or other close-ups. No image is claimed to be distant, in situ, or mushroom-free without review. The batch supplies material for that review, not new measured detection rates.
+
+Reproduce the bounded acquisition into a fresh directory:
+
+```powershell
+runtime-vision\Scripts\python.exe scripts/acquire_fungi_round4.py --output data/public-fungi-v4-next
+runtime-vision\Scripts\python.exe -m unittest tests.test_acquire_fungi_round4
+```
+
+The script refuses existing output directories and defaults to at most 200 images and 600 MB of media. Future API queries will differ; the saved manifest is authoritative for this batch. Nine focused tests passed, covering photo-rights filtering, source attribution, photographer exclusion, duplicate screening, unknown annotation status and checksum validation. All 193 saved image checksums passed. The frozen manifest SHA-256 is `b9d2e7eefc4c2f2b5d1f91c2e3b16305b2fe8010cae060e8c86aa8a1e7af6e8b`; `summary.json`, `validation.json`, and `protocol.json` provide the count, integrity and acquisition records. `progress.json` is an intermediate snapshot and must not be used in place of the frozen manifest.
+
+### AI-observed evaluation of the new cohort
+
+The first evaluation inspected **13 of the 193 new originals**, selected one approximate target box in nine, and left four cropped or uncertain images as qualitative-only checks. Four earlier, complete AI absence references were included separately. These are AI opinions, not human ground truth; the remaining new photographs have not received this visual review.
+
+`experiments/evaluate_new_fungi_v4.py` froze references, source and derived-image checksums, model files, software versions and code hashes before running the unchanged local GroundingDINO model. The completed report is `experiments/results/new-fungi-v4/evaluation/report.json`. All 80 planned model forwards completed and final integrity checks passed; ten focused evaluator tests also passed.
+
+| Condition | Selected AI targets matched at IoU ≥ 0.5 | Unmatched alerts on those partially annotated images | Mean processing time |
+| --- | ---: | ---: | ---: |
+| Native whole frame | 9 / 9 | 12 | 6.43 s across 17 native checks |
+| Synthetic 32px whole frame | 7 / 9 | 11 | 6.10 s |
+| Synthetic 16px whole frame | 7 / 9 | 12 | 6.14 s |
+| Synthetic 32px, four tiles plus full context | 8 / 9 | 49 | 30.63 s |
+
+The synthetic conditions downsample the **entire photograph** until the selected target's width is approximately 32 or 16 pixels, then restore the original canvas with LANCZOS interpolation. Nothing is cropped or pasted to create these variants, and they represent no physical distance. The separate tiled inference uses the same derived image and projects detections back to that image's original coordinates.
+
+The tiled pass recovered the selected chicken-of-the-woods cluster in `inat-photo-753536713`, which the two reduced whole-frame passes missed. It did not recover the selected chanterelle cluster in `inat-photo-745021054`. Four prior AI-negative originals produced eight alerts in total; those remain separate, unverified absence diagnostics. Additional boxes on partially annotated positive images are **not** labeled false positives by this evaluation.
+
+These small, selected photo examples cannot establish field detection rates, improve the earlier human video benchmark by comparison, or validate flight speed. The weights were unchanged, and many source photographs are easier than distant mushrooms in cluttered video. No model was trained or activated by this evaluation. The inspected examples are now a documented regression set rather than an untouched future test cohort.
+
+The subsequent [full pixel regression](FULL_PIXEL_V5.md) reuses those nine selected
+photo regions alongside three human-labelled video targets. It keeps each
+synthetic target small on a common canvas instead of restoring the original
+footprint. It records 101 cases, 505 unique saved model passes, source authority,
+native-only negative controls and an explicit recovery after a file-lock failure.
+The two experiments measure different transformations and must remain separate.

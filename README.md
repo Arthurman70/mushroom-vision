@@ -9,6 +9,31 @@ in APIs and stored data for compatibility. Original code is MIT licensed.
 [Project introduction](https://thegreatlakesgleaner.press/articles/mushroom-vision.html) ·
 [Contributing](CONTRIBUTING.md) · [Third-party licenses](THIRD_PARTY_NOTICES.md)
 
+## Latest public work
+
+The [Gleaner lab](https://thegreatlakesgleaner.press/mushroom-lab/) now offers
+**4,660 original images** for review, including 193 newly acquired licensed
+fungal photographs. Source labels remain unverified until reviewed. The
+[AI contribution guide](https://thegreatlakesgleaner.press/mushroom-lab/ai-contribute.html)
+and its OpenAPI contract let other AI tools lease images and submit attributed
+annotations. AI submissions enter a separate quarantine inbox; they do not
+become human confirmations or train or activate a model automatically.
+
+The [full pixel comparison](https://thegreatlakesgleaner.press/mushroom-lab/testing-pixels.html)
+contains **101 image cases and 505 unique saved model passes**. At a 32-pixel
+target width, tiling improved matches from 2/3 to 3/3 on the human-labelled video
+targets and from 5/9 to 9/9 on selected AI photo references. At 16 pixels, tiled
+matches fell to 1/3 and 3/9; neither method matched any selected target at 6.9
+pixels or below. Extra alerts remain visible alongside matches. These are small,
+reused development sets, not measured flight success rates. **Weights were
+unchanged.** Read the [method, complete results and interruption recovery](docs/FULL_PIXEL_V5.md).
+
+The earlier [round-four comparison](https://thegreatlakesgleaner.press/mushroom-lab/testing-round4.html)
+tested detail loss by shrinking and enlarging photographs again. Its target
+footprints stayed large; its results must not be read as the full pixel curve.
+See [data acquisition and source rights](docs/DATA_SOURCES.md) and
+[AI review provenance](docs/AI_VISUAL_REVIEW.md) for the associated evidence.
+
 ## Run the source preview
 
 Install Node.js 24 or later, then run `npm start` and open
@@ -32,7 +57,7 @@ An actual 21-frame visual pass and a six-frame, one-epoch inactive experiment
 are described in [AI review run](docs/AI_REVIEW_RUN_V1.md). No validation accuracy
 is claimed for that small experiment.
 
-The all-source AI pass now covers **4,545 unique images**: 240 original-image
+The earlier frozen all-source AI pass covers **4,545 unique images**: 240 original-image
 inspections and 4,305 contact-sheet previews. Open `/bulk-ai-review.html` to
 inspect the local archive, evidence, original pixels, explicit nonfungal regions,
 and immutable revisions. Preview judgments remain incomplete and are excluded
@@ -41,7 +66,7 @@ The original images, review ledger, training exports and candidate weights stay
 outside this public source release. See [bulk review protocol](docs/BULK_AI_REVIEW.md)
 for source splits, rights, the assistant interface and reproduction requirements.
 
-The new detector experiment used 82 complete training frames, 32 mushroom boxes
+The earlier detector experiment used 82 complete training frames, 32 mushroom boxes
 and 20 explicit nonfungal crops. It missed all three human-marked targets in the
 fixed distance regression and remains inactive. A fresh check of the unchanged
 active detector matched 3/3 targets at 64 pixels, 1/3 at 32 pixels, and 0/3 at
@@ -60,7 +85,7 @@ The new research vocabulary accepts 108 taxon labels, including 78 species and
 not evidence that the model can recognize it. Species candidates keep their
 confidence, evidence source and uncertainty alongside the existing broad groups.
 
-The latest bounded acquisition added **785 images**: 672 fungi and 113 wildlife
+An earlier bounded acquisition added **785 images**: 672 fungi and 113 wildlife
 context frames. A newly trained experimental photo classifier supports **38 of
 43 research categories**; it is separate from the default model. On 855 held-out
 weakly labeled archive photos its top-category accuracy was 59.9%, or 82.1%
@@ -166,6 +191,16 @@ No cheap used consumer drone was found that meets the whole request. For supervi
 The phone and Quest are clients; autonomous perception and flight failsafes must run onboard the drone. Wi-Fi loss must never remove collision avoidance or RC takeover. A one-camera system does not see behind itself or reliably detect fine branches.
 
 ## Verification
+
+The preview runs without Python, but the full suite includes Python integration
+tests and needs the vision dependencies listed above. If an existing environment
+is installed outside `runtime-vision`, set `MYCOSCOUT_PYTHON` to its Python
+executable before running those tests, for example:
+
+```powershell
+$env:MYCOSCOUT_PYTHON = (Resolve-Path .venv/Scripts/python.exe).Path
+```
+
 ```powershell
 npm test
 python -m unittest discover -s adapters/tests -p "test_*.py"
@@ -179,7 +214,7 @@ Browser smoke tests require Playwright and Edge/Chromium; see [test report](docs
 - `android/`: Java companion shell and Gradle project.
 - `deploy/`: container and HTTPS reverse-proxy templates.
 - `docs/`: hardware, integration, deployment and remaining engineering.
-- `dist/`: deliverables and test evidence.
+- `dist/`: locally generated deliverables and test evidence, excluded from the source release.
 
 API coordinates are local metres, not latitude/longitude. JSON export is supported; GeoJSON export is refused until a valid georeferencing subsystem exists.
 

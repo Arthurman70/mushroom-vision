@@ -1,4 +1,5 @@
 import { ApiError, shortText } from './validation.mjs';
+import { normalizedTileRegion } from '../public/tracking-profile.mjs';
 
 export const METHOD_IDS=['original','color','tiles'];
 export const DEFAULT_SETTINGS={methods:['original','color','tiles'],tileGrid:2,scale:1,boxThreshold:.25};
@@ -7,6 +8,7 @@ const finite=(value,min,max)=>typeof value==='number'&&Number.isFinite(value)&&v
 const optionalText=(value,name,max=500)=>value==null||value===''?'':shortText(value,name,undefined,max);
 
 export function testbenchSettings(input=DEFAULT_SETTINGS){
+  if(object(input)&&Object.keys(input).some(key=>!['methods','tileGrid','scale','boxThreshold','tileRegion'].includes(key)))throw new ApiError('Unsupported test settings.');
   if(!object(input)||!Array.isArray(input.methods)||input.methods.length<1||input.methods.length>3||
       input.methods.some(id=>!METHOD_IDS.includes(id))||new Set(input.methods).size!==input.methods.length)
     throw new ApiError('Choose one or more distinct methods: original, color, tiles.');
@@ -14,6 +16,10 @@ export function testbenchSettings(input=DEFAULT_SETTINGS){
     scale:input.scale??1,boxThreshold:input.boxThreshold??.25};
   if(![2,3].includes(settings.tileGrid)||![1,.5,.25,.125].includes(settings.scale)||!finite(settings.boxThreshold,.1,.8))
     throw new ApiError('Use tileGrid 2 or 3, scale 1/.5/.25/.125, and boxThreshold 0.1–0.8.');
+  if(input.tileRegion!==undefined){
+    if(!settings.methods.includes('tiles'))throw new ApiError('A tile area requires the tiles method.');
+    try{settings.tileRegion=normalizedTileRegion(input.tileRegion);}catch(error){throw new ApiError(error.message);}
+  }
   return settings;
 }
 
@@ -53,6 +59,25 @@ export function testbenchResult(raw,image,settings){
     if(method.reusedPasses!==undefined){if(!Number.isInteger(method.reusedPasses)||method.reusedPasses<0||method.reusedPasses>1)fail();detail.reusedPasses=method.reusedPasses;}
     if(method.additionalSeconds!==undefined){if(!finite(method.additionalSeconds,0,3600))fail();detail.additionalSeconds=method.additionalSeconds;}
     if(method.preNmsCandidateCount!==undefined){if(!Number.isInteger(method.preNmsCandidateCount)||method.preNmsCandidateCount<method.candidates.length||method.preNmsCandidateCount>10000)fail();detail.preNmsCandidateCount=method.preNmsCandidateCount;}
+    if(method.id==='tiles'&&(settings.tileRegion!==undefined||method.tileRegion!==undefined)){
+      let region;try{region=normalizedTileRegion(method.tileRegion);}catch{fail();}
+      if(JSON.stringify(region)!==JSON.stringify(settings.tileRegion??[0,0,1,1])||method.fullFrameContext!==true||
+        !Array.isArray(method.tileBoundsPixelsXYXY)||method.tileBoundsPixelsXYXY.length<1||method.tileBoundsPixelsXYXY.length>settings.tileGrid**2||
+        method.passes!==method.tileBoundsPixelsXYXY.length+1||!Array.isArray(method.passTimings)||method.passTimings.length!==method.passes)fail();
+      const bounds=method.tileBoundsPixelsXYXY.map(box=>{if(!validTestBox(box,width,height))fail();return [...box];});
+      const wx=width/raw.image.workingWidth,wy=height/raw.image.workingHeight;
+      const regionPixels=[Math.floor(region[0]*raw.image.workingWidth)*wx,Math.floor(region[1]*raw.image.workingHeight)*wy,
+        Math.ceil(region[2]*raw.image.workingWidth)*wx,Math.ceil(region[3]*raw.image.workingHeight)*wy];
+      if(bounds.some(box=>box[0]<regionPixels[0]-.0001||box[1]<regionPixels[1]-.0001||box[2]>regionPixels[2]+.0001||box[3]>regionPixels[3]+.0001))fail();
+      const passTimings=method.passTimings.map((pass,index)=>{
+        const expected=index===0?[0,0,width,height]:bounds[index-1];
+        if(!object(pass)||pass.kind!==(index===0?'context':'tile')||!validTestBox(pass.bboxPixelsXYXY,width,height)||
+          pass.bboxPixelsXYXY.some((value,i)=>Math.abs(value-expected[i])>.0001)||!finite(pass.seconds,0,3600))fail();
+        return {kind:pass.kind,bboxPixelsXYXY:[...pass.bboxPixelsXYXY],seconds:pass.seconds};
+      });
+      if(Math.abs(passTimings.reduce((sum,pass)=>sum+pass.seconds,0)-method.seconds)>.01)fail();
+      Object.assign(detail,{tileRegion:region,tileBoundsPixelsXYXY:bounds,fullFrameContext:true,passTimings});
+    }
     return {id:method.id,label:({original:'Original RGB',color:'Color-enhanced RGB',tiles:'Tiled RGB'})[method.id],candidates,seconds:method.seconds,passes:method.passes,...detail};
   });
   const colorCues=raw.colorCues.map((cue,index)=>{

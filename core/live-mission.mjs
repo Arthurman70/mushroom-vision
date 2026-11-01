@@ -24,6 +24,22 @@ const fail=(message,code='LIVE_INVALID_PACKET',status=400)=>{throw new ApiError(
 const event=(state,type,details,nowMs)=>{state.events.push({id:randomUUID(),type,atMs:nowMs,...details});state.events=state.events.slice(-limits.events);};
 const emptyState=(sessionId,mode,nowMs)=>({schema:'mycoscout.live-state.v1',sessionId,mode,revision:0,controlRevision:0,createdAtMs:nowMs,updatedAtMs:nowMs,actuationEnabled:false,realFlightSupported:false,simulationDemo:false,mapRevision:null,lastSequence:-1,lastCaptureSeconds:null,lastPoseSeconds:null,receivedAtMs:null,navigationReceivedAtMs:null,lastNavigationSeconds:null,latestFrame:null,frames:[],tracks:[],landmarks:[],tasks:[],events:[],telemetry:null,voxelMap:null,map:{coordinateFrame:'map-enu',points:[],clearanceVerified:false},lastAction:null});
 
+// Optional display metadata only. Never retain model paths, arbitrary detector
+// objects, or use processing duration to grant location/freshness/flight authority.
+function detectorScanDisplay(detector){
+  const scan=detector?.scan,profiles=['fast','ground-tiles','full-tiles'];
+  if(!scan||typeof scan!=='object'||Array.isArray(scan)||!['hybrid',...profiles].includes(scan.profileId))return null;
+  const effective=scan.effectiveProfileId??(scan.profileId==='hybrid'?null:scan.profileId);
+  if(!profiles.includes(effective)||!Number.isInteger(scan.modelPasses)||scan.modelPasses<1||scan.modelPasses>6||
+    typeof scan.seconds!=='number'||!Number.isFinite(scan.seconds)||scan.seconds<0||scan.seconds>3600)return null;
+  const display={profileId:scan.profileId,effectiveProfileId:effective,modelPasses:scan.modelPasses,seconds:scan.seconds};
+  if(scan.cadence!=null){
+    if(typeof scan.cadence!=='object'||Array.isArray(scan.cadence)||typeof scan.cadence.exceedsRequestedInterval!=='boolean')return null;
+    display.cadence={exceedsRequestedInterval:scan.cadence.exceedsRequestedInterval};
+  }
+  return {scan:display};
+}
+
 function cameraEvidence(packet) {
   const camera=packet.camera,depth=packet.depth;
   if(!camera||!depth||depth.valid!==true||!['rgbd','stereo','surveyed'].includes(depth.method))return false;
@@ -161,11 +177,12 @@ export class LiveMissionStore {
       event(state,'map_revision_changed',{previousMap,mapRevision:packet.mapRevision},this.now());
     }
     state.lastSequence=packet.sequence;state.lastCaptureSeconds=packet.timestampSeconds;state.lastPoseSeconds=packet.camera?.poseTimestampSeconds??state.lastPoseSeconds;state.receivedAtMs=this.now();
-    state.latestFrame={frameId:packet.frameId,sequence:packet.sequence,timestampSeconds:packet.timestampSeconds,receivedAtMs:state.receivedAtMs,simulationOnly:packet.simulationOnly,image:packet.image,detections:packet.detections,camera:packet.camera??null,detectorStatus:packet.detectorStatus??null,provenance:packet.provenance??null};
+    state.latestFrame={frameId:packet.frameId,sequence:packet.sequence,timestampSeconds:packet.timestampSeconds,receivedAtMs:state.receivedAtMs,simulationOnly:packet.simulationOnly,image:packet.image,detections:packet.detections,camera:packet.camera??null,detectorStatus:packet.detectorStatus??null,detector:detectorScanDisplay(packet.detector),provenance:packet.provenance??null};
     state.frames.push({frameId:packet.frameId,timestampSeconds:packet.timestampSeconds,image:packet.image});state.frames=state.frames.slice(-limits.frames);state.tracks=packet.tracks;
     state.map={coordinateFrame:'map-enu',mapRevision:packet.mapRevision,points:packet.mapPoints,clearanceVerified:false,georeference:packet.georeference??null};
-    // Slow semantic frames cannot overwrite newer independent navigation data.
-    if(state.lastNavigationSeconds==null||packet.timestampSeconds>=state.lastNavigationSeconds){
+    // Semantic-only frames never erase independently observed navigation, even
+    // when captured at the same time or later. Its own freshness gate still applies.
+    if(packet.flight&&(state.lastNavigationSeconds==null||packet.timestampSeconds>=state.lastNavigationSeconds)){
       state.telemetry=packet.flight?.telemetry??null;state.voxelMap=packet.flight?.voxelMap??null;
       if(packet.flight){state.lastNavigationSeconds=packet.timestampSeconds;state.navigationReceivedAtMs=this.now();}
     }

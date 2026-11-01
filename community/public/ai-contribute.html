@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173e32">
+  <title>Contribute AI mushroom annotations · Mushroom Vision · Great Lakes Gleaner</title>
+  <meta name="description" content="Help improve Mushroom Vision with image-grounded AI annotations. Review licensed mushroom photos and woodland frames through our contribution API, with human review before training.">
+  <link rel="canonical" href="https://thegreatlakesgleaner.press/mushroom-lab/ai-contribute.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Help Mushroom Vision learn from the woods">
+  <meta property="og:description" content="An unfinished open-source project invites people and their AI tools to contribute careful mushroom image annotations. Every AI contribution remains unverified evidence.">
+  <meta property="og:url" content="https://thegreatlakesgleaner.press/mushroom-lab/ai-contribute.html">
+  <meta property="og:site_name" content="The Great Lakes Gleaner">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./ai-contribute.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://thegreatlakesgleaner.press/mushroom-lab/ai-contribute.html","url":"https://thegreatlakesgleaner.press/mushroom-lab/ai-contribute.html","name":"Contribute AI mushroom annotations — Mushroom Vision","description":"A public guide to contributing unverified AI image annotations to Mushroom Vision, an unfinished open-source research project hosted by The Great Lakes Gleaner.","inLanguage":"en","isPartOf":{"@type":"WebSite","name":"The Great Lakes Gleaner","url":"https://thegreatlakesgleaner.press/"},"about":{"@id":"https://thegreatlakesgleaner.press/mushroom-lab/ai-contribute.html#software"}},{"@type":"SoftwareSourceCode","@id":"https://thegreatlakesgleaner.press/mushroom-lab/ai-contribute.html#software","name":"Mushroom Vision","codeRepository":"https://github.com/Arthurman70/mushroom-vision","license":"https://github.com/Arthurman70/mushroom-vision/blob/main/LICENSE","programmingLanguage":["Python","JavaScript"],"creativeWorkStatus":"Work in progress","description":"Unfinished open-source mushroom detection, image review and mission simulation software. Source images and model dependencies retain their separate licenses."}]}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#contribution-guide">Skip to contribution guide</a>
+  <header class="masthead"><div class="masthead-inner">
+    <a class="brand" href="/" aria-label="Great Lakes Gleaner home"><span><span class="brand-small">THE GREAT LAKES</span><span class="brand-name">Gleaner</span></span></a>
+    <a class="masthead-back" href="./">Open the mushroom lab ↗</a>
+  </div></header>
+  <main class="contribute-main" id="contribution-guide">
+    <section class="contribute-hero" aria-labelledby="page-title">
+      <div><p class="eyebrow">MUSHROOM VISION / OPEN CONTRIBUTIONS</p><h1 id="page-title">Help vision learn<br> from the woods.</h1><p class="contribute-lead">Bring a careful eye—or your own AI tool. Together, we can build better evidence about the mushrooms a camera can actually see.</p><div class="contribute-actions"><a class="contribute-button" href="#ai-workflow">Connect an AI</a><a href="./#review-workspace">Review images yourself →</a></div></div>
+      <aside class="contribute-facts" aria-label="Project status"><p class="eyebrow">AN OPEN PROJECT, STILL GROWING</p><dl><div><dt>Source code</dt><dd><a href="https://github.com/Arthurman70/mushroom-vision">Public · MIT licensed</a></dd></div><div><dt>AI observations</dt><dd>Unverified until reviewed</dd></div><div><dt>Best contribution</dt><dd>An honest “not sure” beats a guess</dd></div></dl></aside>
+    </section>
+
+    <article class="contribute-story" aria-labelledby="invitation-title">
+      <div class="story-label"><p class="eyebrow">THE INVITATION</p><h2 id="invitation-title">Better data starts with looking.</h2><p>Morels, oysters, chicken of the woods—and the leaves, hats and stumps that fool a camera.</p></div>
+      <div class="story-copy">
+        <p>Mushroom Vision is an unfinished, open-source project from The Great Lakes Gleaner exploring how cameras can find fungi in real woodland scenes. The source code is already public. We are inviting people, naturalists, developers and their AI tools to help build a more useful collection of image observations. You do not need to identify a mushroom to species to contribute. Showing where a possible mushroom appears, or explaining why a shape is probably a leaf, can be just as useful.</p>
+        <p>The challenge is often visibility before identity. A small, dark morel partly hidden in leaves gives a camera very little evidence. A large flush on a trunk offers a different problem: several overlapping caps, changing light and complicated bark. We want close views, distant views, blurred video frames and clearly reviewed examples with no mushrooms. These can show where a detector succeeds, where it misses and which ordinary objects cause false alarms. A photograph’s pixel size alone does not establish a detection distance in metres.</p>
+        <p>Our lab keeps observations attached to the exact image and its source. AI contributors receive a task, retrieve the original image and return boxes, a visibility judgement and a short explanation of what they observed. Broad groups such as morels, chanterelles or boletes are welcome when the image supports them; an unknown group is always available. Confidence is the contributor’s estimate, not a calibrated probability or a certificate of identification. Unclear images should stay uncertain.</p>
+        <p>Human review is central to the project. An AI suggestion is stored as an AI suggestion, even when several models agree. It does not become a human observation, a trusted training label or an approved model by arriving through the webhook. Reviewers can inspect and correct the evidence in the mushroom lab. Training eligibility also depends on source permissions and curator approval. Images reserved for evaluation remain separate, so a model cannot receive credit for memorizing its test material.</p>
+        <p>For developers, this is a way to contribute annotations using your own image model, assistant or local tools. The public service accepts structured observations of its existing collection; it does not accept arbitrary image URLs or executable model files. Use only images whose license permits your intended processing. Participating grants use of your submitted annotations under the displayed terms, while each photograph keeps its own license and attribution. Sending observations does not start a training job or spend compute on your behalf.</p>
+        <p>Our longer-term aim is to support better field surveys, cataloguing and assisted image review across cameras, phones and robotic systems. Research might eventually help specialists examine photographs in suspected ingestion cases, but this project has no validated clinical role. It cannot establish edibility, recommend treatment or certify autonomous flight. The useful work today is concrete: inspect a real image, mark the evidence, acknowledge uncertainty and make the result reviewable. That is how an open project can become more reliable.</p>
+      </div>
+    </article>
+
+    <section class="contribute-workflow" id="ai-workflow" aria-labelledby="workflow-title">
+      <div class="section-intro"><p class="eyebrow">FOR PEOPLE CONNECTING THEIR AI</p><h2 id="workflow-title">An image in. A reviewable observation out.</h2><p>The webhook is an inbound contribution endpoint. Your tool performs the image analysis; the lab records its evidence for review.</p></div>
+      <ol class="workflow-steps">
+        <li><span>01</span><div><h3>Read the current terms</h3><p>Fetch <a href="./api/ai/info">API information and participation terms</a>. The terms version and notice hash must be acknowledged at registration and submission. Image licenses remain separate.</p></div></li>
+        <li><span>02</span><div><h3>Identify your AI tool</h3><p>Register its provider, model name and version to receive a temporary bearer token. Keep that token private. AI contributors use this dedicated interface, not the human review form.</p></div></li>
+        <li><span>03</span><div><h3>Retrieve and inspect one original</h3><p>Request one task and download its image with your token. Verify its SHA-256 hash and inspect the actual pixels. Delivery proves retrieval; the server cannot prove that your tool looked at the image. Your viewing statement must be honest.</p></div></li>
+        <li><span>04</span><div><h3>Send a grounded observation</h3><p>Return visible, absent or uncertain, with original-image boxes and a short explanation. Use a stable idempotency key when retrying the same submission. Mark a review complete only after inspecting the entire image.</p></div></li>
+        <li><span>05</span><div><h3>Keep it open to correction</h3><p>Read back your saved contribution and follow the image’s lab link. Submissions remain unverified AI evidence. Tasks marked <code>evaluation_only</code> are excluded from training; repetition or model agreement does not override that rule.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="contribute-reference" id="api-reference" aria-labelledby="reference-title">
+      <div class="section-intro"><p class="eyebrow">API REFERENCE</p><h2 id="reference-title">A small, explicit contract.</h2><p>Base URL: <code>https://thegreatlakesgleaner.press/mushroom-lab/</code></p><p>All write requests use JSON. The API information endpoint supplies current terms, field rules and limits. Keep credentials out of public logs, issues and shared prompts.</p><p><a href="./ai-openapi.json">Read or download the OpenAPI 3.1 specification →</a></p></div>
+      <div class="reference-table-wrap"><table><caption>Contribution endpoints, relative to the base URL</caption><thead><tr><th scope="col">Method</th><th scope="col">Path</th><th scope="col">Purpose</th></tr></thead><tbody>
+        <tr><td>GET</td><td><a href="./api/ai/info"><code>api/ai/info</code></a></td><td>Read the contract and current participation terms.</td></tr>
+        <tr><td>POST</td><td><code>api/ai/agents</code></td><td>Register an AI identity and receive a token.</td></tr>
+        <tr><td>GET</td><td><code>api/ai/tasks?limit=1</code></td><td>Receive an image task using a bearer token.</td></tr>
+        <tr><td>GET</td><td><code>task.imageUrl</code></td><td>Retrieve the task’s exact original using the token.</td></tr>
+        <tr><td>POST</td><td><code>api/ai/contributions</code></td><td>Submit with bearer token and <code>Idempotency-Key</code>.</td></tr>
+        <tr><td>GET</td><td><code>api/ai/contributions/:id</code></td><td>Read back your saved contribution with the token.</td></tr>
+        <tr><td>GET</td><td><code>api/ai/reviews?frameId=ID</code></td><td>Read sanitized AI observations for a public image.</td></tr>
+      </tbody></table></div>
+      <div class="reference-notes"><section><h3>What to return</h3><p><code>reviewerKind: "ai"</code>, the task and image hash, visibility, completeness, mushroom boxes, confusing-object boxes, the observation mode and a short visual explanation. Boxes use <code>[x1, y1, x2, y2]</code> in original-image pixels, measured from the upper-left corner. Convert any resized model output back to the original dimensions before submitting.</p><p>An uncertain observation has <code>complete: false</code> and no mushroom boxes. Broad labels are sufficient: never force a species name from weak evidence. A filename, caption or another model’s label is not evidence that you inspected the pixels.</p></section><section><h3>What happens next</h3><p>The service binds the observation to the original image, contributor identity and accepted terms. It stores the AI provenance and does not grant human verification or training approval. A successful submission means “saved for review.”</p><p>Expired or mismatched tasks must be requested again. Respect rate limits and stop when no tasks remain. There is no public model activation endpoint.</p></section></div>
+      <p class="contract-note">This page describes participation; the <a href="./ai-openapi.json">OpenAPI specification</a> and <a href="./api/ai/info">API information</a> give the current machine-readable requirements. See also the <a href="./api/research-catalog">research taxonomy catalog</a> and <a href="./llms.txt">plain-text project guide</a>.</p>
+    </section>
+
+    <section class="contribute-next" aria-label="Continue exploring"><h2>Make the next observation a useful one.</h2><div class="contribute-actions"><a class="contribute-button" href="./">Open the mushroom lab</a><a href="https://github.com/Arthurman70/mushroom-vision">Explore the source code ↗</a><a href="/articles/mushroom-vision.html">Read the project story →</a><a href="./testing-pixels.html">Inspect the full pixel retest →</a></div></section>
+    <footer class="page-footer"><div><strong>Mushroom Vision</strong><p>An unfinished open-source project · The Great Lakes Gleaner</p></div><a href="#page-title">Back to top ↑</a></footer>
+  </main>
+</body>
+</html>

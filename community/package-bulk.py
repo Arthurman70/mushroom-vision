@@ -37,6 +37,17 @@ def build(inventory_path, ledger_path, output, root=ROOT):
     root=Path(root).resolve(); output=Path(output).resolve()
     inventory=json.loads(Path(inventory_path).read_text(encoding='utf-8'))
     if inventory.get('schema')!='mycoscout.bulk-ai-inventory.v1' or len(inventory.get('records',[]))>10000: raise ValueError('Invalid bounded inventory')
+    # A frozen older inventory must not erase later publication batches and
+    # strand their saved community reviews. Use the append deployment helper.
+    expected_ids=set()
+    for record in inventory['records']:
+        if not record['rights']['publicDisplayAllowed']:continue
+        alias=next((a for a in record['aliases'] if a['collection']=='video-discovery-v1'),None)
+        expected_ids.add(alias['id'] if alias else record['id'])
+    if (output/'manifest.json').exists():
+        existing_output=json.loads((output/'manifest.json').read_text(encoding='utf-8'))
+        if any(frame['id'] not in expected_ids for frame in existing_output.get('frames',[])):
+            raise ValueError('Output contains later publication batches. Use extend-collection.py; an older frozen inventory cannot replace them.')
     ledger=json.loads(Path(ledger_path).read_text(encoding='utf-8')) if ledger_path and Path(ledger_path).exists() else {'records':[]}
     audits={}
     for row in sorted(ledger.get('records',[]),key=lambda r:({'contact-sheet':0,'crop':1,'original-image':2}.get(r.get('observation',{}).get('mode'),-1),r.get('createdAt',''))):

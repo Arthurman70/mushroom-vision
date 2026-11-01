@@ -3,7 +3,8 @@ import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { ApiError } from './validation.mjs';
 import { validateImage } from './finds-images.mjs';
-import { testbenchResult } from './testbench-validation.mjs';
+import { testbenchResult,testbenchSettings } from './testbench-validation.mjs';
+import { trackingProfile } from '../public/tracking-profile.mjs';
 
 const HASH=/^[a-f0-9]{64}$/;
 const number=(n,min,max)=>typeof n==='number'&&Number.isFinite(n)&&n>=min&&n<=max;
@@ -43,14 +44,20 @@ export async function readTrackingDemoVideo(root){
   return {bytes,mimeType:'video/mp4'};
 }
 export async function detectTrackingFrame(input,worker){
+  let profile;try{profile=trackingProfile(input);}catch(error){throw new ApiError(error.message);}
   const image=validateImage(input);
   if(image.width*image.height>1920*1080)throw new ApiError('Sample tracking frames at no more than 1920 × 1080 pixels.');
   const threshold=input.boxThreshold??.3;if(!number(threshold,.1,.8))throw new ApiError('Use a detection threshold between 0.1 and 0.8.');
-  const settings={methods:['original'],tileGrid:2,scale:1,boxThreshold:threshold};
+  const settings=testbenchSettings({methods:profile.methods,tileGrid:profile.tileGrid,scale:profile.scale,boxThreshold:threshold,...(profile.tileRegion?{tileRegion:profile.tileRegion}:{})});
   const started=performance.now(),raw=await worker.run(image,settings),result=testbenchResult(raw,image,settings);
+  const method=result.methods[0];
+  if(!Number.isInteger(result.modelPasses)||result.modelPasses!==method.passes||profile.tileRegion&&(!method.fullFrameContext||!method.passTimings))throw new ApiError('The tracking worker omitted the actual scan-pass metadata.',502,'TESTBENCH_PROTOCOL');
   return {schema:'mushroom-vision.tracking-detection.v1',image:{width:result.image.width,height:result.image.height,sha256:image.sha256},
-    detections:result.methods[0].candidates.map(item=>({bbox:item.bboxPixelsXYXY,confidence:item.confidence,label:'Unverified mushroom candidate'})),
+    detections:method.candidates.map(item=>({bbox:item.bboxPixelsXYXY,confidence:item.confidence,label:'Unverified mushroom candidate'})),
     processingSeconds:result.seconds,requestSeconds:(performance.now()-started)/1000,model:result.model,
+    profile:{id:profile.id,label:profile.label,expectedPasses:profile.expectedPasses,semanticGroundSegmentation:false},settings,
+    scan:{method:method.id,passes:method.passes,modelPasses:result.modelPasses,fullFrameContext:method.id==='original'||method.fullFrameContext===true,
+      tileRegion:method.tileRegion??null,tileBoundsPixelsXYXY:method.tileBoundsPixelsXYXY??[],passTimings:method.passTimings??[{kind:'context',bboxPixelsXYXY:[0,0,result.image.width,result.image.height],seconds:method.seconds}],seconds:method.seconds},
     humanVerified:false,trainingAllowed:false,actuationEnabled:false,stored:false,
     notice:'Sampled RGB inference. Scores are uncalibrated; no depth, GPS, verified species identity or flight command is produced.'};
 }
